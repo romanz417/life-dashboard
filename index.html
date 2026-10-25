@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#f6f7fb; --card:#fff; --ink:#1d2433; --muted:#6b7385; --accent:#3b6df0; --good:#1f9d63; --line:#e3e6ee; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#12151d; --card:#1b2030; --ink:#e8ebf4; --muted:#9097ab; --accent:#6c93ff; --good:#3fc58a; --line:#2a3044; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--ink); }
+  header { display:flex; justify-content:space-between; align-items:center; padding:14px 16px; }
+  h1 { font-size:1.15rem; margin:0; }
+  main { max-width:760px; margin:0 auto; padding:0 16px 80px; }
+  nav { display:flex; gap:8px; margin-bottom:16px; }
+  nav button { flex:1; }
+  button { font:inherit; padding:9px 14px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--ink); cursor:pointer; }
+  button.primary, nav button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button.small { padding:4px 10px; font-size:.85rem; }
+  button.danger { color:#d33; }
+  input[type=text], input[type=email], input[type=password], textarea, select {
+    font:inherit; width:100%; padding:9px 11px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--ink);
+  }
+  textarea { min-height:60px; resize:vertical; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:12px; }
+  .muted { color:var(--muted); font-size:.9rem; }
+  .row { display:flex; gap:8px; align-items:center; }
+  .row > input[type=text] { flex:1; }
+  .bar { height:10px; background:var(--line); border-radius:99px; overflow:hidden; margin:8px 0 2px; }
+  .bar > div { height:100%; background:var(--good); width:0; transition:width .3s; }
+  .task { display:flex; gap:10px; align-items:center; padding:9px 0; border-top:1px solid var(--line); }
+  .task:first-of-type { border-top:0; }
+  .task input { width:20px; height:20px; accent-color:var(--good); }
+  .task.done span { text-decoration:line-through; color:var(--muted); }
+  .task span { flex:1; }
+  .area-head { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .area-head h3 { margin:0; font-size:1.02rem; }
+  .score { display:flex; align-items:center; gap:10px; margin:10px 0; }
+  .score input { flex:1; }
+  table { width:100%; border-collapse:collapse; }
+  td, th { text-align:left; padding:8px 4px; border-top:1px solid var(--line); font-size:.92rem; }
+  th { border-top:0; color:var(--muted); font-weight:600; }
+  #auth { max-width:360px; margin:12vh auto; padding:0 16px; }
+  #auth .card > * { margin-bottom:10px; }
+  #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:#222; color:#fff; padding:10px 16px; border-radius:10px; display:none; max-width:90%; }
+  .canvas-wrap { position:relative; height:240px; }
+  [hidden] { display:none !important; }
+</style>
+</head>
+<body>
+
+<div id="auth" hidden>
+  <h1 style="text-align:center;margin-bottom:14px">Life Dashboard</h1>
+  <div class="card">
+    <input type="email" id="email" placeholder="Email" autocomplete="email">
+    <input type="password" id="password" placeholder="Password (min 6 characters)" autocomplete="current-password">
+    <div class="row">
+      <button class="primary" id="signin" style="flex:1">Sign in</button>
+      <button id="signup" style="flex:1">Create account</button>
+    </div>
+    <div class="muted" id="authmsg"></div>
+  </div>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <h1>Life Dashboard</h1>
+    <button class="small" id="signout">Sign out</button>
+  </header>
+  <main>
+    <nav>
+      <button data-tab="today" class="on">Today</button>
+      <button data-tab="areas">Life Areas</button>
+      <button data-tab="progress">Progress</button>
+    </nav>
+    <section id="view-today"></section>
+    <section id="view-areas" hidden></section>
+    <section id="view-progress" hidden></section>
+  </main>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ====== CONFIG: paste your Supabase values here ======
+const SUPABASE_URL = 'https://civgwslhfoudpkbcxowl.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_J5NwhYp_bUzl0Vj9XusVtQ_lZG7Mdo_';
+// =====================================================
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const todayStr = () => ymd(new Date());
+const daysAgo = n => { const d = new Date(); d.setDate(d.getDate() - n); return ymd(d); };
+
+const DEFAULT_AREAS = [
+  ['Health','💪',3,false],
+  ['Relationships','❤️',4,false],
+  ['Work & Career','💼',5,false],
+  ['Finances','💰',1,true],
+  ['Mental & Emotional Well-being','🧠',4,false],
+  ['Personal Growth','📚',5,false],
+  ['Spiritual Life','🙏',3,true],
+  ['Fun & Recreation','🎉',3,false],
+  ['Living Environment','🏡',5,false]
+];
+
+let state = { areas: [], tasks: [], checkins: [], tab: 'today', range: 30 };
+let chart = null;
+
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.style.display = 'block';
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.style.display = 'none', 3500);
+}
+async function run(promise) {
+  const { data, error } = await promise;
+  if (error) { toast(error.message); throw error; }
+  return data;
+}
+
+// ---------- Auth ----------
+async function init() {
+  if (SUPABASE_URL.startsWith('YOUR_')) {
+    document.body.innerHTML = '<p style="padding:24px;font-family:sans-serif">Open index.html and paste your Supabase URL and anon key at the top of the script.</p>';
+    return;
+  }
+  const { data: { session } } = await sb.auth.getSession();
+  session ? start() : showAuth();
+  sb.auth.onAuthStateChange((event) => { if (event === 'SIGNED_OUT') showAuth(); });
+}
+function showAuth() { $('#app').hidden = true; $('#auth').hidden = false; }
+async function start() {
+  $('#auth').hidden = true; $('#app').hidden = false;
+  await load(); render();
+}
+$('#signin').onclick = async () => {
+  const { error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#password').value });
+  error ? $('#authmsg').textContent = error.message : start();
+};
+$('#signup').onclick = async () => {
+  const { data, error } = await sb.auth.signUp({ email: $('#email').value.trim(), password: $('#password').value });
+  if (error) return $('#authmsg').textContent = error.message;
+  if (data.session) start(); else $('#authmsg').textContent = 'Account created. Check your email to confirm, then sign in.';
+};
+$('#signout').onclick = () => sb.auth.signOut();
+
+// ---------- Data ----------
+async function load() {
+  let areas = await run(sb.from('areas').select('*').order('position').order('created_at'));
+  if (!areas.length) {
+    await run(sb.from('areas').insert(DEFAULT_AREAS.map(([name, icon, score, active], i) => ({ name, icon, score, active, position: i }))));
+    areas = await run(sb.from('areas').select('*').order('position').order('created_at'));
+  }
+  state.areas = areas;
+  state.tasks = await run(sb.from('tasks').select('*').order('created_at'));
+  state.checkins = await run(sb.from('checkins').select('*').gte('day', daysAgo(100)));
+}
+
+// ---------- Rendering ----------
+function render() {
+  ['today', 'areas', 'progress'].forEach(t => $('#view-' + t).hidden = t !== state.tab);
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === state.tab));
+  if (state.tab === 'today') renderToday();
+  if (state.tab === 'areas') renderAreas();
+  if (state.tab === 'progress') renderProgress();
+}
+document.querySelectorAll('nav button').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; render(); });
+
+function renderToday() {
+  const day = todayStr();
+  const done = new Set(state.checkins.filter(c => c.day === day).map(c => c.task_id));
+  const activeAreas = state.areas.filter(a => a.active);
+  const tasks = state.tasks.filter(t => activeAreas.some(a => a.id === t.area_id));
+  const pct = tasks.length ? Math.round(tasks.filter(t => done.has(t.id)).length / tasks.length * 100) : 0;
+  let html = `<div class="card"><strong>${new Date().toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' })}</strong>
+    <div class="bar"><div style="width:${pct}%"></div></div><div class="muted">${pct}% of today's tasks done</div></div>`;
+  if (!activeAreas.length) html += '<div class="card muted">No active areas. Turn some on in the Life Areas tab.</div>';
+  activeAreas.forEach(a => {
+    const ts = state.tasks.filter(t => t.area_id === a.id);
+    html += `<div class="card"><div class="area-head"><h3>${esc(a.icon)} ${esc(a.name)}</h3></div>`;
+    html += ts.length ? ts.map(t => `<label class="task ${done.has(t.id) ? 'done' : ''}">
+        <input type="checkbox" data-task="${t.id}" ${done.has(t.id) ? 'checked' : ''}><span>${esc(t.title)}</span></label>`).join('')
+      : '<div class="muted" style="margin-top:8px">No daily tasks yet. Add some in Life Areas.</div>';
+    html += '</div>';
+  });
+  $('#view-today').innerHTML = html;
+}
+$('#view-today').addEventListener('change', async e => {
+  const id = e.target.dataset.task; if (!id) return;
+  const day = todayStr();
+  try {
+    if (e.target.checked) {
+      const row = await run(sb.from('checkins').insert({ task_id: id, day }).select().single());
+      state.checkins.push(row);
+    } else {
+      await run(sb.from('checkins').delete().eq('task_id', id).eq('day', day));
+      state.checkins = state.checkins.filter(c => !(c.task_id === id && c.day === day));
+    }
+  } catch (_) {}
+  renderToday();
+});
+
+function renderAreas() {
+  let html = '';
+  state.areas.forEach(a => {
+    const ts = state.tasks.filter(t => t.area_id === a.id);
+    html += `<div class="card" data-area="${a.id}">
+      <div class="area-head">
+        <h3>${esc(a.icon)} ${esc(a.name)}</h3>
+        <label class="row muted"><input type="checkbox" data-act="active" ${a.active ? 'checked' : ''}> Active</label>
+      </div>
+      <div class="score"><span class="muted">Satisfaction</span>
+        <input type="range" min="1" max="10" value="${a.score ?? 5}" data-act="score"><strong>${a.score ?? 5}</strong>/10</div>
+      <textarea data-act="notes" placeholder="Notes, goals, details for this area...">${esc(a.notes)}</textarea>
+      <div style="margin-top:10px">${ts.map(t => `<div class="task"><span>${esc(t.title)}</span>
+        <button class="small danger" data-act="deltask" data-id="${t.id}">Remove</button></div>`).join('')}</div>
+      <div class="row" style="margin-top:8px"><input type="text" placeholder="Add a daily task" data-new="task">
+        <button class="small primary" data-act="addtask">Add</button></div>
+      <div style="margin-top:10px;text-align:right"><button class="small danger" data-act="delarea">Delete area</button></div>
+    </div>`;
+  });
+  html += `<div class="card"><strong>Add a new life area</strong>
+    <div class="row" style="margin-top:8px"><input type="text" id="newarea" placeholder="e.g. Business, Family, Faith"><button class="primary" id="addarea">Add</button></div></div>`;
+  $('#view-areas').innerHTML = html;
+}
+$('#view-areas').addEventListener('click', async e => {
+  if (e.target.id === 'addarea') {
+    const name = $('#newarea').value.trim(); if (!name) return;
+    try {
+      const row = await run(sb.from('areas').insert({ name, icon: '⭐', score: 5, active: false, position: state.areas.length }).select().single());
+      state.areas.push(row);
+    } catch (_) {}
+    return renderAreas();
+  }
+  const act = e.target.dataset.act; if (!act) return;
+  const card = e.target.closest('[data-area]'); const areaId = card?.dataset.area;
+  try {
+    if (act === 'addtask') {
+      const input = card.querySelector('[data-new=task]'); const title = input.value.trim(); if (!title) return;
+      const row = await run(sb.from('tasks').insert({ area_id: areaId, title }).select().single());
+      state.tasks.push(row); renderAreas();
+    } else if (act === 'deltask') {
+      await run(sb.from('tasks').delete().eq('id', e.target.dataset.id));
+      state.tasks = state.tasks.filter(t => t.id !== e.target.dataset.id);
+      state.checkins = state.checkins.filter(c => c.task_id !== e.target.dataset.id); renderAreas();
+    } else if (act === 'delarea') {
+      if (!confirm('Delete this area and all its tasks and history?')) return;
+      await run(sb.from('areas').delete().eq('id', areaId));
+      const ids = state.tasks.filter(t => t.area_id === areaId).map(t => t.id);
+      state.areas = state.areas.filter(a => a.id !== areaId);
+      state.tasks = state.tasks.filter(t => t.area_id !== areaId);
+      state.checkins = state.checkins.filter(c => !ids.includes(c.task_id)); renderAreas();
+    }
+  } catch (_) {}
+});
+$('#view-areas').addEventListener('change', async e => {
+  const act = e.target.dataset.act; const card = e.target.closest('[data-area]'); if (!act || !card) return;
+  const a = state.areas.find(x => x.id === card.dataset.area);
+  const patch = act === 'active' ? { active: e.target.checked } : act === 'score' ? { score: +e.target.value } : act === 'notes' ? { notes: e.target.value } : null;
+  if (!patch) return;
+  try { await run(sb.from('areas').update(patch).eq('id', a.id)); Object.assign(a, patch); } catch (_) {}
+  if (act === 'score') e.target.nextElementSibling.textContent = e.target.value;
+});
+$('#view-areas').addEventListener('input', e => {
+  if (e.target.dataset.act === 'score') e.target.nextElementSibling.textContent = e.target.value;
+});
+
+function renderProgress() {
+  $('#view-progress').innerHTML = `
+    <div class="card"><div class="row" style="justify-content:space-between"><strong>Daily completion</strong>
+      <select id="range" style="width:auto"><option value="7">7 days</option><option value="30">30 days</option><option value="90">90 days</option></select></div>
+      <div class="canvas-wrap"><canvas id="chart"></canvas></div></div>
+    <div class="card"><strong>By area</strong><table id="areatable"></table></div>`;
+  $('#range').value = state.range;
+  $('#range').onchange = e => { state.range = +e.target.value; renderProgress(); };
+
+  const totalTasks = state.tasks.length;
+  const labels = [], values = [];
+  for (let i = state.range - 1; i >= 0; i--) {
+    const d = daysAgo(i);
+    labels.push(d.slice(5));
+    const n = state.checkins.filter(c => c.day === d).length;
+    values.push(totalTasks ? Math.round(n / totalTasks * 100) : 0);
+  }
+  if (chart) chart.destroy();
+  chart = new Chart($('#chart'), {
+    type: 'line',
+    data: { labels, datasets: [{ label: 'Completion %', data: values, borderColor: '#3b6df0', backgroundColor: 'rgba(59,109,240,.15)', fill: true, tension: .3, pointRadius: state.range > 30 ? 0 : 3 }] },
+    options: { responsive: true, maintainAspectRatio: false, scales: { y: { min: 0, max: 100 } }, plugins: { legend: { display: false } } }
+  });
+
+  let rows = '<tr><th>Area</th><th>Rate</th><th>Streak</th><th>Score</th></tr>';
+  state.areas.forEach(a => {
+    const ids = new Set(state.tasks.filter(t => t.area_id === a.id).map(t => t.id));
+    const cis = state.checkins.filter(c => ids.has(c.task_id));
+    const from = daysAgo(state.range - 1);
+    const done = cis.filter(c => c.day >= from).length;
+    const rate = ids.size ? Math.round(done / (ids.size * state.range) * 100) : 0;
+    const days = new Set(cis.map(c => c.day));
+    let streak = 0, i = days.has(todayStr()) ? 0 : 1;
+    while (days.has(daysAgo(i))) { streak++; i++; }
+    rows += `<tr><td>${esc(a.icon)} ${esc(a.name)}</td><td>${ids.size ? rate + '%' : '-'}</td><td>${streak ? streak + ' day' + (streak > 1 ? 's' : '') : '-'}</td><td>${a.score ?? '-'}/10</td></tr>`;
+  });
+  $('#areatable').innerHTML = rows;
+}
+
+init();
+</script>
+</body>
+</html>
