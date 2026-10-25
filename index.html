@@ -44,8 +44,41 @@
   table { width:100%; border-collapse:collapse; }
   td, th { text-align:left; padding:8px 4px; border-top:1px solid var(--line); font-size:.92rem; }
   th { border-top:0; color:var(--muted); font-weight:600; }
-  #auth { max-width:360px; margin:12vh auto; padding:0 16px; }
-  #auth .card > * { margin-bottom:10px; }
+  /* ---- Sign-in screen ---- */
+  #auth { position:fixed; inset:0; overflow:auto; background:#F3F5F2; color:#16302B; font-family:'Plus Jakarta Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+  .auth-wrap { display:flex; flex-wrap:wrap; min-height:100%; }
+  .auth-brand { flex:1 1 420px; box-sizing:border-box; padding:48px; display:flex; flex-direction:column; justify-content:space-between; gap:40px; background:#16302B; color:#F3F5F2; }
+  .auth-logo { display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.1rem; }
+  .auth-mark { width:40px; height:40px; border-radius:12px; background:#7FD1A8; display:flex; align-items:center; justify-content:center; }
+  .auth-copy h1 { font-size:clamp(2rem, 4.2vw, 3rem); line-height:1.1; font-weight:800; margin:0 0 14px; max-width:14ch; }
+  .auth-copy p { margin:0; font-size:1.05rem; line-height:1.55; color:#CFE0D8; max-width:34ch; }
+  .auth-areas { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:10px; }
+  .auth-areas li { display:flex; align-items:center; gap:10px; padding:10px 14px; border-radius:12px; background:rgba(255,255,255,0.08); font-size:.9rem; font-weight:600; color:#E6F0EB; }
+  .auth-areas i { width:10px; height:10px; border-radius:50%; flex:none; }
+  .auth-panel { flex:1 1 420px; box-sizing:border-box; padding:32px 24px; display:flex; align-items:center; justify-content:center; }
+  .auth-card { width:100%; max-width:400px; display:flex; flex-direction:column; gap:16px; }
+  .auth-card h2 { margin:0; font-size:1.7rem; font-weight:800; }
+  .auth-sub { margin:-8px 0 4px; color:#4A5F5A; line-height:1.5; }
+  .auth-card .field { display:flex; flex-direction:column; gap:6px; }
+  .auth-card label { font-size:.85rem; font-weight:700; }
+  .auth-card input { min-height:48px; padding:0 14px; border:1px solid #C5D0CA; border-radius:12px; background:#fff; color:#16302B; }
+  .auth-card input:focus-visible, .auth-card button:focus-visible { outline:3px solid #7FD1A8; outline-offset:2px; }
+  .pw { position:relative; }
+  .pw input { padding-right:76px; }
+  .pw button { position:absolute; right:6px; top:6px; min-height:36px; padding:0 12px; border:0; border-radius:8px; background:transparent; color:#16302B; font-weight:700; font-size:.85rem; }
+  .auth-submit { min-height:50px; border:0; border-radius:12px; background:#16302B; color:#fff; font-weight:800; font-size:1rem; }
+  .auth-submit:hover { background:#0B1F1B; }
+  .auth-submit:disabled { opacity:.6; cursor:wait; }
+  .auth-links { display:flex; flex-wrap:wrap; justify-content:space-between; gap:8px; }
+  .auth-links .link { border:0; background:none; padding:10px 4px; min-height:44px; color:#16302B; font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+  #authmsg { min-height:1.3em; font-size:.92rem; line-height:1.4; }
+  #authmsg.err { color:#B3261E; }
+  #authmsg.ok { color:#1B6B45; }
+  @media (max-width:820px) {
+    .auth-brand { padding:28px 24px; gap:24px; }
+    .auth-areas { display:none; }
+    .auth-copy h1 { max-width:none; }
+  }
   #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:#222; color:#fff; padding:10px 16px; border-radius:10px; display:none; max-width:90%; }
   .canvas-wrap { position:relative; height:240px; }
   [hidden] { display:none !important; }
@@ -53,16 +86,55 @@
 </head>
 <body>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <div id="auth" hidden>
-  <h1 style="text-align:center;margin-bottom:14px">Life Dashboard</h1>
-  <div class="card">
-    <input type="email" id="email" placeholder="Email" autocomplete="email">
-    <input type="password" id="password" placeholder="Password (min 6 characters)" autocomplete="current-password">
-    <div class="row">
-      <button class="primary" id="signin" style="flex:1">Sign in</button>
-      <button id="signup" style="flex:1">Create account</button>
-    </div>
-    <div class="muted" id="authmsg"></div>
+  <div class="auth-wrap">
+    <aside class="auth-brand">
+      <div class="auth-logo">
+        <span class="auth-mark"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16302B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22V10 M12 10c0-4 3-7 8-7 0 5-3 8-8 8 M12 14c0-3-2.5-5-6-5 0 4 2.5 6 6 6"></path></svg></span>
+        <span>Life Dashboard</span>
+      </div>
+      <div class="auth-copy">
+        <h1>Tend every part of your life.</h1>
+        <p>Nine areas, daily tasks, and progress you can actually see.</p>
+      </div>
+      <ul class="auth-areas" aria-hidden="true">
+        <li><i style="background:#2F9E6B"></i>Health</li>
+        <li><i style="background:#D9577A"></i>Relationships</li>
+        <li><i style="background:#3D6FD9"></i>Work &amp; Career</li>
+        <li><i style="background:#E0A82E"></i>Finances</li>
+        <li><i style="background:#9B82E8"></i>Mental &amp; Emotional</li>
+        <li><i style="background:#2FB6CC"></i>Personal Growth</li>
+        <li><i style="background:#A9BC4A"></i>Spiritual Life</li>
+        <li><i style="background:#E0642E"></i>Fun &amp; Recreation</li>
+        <li><i style="background:#7C9AA6"></i>Living Environment</li>
+      </ul>
+    </aside>
+    <section class="auth-panel">
+      <form id="authform" class="auth-card" novalidate>
+        <h2 id="authtitle">Welcome back</h2>
+        <p class="auth-sub" id="authsub">Sign in to pick up where you left off.</p>
+        <div class="field" id="emailrow">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@example.com" autocomplete="email" inputmode="email">
+        </div>
+        <div class="field">
+          <label for="password" id="pwlabel">Password</label>
+          <div class="pw">
+            <input type="password" id="password" placeholder="At least 6 characters" autocomplete="current-password">
+            <button type="button" id="togglepw" aria-label="Show password">Show</button>
+          </div>
+        </div>
+        <button type="submit" class="auth-submit" id="authsubmit">Sign in</button>
+        <div class="auth-links">
+          <button type="button" class="link" id="forgot">Forgot password?</button>
+          <button type="button" class="link" id="switchmode">Create an account</button>
+        </div>
+        <div id="authmsg" role="alert" aria-live="polite"></div>
+      </form>
+    </section>
   </div>
 </div>
 
@@ -129,24 +201,78 @@ async function init() {
     document.body.innerHTML = '<p style="padding:24px;font-family:sans-serif">Open index.html and paste your Supabase URL and anon key at the top of the script.</p>';
     return;
   }
+  const recovering = /type=recovery/.test(location.hash);
+  setMode(recovering ? 'recovery' : 'signin');
+  if (recovering) showAuth();
   const { data: { session } } = await sb.auth.getSession();
-  session ? start() : showAuth();
-  sb.auth.onAuthStateChange((event) => { if (event === 'SIGNED_OUT') showAuth(); });
+  if (!recovering) session ? start() : showAuth();
+  sb.auth.onAuthStateChange((event) => {
+    if (event === 'SIGNED_OUT') { setMode('signin'); showAuth(); }
+    if (event === 'PASSWORD_RECOVERY') { setMode('recovery'); showAuth(); }
+  });
 }
 function showAuth() { $('#app').hidden = true; $('#auth').hidden = false; }
 async function start() {
   $('#auth').hidden = true; $('#app').hidden = false;
   await load(); render();
 }
-$('#signin').onclick = async () => {
-  const { error } = await sb.auth.signInWithPassword({ email: $('#email').value.trim(), password: $('#password').value });
-  error ? $('#authmsg').textContent = error.message : start();
+
+// ---- Sign-in screen logic ----
+let authMode = 'signin';
+const MODES = {
+  signin:   { title: 'Welcome back', sub: 'Sign in to pick up where you left off.', btn: 'Sign in', sw: 'Create an account', pwl: 'Password', ac: 'current-password', email: true, forgot: true },
+  signup:   { title: 'Create your account', sub: 'Start tracking the areas that matter most to you.', btn: 'Create account', sw: 'I already have an account', pwl: 'Password', ac: 'new-password', email: true, forgot: false },
+  recovery: { title: 'Set a new password', sub: 'Choose a new password for your account.', btn: 'Save new password', sw: '', pwl: 'New password', ac: 'new-password', email: false, forgot: false }
 };
-$('#signup').onclick = async () => {
-  const { data, error } = await sb.auth.signUp({ email: $('#email').value.trim(), password: $('#password').value });
-  if (error) return $('#authmsg').textContent = error.message;
-  if (data.session) start(); else $('#authmsg').textContent = 'Account created. Check your email to confirm, then sign in.';
+function setMsg(text, isError) {
+  const m = $('#authmsg'); m.textContent = text || ''; m.className = text ? (isError ? 'err' : 'ok') : '';
+}
+function setMode(mode) {
+  authMode = mode; const c = MODES[mode];
+  $('#authtitle').textContent = c.title; $('#authsub').textContent = c.sub;
+  $('#authsubmit').textContent = c.btn; $('#pwlabel').textContent = c.pwl;
+  $('#password').autocomplete = c.ac;
+  $('#emailrow').hidden = !c.email; $('#forgot').hidden = !c.forgot;
+  $('#switchmode').hidden = !c.sw; $('#switchmode').textContent = c.sw;
+  setMsg('');
+}
+function busy(on) { const b = $('#authsubmit'); b.disabled = on; if (on) b.textContent = 'Please wait…'; else b.textContent = MODES[authMode].btn; }
+$('#switchmode').onclick = () => setMode(authMode === 'signin' ? 'signup' : 'signin');
+$('#togglepw').onclick = () => {
+  const p = $('#password'), show = p.type === 'password';
+  p.type = show ? 'text' : 'password';
+  $('#togglepw').textContent = show ? 'Hide' : 'Show';
+  $('#togglepw').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
 };
+$('#forgot').onclick = async () => {
+  const email = $('#email').value.trim();
+  if (!email) return setMsg('Enter your email above first, then tap Forgot password.', true);
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + location.pathname });
+  error ? setMsg(error.message, true) : setMsg('Password reset link sent. Check your email.');
+};
+$('#authform').addEventListener('submit', async e => {
+  e.preventDefault(); setMsg('');
+  const email = $('#email').value.trim(), password = $('#password').value;
+  if (authMode !== 'recovery' && !email) return setMsg('Enter your email address.', true);
+  if (password.length < 6) return setMsg('Your password needs at least 6 characters.', true);
+  busy(true);
+  try {
+    if (authMode === 'signin') {
+      const { error } = await sb.auth.signInWithPassword({ email, password });
+      if (error) return setMsg(error.message, true);
+      start();
+    } else if (authMode === 'signup') {
+      const { data, error } = await sb.auth.signUp({ email, password });
+      if (error) return setMsg(error.message, true);
+      if (data.session) start(); else setMsg('Account created. Check your email to confirm, then sign in.');
+    } else {
+      const { error } = await sb.auth.updateUser({ password });
+      if (error) return setMsg(error.message, true);
+      history.replaceState(null, '', location.pathname);
+      start();
+    }
+  } finally { busy(false); }
+});
 $('#signout').onclick = () => sb.auth.signOut();
 
 // ---------- Data ----------
