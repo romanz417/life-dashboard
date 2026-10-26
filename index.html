@@ -25,47 +25,180 @@
   * { box-sizing: border-box; }
   body { margin:0; font-family:var(--sans); color:var(--ink); background:
     radial-gradient(900px 520px at 88% -8%, rgba(212,175,55,.11), transparent 60%),
-    radial-gradient(760px 520px at -8% 108%, rgba(120,84,210,.10), transparent 60%),
+    radial-gradient(760px 520px at -8% 108%, rgba(14,92,70,.16), transparent 60%),
     var(--bg); background-attachment:fixed; }
-  header { max-width:760px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; padding:18px 16px; }
-  .brand { display:flex; align-items:center; gap:10px; }
   h1 { font-size:1.15rem; margin:0; }
-  header h1 { font-family:var(--serif); font-size:1.7rem; font-weight:700; letter-spacing:.05em; background:var(--goldgrad); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
-  main { max-width:760px; margin:0 auto; padding:0 16px 80px; }
-  nav { display:flex; gap:8px; margin-bottom:18px; }
-  nav button { flex:1; }
-  button { font:inherit; padding:10px 14px; border-radius:12px; border:1px solid var(--line2); background:var(--card2); color:var(--ink); cursor:pointer; transition:filter .15s, border-color .15s; }
+  button { font:inherit; padding:10px 14px; border-radius:12px; border:1px solid var(--line2); background:var(--card2); color:var(--ink); cursor:pointer; transition:filter .15s, border-color .15s, background .15s; }
   button:hover { border-color:var(--line); }
-  button.primary, nav button.on { background:var(--goldgrad); color:#17130A; border-color:transparent; font-weight:700; }
-  button.primary:hover, nav button.on:hover { filter:brightness(1.07); }
+  button.primary { background:var(--goldgrad); color:#17130A; border-color:transparent; font-weight:700; }
+  button.primary:hover { filter:brightness(1.07); }
   button.small { padding:5px 12px; font-size:.85rem; }
   button.danger { color:var(--danger); }
-  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline:2px solid var(--gold-hi); outline-offset:2px; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible { outline:2px solid var(--gold-hi); outline-offset:2px; }
   input[type=text], input[type=email], input[type=password], textarea, select {
     font:inherit; width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--line2); background:rgba(255,255,255,.04); color:var(--ink);
   }
   input::placeholder, textarea::placeholder { color:#8E8878; }
   input[type=range], input[type=checkbox] { accent-color:var(--gold); }
-  textarea { min-height:60px; resize:vertical; }
-  .card { background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015)), var(--card); border:1px solid var(--line); border-radius:18px; padding:16px; margin-bottom:14px; box-shadow:0 12px 32px rgba(0,0,0,.35); }
-  .card > strong { font-family:var(--serif); font-size:1.35rem; font-weight:700; }
+  textarea { min-height:90px; resize:vertical; }
+  .card { background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.015)), var(--card); border:1px solid var(--line); border-radius:20px; padding:20px; margin-bottom:14px; box-shadow:0 12px 32px rgba(0,0,0,.35); }
+  .card > strong, .card-title { display:block; font-family:var(--serif); font-size:1.45rem; font-weight:700; }
   .muted { color:var(--muted); font-size:.9rem; }
   .row { display:flex; gap:8px; align-items:center; }
   .row > input[type=text] { flex:1; }
   .bar { height:10px; background:rgba(255,255,255,.09); border-radius:99px; overflow:hidden; margin:10px 0 4px; }
   .bar > div { height:100%; background:linear-gradient(90deg,var(--gold-lo),var(--gold),var(--gold-hi)); width:0; transition:width .3s; }
-  .task { display:flex; gap:10px; align-items:center; padding:10px 0; border-top:1px solid var(--line2); }
+  .task { display:flex; gap:12px; align-items:center; padding:12px 0; border-top:1px solid var(--line2); }
   .task:first-of-type { border-top:0; }
-  .task input { width:20px; height:20px; }
+  .task input { width:20px; height:20px; flex:none; }
   .task.done span { text-decoration:line-through; color:var(--muted); }
   .task span { flex:1; }
-  .area-head { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-  .area-head h3 { margin:0; font-family:var(--serif); font-size:1.4rem; font-weight:700; }
-  .score { display:flex; align-items:center; gap:10px; margin:10px 0; }
-  .score input { flex:1; }
   table { width:100%; border-collapse:collapse; }
-  td, th { text-align:left; padding:9px 4px; border-top:1px solid var(--line2); font-size:.92rem; }
+  td, th { text-align:left; padding:10px 4px; border-top:1px solid var(--line2); font-size:.92rem; }
   th { border-top:0; color:var(--muted); font-weight:600; }
+  td a { color:var(--ink); text-decoration:none; } td a:hover { color:var(--gold-hi); }
+  .shine { background:linear-gradient(100deg,#F3DE98 0%,#D4AF37 30%,#FFF3C4 50%,#D4AF37 70%,#F3DE98 100%); background-size:230% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; animation:shine 8s linear infinite; }
+  .eyebrow { font-size:.66rem; font-weight:700; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); }
+
+  /* ================= App shell ================= */
+  .app-top { max-width:1180px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:14px; padding:20px 20px 18px; }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .app-top h1 { font-family:var(--serif); font-size:1.7rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; background:var(--goldgrad); -webkit-background-clip:text; background-clip:text; color:transparent; -webkit-text-fill-color:transparent; }
+  .tabs { display:flex; gap:4px; padding:4px; border-radius:99px; background:rgba(255,255,255,.05); border:1px solid var(--line2); }
+  .tabs a { display:flex; align-items:center; min-height:40px; padding:0 20px; border-radius:99px; color:var(--muted); text-decoration:none; font-weight:600; font-size:.9rem; }
+  .tabs a:hover { color:var(--ink); }
+  .tabs a.on { background:var(--goldgrad); color:#17130A; }
+  main { max-width:1180px; margin:0 auto; padding:6px 20px 90px; }
+  #view-today, #view-progress { max-width:780px; margin:0 auto; }
+  #view-area { max-width:1060px; margin:0 auto; }
+
+  /* ---- Home: hero ---- */
+  .hero { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr); align-items:center; gap:28px; padding:36px 40px; border-radius:30px; border:1px solid var(--line); background:
+    radial-gradient(560px 340px at 100% 0%, rgba(212,175,55,.15), transparent 70%),
+    radial-gradient(460px 320px at 0% 100%, rgba(14,92,70,.26), transparent 70%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 30px 70px rgba(0,0,0,.45); }
+  .hero h2 { margin:12px 0 14px; font-family:var(--serif); font-weight:600; font-size:clamp(2.3rem, 4.6vw, 3.8rem); line-height:1.02; }
+  .hero-quote { margin:0 0 24px; max-width:34ch; font-family:var(--serif); font-style:italic; font-weight:500; font-size:1.35rem; line-height:1.3; color:#FFF6DC; }
+  .stats { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:24px; }
+  .stats div { display:flex; flex-direction:column; gap:4px; min-width:108px; padding:14px 18px; border-radius:16px; background:rgba(255,255,255,.05); border:1px solid var(--line2); }
+  .stats b { font-family:var(--serif); font-size:2rem; font-weight:700; line-height:1; color:var(--gold-hi); }
+  .stats span { font-size:.62rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+  .cta { display:inline-flex; align-items:center; gap:10px; min-height:50px; padding:0 24px; border-radius:14px; background:var(--goldgrad); color:#17130A; font-weight:800; text-decoration:none; box-shadow:0 12px 30px rgba(212,175,55,.25); }
+  .cta:hover { filter:brightness(1.07); }
+  .hero-r { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .wheel { width:100%; max-width:420px; height:auto; overflow:visible; }
+  .wheel-note { font-size:.72rem; color:var(--muted); letter-spacing:.06em; }
+  .petal path { transition:transform .25s ease, filter .25s ease; transform-origin:200px 200px; }
+  .petal:hover path, .petal:focus-visible path { transform:scale(1.04); filter:brightness(1.25); }
+  .petal:focus-visible { outline:none; }
+  .wc-num { font-family:var(--serif); font-size:34px; font-weight:700; fill:#FFF6DC; }
+  .wc-lab { font-family:var(--sans); font-size:8.5px; font-weight:700; letter-spacing:.14em; fill:var(--gold); }
+
+  /* ---- Home: area cards ---- */
+  .sec-head { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:8px 20px; margin:44px 0 18px; }
+  .sec-head h3 { margin:0; font-family:var(--serif); font-size:2.1rem; font-weight:600; }
+  .sec-head p { margin:0; color:var(--muted); font-size:.92rem; }
+  .areas { display:grid; grid-template-columns:repeat(12, minmax(0,1fr)); gap:18px; grid-auto-flow:dense; }
+  .acard { --c:#D4AF37; --t:#D4AF3733; grid-column:span 4; position:relative; overflow:hidden; isolation:isolate; display:flex; flex-direction:column; gap:12px; min-height:220px; padding:22px; border-radius:24px; color:inherit; text-decoration:none; border:1px solid var(--line2);
+    background:radial-gradient(300px 200px at 100% 0%, var(--t), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card);
+    box-shadow:0 14px 34px rgba(0,0,0,.35); transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .acard:hover { transform:translateY(-4px); border-color:rgba(243,222,152,.5); box-shadow:0 26px 54px rgba(0,0,0,.55), 0 0 0 1px rgba(212,175,55,.12); }
+  .acard.is-focus { grid-column:span 8; min-height:270px; border-color:rgba(212,175,55,.35); }
+  .acard .wm { position:absolute; right:-18px; bottom:-22px; width:150px; height:150px; color:var(--c); opacity:.08; z-index:-1; pointer-events:none; }
+  .acard .top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .ic { display:inline-flex; align-items:center; justify-content:center; flex:none; width:48px; height:48px; border-radius:15px; background:var(--t); border:1px solid var(--c); color:var(--c); font-size:1.3rem; }
+  .ic.big { width:76px; height:76px; border-radius:24px; font-size:2rem; }
+  .acard h4 { margin:2px 0 0; font-family:var(--serif); font-size:1.6rem; font-weight:700; line-height:1.08; }
+  .acard p { margin:0; color:var(--muted); font-size:.88rem; line-height:1.5; }
+  .badge { position:absolute; top:22px; left:82px; font-size:.6rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:#17130A; background:var(--goldgrad); border-radius:99px; padding:5px 10px; }
+  .pv { list-style:none; margin:2px 0 0; padding:0; display:flex; flex-direction:column; gap:6px; }
+  .pv li { display:flex; align-items:center; gap:10px; font-size:.88rem; color:#E4DCC6; }
+  .pv li::before { content:""; flex:none; width:14px; height:14px; border-radius:5px; border:1.5px solid var(--c); }
+  .pv li.d { color:var(--muted); text-decoration:line-through; }
+  .pv li.d::before { background:var(--c); }
+  .foot { margin-top:auto; display:flex; align-items:center; gap:12px; font-size:.78rem; font-weight:600; color:var(--muted); }
+  .mini { flex:1; height:6px; border-radius:99px; background:rgba(255,255,255,.09); overflow:hidden; }
+  .mini > div { height:100%; border-radius:99px; background:var(--c); }
+  .go { margin-left:auto; display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); color:var(--gold-hi); font-size:1rem; transition:transform .25s ease, background .25s ease; }
+  .acard:hover .go { transform:translateX(3px); background:rgba(212,175,55,.14); }
+  .acard.add { border-style:dashed; border-color:rgba(212,175,55,.35); background:rgba(255,255,255,.02); justify-content:center; }
+  .acard.add:hover { transform:none; }
+  .acard.add h4 { font-size:1.4rem; }
+
+  /* ---- Area page ---- */
+  .back { display:inline-flex; align-items:center; gap:8px; min-height:44px; color:var(--gold-hi); text-decoration:none; font-weight:700; font-size:.9rem; }
+  .ahero { --c:#D4AF37; --t:#D4AF3733; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:26px; margin:4px 0 22px; padding:32px 36px; border-radius:30px; border:1px solid var(--line);
+    background:radial-gradient(520px 320px at 0% 0%, var(--t), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 30px 70px rgba(0,0,0,.45); }
+  .ah-l { display:flex; align-items:center; gap:22px; min-width:0; flex:1 1 360px; }
+  .ahero h2 { margin:6px 0 6px; font-family:var(--serif); font-size:clamp(2.1rem, 4.2vw, 3.2rem); font-weight:600; line-height:1.04; }
+  .ahero p { margin:0; color:var(--muted); line-height:1.5; }
+  .ah-r { display:flex; flex-wrap:wrap; align-items:center; gap:22px; }
+  .ctrl { display:flex; flex-direction:column; gap:10px; min-width:210px; }
+  .ctrl label, .lbl { font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+  .ctrl input[type=range] { width:100%; }
+  .switch { display:flex; align-items:center; gap:10px; min-height:44px; font-size:.9rem; font-weight:600; cursor:pointer; }
+  .switch input { width:20px; height:20px; }
+  .agrid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; align-items:start; }
+  .agrid .col { display:flex; flex-direction:column; gap:18px; min-width:0; }
+  .agrid .card { margin:0; }
+  .card-sub { margin:4px 0 6px; color:var(--muted); font-size:.88rem; }
+  .addrow { display:flex; gap:8px; margin-top:12px; }
+  .addrow input { flex:1; min-height:46px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .chip { min-height:40px; padding:0 16px; border-radius:99px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--gold-hi); font-size:.85rem; font-weight:600; }
+  .chip:hover { background:rgba(212,175,55,.14); }
+  .chip::before { content:"+ "; }
+  .kpis { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:10px; margin-top:14px; }
+  .kpis div { display:flex; flex-direction:column; gap:4px; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid var(--line2); }
+  .kpis b { font-family:var(--serif); font-size:1.7rem; line-height:1; color:var(--gold-hi); }
+  .kpis span { font-size:.6rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .heat { display:grid; grid-template-columns:repeat(15, minmax(0,1fr)); gap:5px; margin:16px 0 8px; }
+  .heat i { aspect-ratio:1; border-radius:6px; background:rgba(255,255,255,.06); }
+  .heat-legend { display:flex; justify-content:space-between; font-size:.72rem; color:var(--muted); }
+  .tips { list-style:none; counter-reset:t; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  .tips li { counter-increment:t; position:relative; padding-left:42px; font-size:.94rem; line-height:1.5; color:#E4DCC6; }
+  .tips li::before { content:counter(t, decimal-leading-zero); position:absolute; left:0; top:-3px; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--c, var(--gold)); }
+  .del-area { align-self:flex-end; }
+
+  @media (max-width:980px) {
+    .hero { grid-template-columns:1fr; padding:28px 24px; }
+    .acard { grid-column:span 6; }
+    .acard.is-focus { grid-column:span 12; }
+  }
+  @media (max-width:820px) {
+    .agrid { grid-template-columns:1fr; }
+    .ahero { padding:26px 22px; }
+  }
+  @media (max-width:640px) {
+    .app-top { padding:16px 14px 12px; }
+    .app-top h1 { font-size:1.35rem; }
+    .tabs { order:3; width:100%; }
+    .tabs a { flex:1; justify-content:center; padding:0 10px; }
+    main { padding:4px 14px 80px; }
+    .hero { padding:24px 18px; border-radius:24px; gap:18px; }
+    .hero-quote { font-size:1.2rem; }
+    .stats div { flex:1; min-width:0; padding:12px; }
+    .stats b { font-size:1.6rem; }
+    .cta { width:100%; justify-content:center; }
+    .sec-head { margin-top:34px; }
+    .sec-head h3 { font-size:1.8rem; }
+    .areas { grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+    .acard { grid-column:span 1; min-height:190px; padding:16px; gap:10px; border-radius:20px; }
+    .acard.is-focus { grid-column:span 2; min-height:0; }
+    .acard:not(.is-focus) p { display:none; }
+    .acard h4 { font-size:1.3rem; }
+    .acard .ring { width:42px; height:42px; }
+    .ic { width:42px; height:42px; border-radius:13px; }
+    .badge { top:16px; left:68px; }
+    .acard:not(.is-focus) .foot .mini { display:none; }
+    .acard.add { grid-column:span 1; min-height:190px; }
+    .acard.add p { display:none; }
+    .acard.add .addrow { flex-direction:column; }
+    .ahero { border-radius:24px; }
+    .ah-l { gap:16px; }
+    .ic.big { width:60px; height:60px; border-radius:18px; }
+    .kpis b { font-size:1.4rem; }
+  }
 
   /* ================= Sign-in screen ================= */
   #auth { position:fixed; inset:0; overflow:auto; background:#06070A; color:var(--ink); font-family:var(--sans); isolation:isolate; }
@@ -172,12 +305,15 @@
   }
 
   @keyframes kb { from { transform:scale(1.02) translate(0,0); } to { transform:scale(1.12) translate(-1.4%,-1%); } }
+  @keyframes shine { to { background-position:-230% 0; } }
   @keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
   .rise { opacity:0; animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards; animation-delay:var(--d,0s); }
+  .areas .rise { animation-duration:.8s; animation-delay:calc(var(--i, 0) * 60ms + 120ms); }
   @media (prefers-reduced-motion: reduce) {
-    .panel img { animation:none; }
+    .panel img, .shine { animation:none; }
     .rise { animation:none; opacity:1; }
     .frame { transition:none; translate:none; }
+    .acard, .petal path { transition:none; }
   }
 
   #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:var(--card2); color:var(--ink); border:1px solid var(--line); padding:10px 16px; border-radius:12px; display:none; max-width:90%; z-index:10; }
@@ -263,21 +399,22 @@
 </div>
 
 <div id="app" hidden>
-  <header>
-    <div class="brand">
+  <header class="app-top">
+    <a class="brand" href="#home">
       <svg width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3.5l10.5 6v13L16 28.5l-10.5-6v-13z" stroke="#D4AF37" stroke-width="1.8" stroke-linejoin="round"/><path d="M11.5 17.5L16 13l4.5 4.5" stroke="#F3DE98" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <h1>Life Hack</h1>
-    </div>
+    </a>
+    <nav class="tabs" aria-label="Main">
+      <a href="#home" data-view="home">Home</a>
+      <a href="#today" data-view="today">Today</a>
+      <a href="#progress" data-view="progress">Progress</a>
+    </nav>
     <button class="small" id="signout">Sign out</button>
   </header>
   <main>
-    <nav>
-      <button data-tab="today" class="on">Today</button>
-      <button data-tab="areas">Life Areas</button>
-      <button data-tab="progress">Progress</button>
-    </nav>
-    <section id="view-today"></section>
-    <section id="view-areas" hidden></section>
+    <section id="view-home"></section>
+    <section id="view-area" hidden></section>
+    <section id="view-today" hidden></section>
     <section id="view-progress" hidden></section>
   </main>
 </div>
@@ -309,7 +446,7 @@ const DEFAULT_AREAS = [
   ['Living Environment','🏡',5,false]
 ];
 
-let state = { areas: [], tasks: [], checkins: [], tab: 'today', range: 30 };
+let state = { areas: [], tasks: [], checkins: [], range: 30 };
 let chart = null;
 
 function toast(msg) {
@@ -356,19 +493,26 @@ const QUOTES = [
   'Great lives are tracked, not hoped for.',
   'Same you. A better version, one check-in at a time.'
 ];
-function paintDaily() {
+function todayQuote() {
   const now = new Date();
   const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
-  $('#dailyquote').textContent = QUOTES[dayOfYear % QUOTES.length];
-  const h = now.getHours();
+  return QUOTES[dayOfYear % QUOTES.length];
+}
+function greeting() {
+  const now = new Date(), h = now.getHours();
   const greet = h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening';
-  $('#authdate').textContent = greet + ' · ' + now.toLocaleDateString(undefined, { weekday:'long', day:'numeric', month:'long' });
+  return greet + ' · ' + now.toLocaleDateString(undefined, { weekday:'long', day:'numeric', month:'long' });
+}
+function paintDaily() {
+  $('#dailyquote').textContent = todayQuote();
+  $('#authdate').textContent = greeting();
 }
 // gentle depth: image panels drift with the pointer (desktop only)
 (function () {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
   const w = document.querySelector('.auth-wrap');
   addEventListener('mousemove', e => {
+    if ($('#auth').hidden) return;
     w.style.setProperty('--mx', (e.clientX / innerWidth - .5).toFixed(3));
     w.style.setProperty('--my', (e.clientY / innerHeight - .5).toFixed(3));
   }, { passive: true });
@@ -394,7 +538,7 @@ async function init() {
 function showAuth() { $('#app').hidden = true; $('#auth').hidden = false; paintDaily(); }
 async function start() {
   $('#auth').hidden = true; $('#app').hidden = false;
-  await load(); render();
+  await load(); render(true); scrollTo(0, 0);
 }
 
 // ---- Sign-in screen logic ----
@@ -467,40 +611,287 @@ async function load() {
   state.checkins = await run(sb.from('checkins').select('*').gte('day', daysAgo(100)));
 }
 
-// ---------- Rendering ----------
-function render() {
-  ['today', 'areas', 'progress'].forEach(t => $('#view-' + t).hidden = t !== state.tab);
-  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.tab === state.tab));
-  if (state.tab === 'today') renderToday();
-  if (state.tab === 'areas') renderAreas();
-  if (state.tab === 'progress') renderProgress();
+// ---------- Area look, guidance and suggested habits ----------
+const ICONS = {
+  health: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z',
+  people: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2 M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87 M16 3.13a4 4 0 0 1 0 7.75',
+  career: 'M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16 M4 6h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z',
+  money: 'M12 2v20 M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6',
+  mind: 'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z M8 14s1.5 2 4 2 4-2 4-2 M9 9h.01 M15 9h.01',
+  growth: 'M22 7l-8.5 8.5-5-5L2 17 M16 7h6v6',
+  spirit: 'M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10z M12 1v2 M12 21v2 M4.22 4.22l1.42 1.42 M18.36 18.36l1.42 1.42 M1 12h2 M21 12h2 M4.22 19.78l1.42-1.42 M18.36 5.64l1.42-1.42',
+  fun: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+  home: 'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10'
+};
+const META = [
+  { re: /health|fitness|body/i, short: 'Health', color: '#3FBF8A', icon: 'health',
+    blurb: 'Energy, sleep, movement and food.',
+    habits: ['Walk for 20 minutes', 'Drink water first thing in the morning', 'Stretch or train for 15 minutes'],
+    tips: ['Protect your sleep. Aim for 7–8 hours with a fixed bedtime.', 'Move every day. A brisk 20-minute walk counts.', 'Start the morning with water before anything else.', 'Keep two or three simple, healthy go-to meals ready.'] },
+  { re: /relation|family|friend|love/i, short: 'Relations', color: '#E0708E', icon: 'people',
+    blurb: 'Family, friends and the people closest to you.',
+    habits: ['Message someone you care about', 'Give 10 minutes of full attention', 'Say a specific thank you'],
+    tips: ['Reach out to one person you care about each day.', 'Put the phone away and give someone your full attention.', 'Schedule a regular call or visit with family.', 'Be specific when you say thank you.'] },
+  { re: /work|career|job|business/i, short: 'Career', color: '#5B8DEF', icon: 'career',
+    blurb: 'Progress, fulfilment and direction.',
+    habits: ['Do 90 minutes of focused work', "Pick tomorrow's top task", 'Spend 20 minutes learning a skill'],
+    tips: ['Choose your single most important task before you start the day.', 'Block 90 minutes for deep, uninterrupted work.', 'Review your career goal once a week.', 'Learn one skill that raises your value this quarter.'] },
+  { re: /financ|money|wealth/i, short: 'Finances', color: '#E2B84A', icon: 'money',
+    blurb: 'Income, savings and feeling in control of your money.',
+    habits: ["Log today's spending", 'Check account and mobile money balances', 'Move a small amount into savings'],
+    tips: ['Write down every expense for 30 days. Patterns appear quickly.', 'List each debt with its balance and interest rate.', 'Pay yourself first: save as soon as income arrives.', 'Build a starter cushion of one month of essential costs.'] },
+  { re: /mental|emotion|mind|well/i, short: 'Mind', color: '#A78BFA', icon: 'mind',
+    blurb: 'Stress, focus and peace of mind.',
+    habits: ['Journal for 10 minutes', 'Take three slow breaths when stressed', 'Note one thing that went well'],
+    tips: ['Write your thoughts down for 10 minutes to clear your head.', 'When stress spikes, take three slow, deep breaths.', 'Limit news and social media scrolling.', 'End the day by naming one thing that went well.'] },
+  { re: /growth|learn|skill|personal/i, short: 'Growth', color: '#35B8C9', icon: 'growth',
+    blurb: 'Skills, reading and building new habits.',
+    habits: ['Read for 20 minutes', 'Practise your skill for 20 minutes', 'Review what you learned today'],
+    tips: ['Read or practise for 20 minutes every day.', 'Keep one clear skill goal per quarter.', 'Review what you learned each Sunday.', 'Attach a new habit to one you already do.'] },
+  { re: /spirit|faith|prayer|purpose/i, short: 'Spirit', color: '#B5C94B', icon: 'spirit',
+    blurb: 'Faith, purpose and a sense of meaning.',
+    habits: ['Pray or reflect for 10 minutes', 'Read a short passage', 'Write one thing you are grateful for'],
+    tips: ['Start the day with prayer or quiet reflection.', 'Read a short passage and note one takeaway.', 'Keep a one-line gratitude note each night.', 'Serve or help someone this week.'] },
+  { re: /fun|recreation|hobby|rest|play/i, short: 'Fun', color: '#F08A4B', icon: 'fun',
+    blurb: 'Rest, hobbies and time to enjoy life.',
+    habits: ['Do one thing just for fun', 'Take a proper rest break', 'Plan something to look forward to'],
+    tips: ['Schedule fun the way you schedule work.', 'Do one thing purely for enjoyment today.', 'Take a real rest day each week.', 'Try something new this month.'] },
+  { re: /environment|home|house|living|space/i, short: 'Home', color: '#8FA3B8', icon: 'home',
+    blurb: 'Your home, workspace and how organised things feel.',
+    habits: ['Tidy one small space', 'Clear your desk', 'Fix one thing that annoys you'],
+    tips: ['Tidy one small space every day.', 'Clear your desk before you finish work.', 'Fix one small thing at home that bothers you.', 'Set up tomorrow’s workspace tonight.'] }
+];
+const EXTRA_COLORS = ['#D4AF37', '#6FA8DC', '#C27BA0', '#93C47D'];
+function metaOf(a) {
+  const m = META.find(m => m.re.test(a.name));
+  if (m) return m;
+  const i = Math.max(0, state.areas.indexOf(a));
+  return { short: a.name, color: EXTRA_COLORS[i % EXTRA_COLORS.length], icon: null,
+    blurb: 'Your own focus area.', habits: [],
+    tips: ['Add one or two daily tasks to build a streak here.', 'Write what success looks like in the notes.', 'Score this area honestly each week.'] };
 }
-document.querySelectorAll('nav button').forEach(b => b.onclick = () => { state.tab = b.dataset.tab; render(); });
+function iconSVG(m, a, size) {
+  if (!m.icon) return `<span aria-hidden="true">${esc(a.icon || '⭐')}</span>`;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICONS[m.icon]}"/></svg>`;
+}
+function ringSVG(score, color, size) {
+  const r = size / 2 - 5, c = 2 * Math.PI * r, f = (score / 10) * c, h = size / 2;
+  return `<svg class="ring" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" role="img" aria-label="Satisfaction ${score} out of 10">
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="5"/>
+    <circle cx="${h}" cy="${h}" r="${r}" fill="none" stroke="${color}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${f.toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 ${h} ${h})"/>
+    <text x="${h}" y="${h}" dominant-baseline="central" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="${Math.round(size * .38)}" fill="#FFF6DC">${score}</text></svg>`;
+}
 
-function renderToday() {
-  const day = todayStr();
-  const done = new Set(state.checkins.filter(c => c.day === day).map(c => c.task_id));
-  const activeAreas = state.areas.filter(a => a.active);
-  const tasks = state.tasks.filter(t => activeAreas.some(a => a.id === t.area_id));
-  const pct = tasks.length ? Math.round(tasks.filter(t => done.has(t.id)).length / tasks.length * 100) : 0;
-  let html = `<div class="card"><strong>${new Date().toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' })}</strong>
-    <div class="bar"><div style="width:${pct}%"></div></div><div class="muted">${pct}% of today's tasks done</div></div>`;
-  if (!activeAreas.length) html += '<div class="card muted">No active areas. Turn some on in the Life Areas tab.</div>';
-  activeAreas.forEach(a => {
-    const ts = state.tasks.filter(t => t.area_id === a.id);
-    html += `<div class="card"><div class="area-head"><h3>${esc(a.icon)} ${esc(a.name)}</h3></div>`;
-    html += ts.length ? ts.map(t => `<label class="task ${done.has(t.id) ? 'done' : ''}">
-        <input type="checkbox" data-task="${t.id}" ${done.has(t.id) ? 'checked' : ''}><span>${esc(t.title)}</span></label>`).join('')
-      : '<div class="muted" style="margin-top:8px">No daily tasks yet. Add some in Life Areas.</div>';
-    html += '</div>';
-  });
-  $('#view-today').innerHTML = html;
+// ---------- Numbers ----------
+const scoreOf = a => Math.max(1, Math.min(10, a.score ?? 5));
+const tasksOf = a => state.tasks.filter(t => t.area_id === a.id);
+function streakOf(days) { let s = 0, i = days.has(todayStr()) ? 0 : 1; while (days.has(daysAgo(i))) { s++; i++; } return s; }
+function areaStats(a) {
+  const ts = tasksOf(a), ids = new Set(ts.map(t => t.id)), today = todayStr();
+  const cis = state.checkins.filter(c => ids.has(c.task_id));
+  const doneIds = new Set(cis.filter(c => c.day === today).map(c => c.task_id));
+  const from = daysAgo(29);
+  const last30 = cis.filter(c => c.day >= from).length;
+  return { ts, doneIds, todayDone: doneIds.size, streak: streakOf(new Set(cis.map(c => c.day))),
+    last30, rate: ts.length ? Math.round(last30 / (ts.length * 30) * 100) : null, cis };
 }
-$('#view-today').addEventListener('change', async e => {
-  const id = e.target.dataset.task; if (!id) return;
+function overall() {
+  const act = state.areas.filter(a => a.active);
+  const tasks = state.tasks.filter(t => act.some(a => a.id === t.area_id));
+  const done = new Set(state.checkins.filter(c => c.day === todayStr()).map(c => c.task_id));
+  return {
+    pct: tasks.length ? Math.round(tasks.filter(t => done.has(t.id)).length / tasks.length * 100) : 0,
+    bal: state.areas.length ? state.areas.reduce((s, a) => s + scoreOf(a), 0) / state.areas.length : 0,
+    streak: streakOf(new Set(state.checkins.map(c => c.day)))
+  };
+}
+
+// ---------- Router ----------
+function route() {
+  const h = location.hash.replace(/^#\/?/, '');
+  if (h.startsWith('area/')) return { view: 'area', id: h.slice(5) };
+  if (h === 'today' || h === 'progress') return { view: h };
+  return { view: 'home' };
+}
+function render(animate = false) {
+  const r = route();
+  ['home', 'area', 'today', 'progress'].forEach(v => $('#view-' + v).hidden = v !== r.view);
+  document.querySelectorAll('.tabs a').forEach(a => a.classList.toggle('on', a.dataset.view === (r.view === 'area' ? 'home' : r.view)));
+  if (r.view === 'home') renderHome(animate);
+  if (r.view === 'area') renderArea(r.id, animate);
+  if (r.view === 'today') renderToday();
+  if (r.view === 'progress') renderProgress();
+}
+addEventListener('hashchange', () => { if (!$('#app').hidden) { render(true); scrollTo(0, 0); } });
+
+// ---------- Home ----------
+function wedge(cx, cy, r0, r1, a0, a1) {
+  const p = (r, a) => [(cx + r * Math.cos(a)).toFixed(2), (cy + r * Math.sin(a)).toFixed(2)];
+  const lg = a1 - a0 > Math.PI ? 1 : 0;
+  const [x0, y0] = p(r1, a0), [x1, y1] = p(r1, a1), [x2, y2] = p(r0, a1), [x3, y3] = p(r0, a0);
+  return `M${x0} ${y0} A${r1} ${r1} 0 ${lg} 1 ${x1} ${y1} L${x2} ${y2} A${r0} ${r0} 0 ${lg} 0 ${x3} ${y3} Z`;
+}
+function wheelSVG(bal) {
+  const N = state.areas.length || 1, cx = 200, cy = 200, r0 = 54, R = 150, gap = .03;
+  const ang = i => -Math.PI / 2 + i * 2 * Math.PI / N;
+  let g = '';
+  [2, 4, 6, 8, 10].forEach(s => {
+    const r = r0 + (s / 10) * (R - r0);
+    g += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,${s === 10 ? .16 : .07})"${s === 10 ? '' : ' stroke-dasharray="2 5"'}/>`;
+  });
+  state.areas.forEach((a, i) => {
+    const m = metaOf(a), sc = scoreOf(a), a0 = ang(i) + gap, a1 = ang(i + 1) - gap;
+    const rv = r0 + (sc / 10) * (R - r0), mid = (a0 + a1) / 2;
+    const ix = cx + (R + 27) * Math.cos(mid), iy = cy + (R + 27) * Math.sin(mid);
+    const icon = m.icon
+      ? `<g transform="translate(${(ix - 10).toFixed(1)} ${(iy - 10).toFixed(1)}) scale(.84)" fill="none" stroke="${m.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${ICONS[m.icon]}"/></g>`
+      : `<text x="${ix.toFixed(1)}" y="${iy.toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="15">${esc(a.icon || '⭐')}</text>`;
+    g += `<a class="petal" href="#area/${a.id}" data-name="${esc(m.short)}" data-score="${sc}" aria-label="${esc(a.name)}: ${sc} out of 10">
+      <title>${esc(a.name)} · ${sc}/10</title>
+      <path d="${wedge(cx, cy, r0, R, a0, a1)}" fill="rgba(255,255,255,.035)" stroke="rgba(255,255,255,.08)"/>
+      <path d="${wedge(cx, cy, r0, rv, a0, a1)}" fill="${m.color}" fill-opacity=".85" stroke="${m.color}" stroke-width="1.2"${a.active ? ' filter="url(#glow)"' : ''}/>
+      ${icon}</a>`;
+  });
+  return `<svg class="wheel" viewBox="0 0 400 400" role="group" aria-label="Wheel of life: tap an area to open it">
+    <defs><filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    ${g}
+    <circle cx="${cx}" cy="${cy}" r="${r0 - 6}" fill="#0C0C12" stroke="rgba(212,175,55,.55)"/>
+    <text id="wc-num" class="wc-num" x="${cx}" y="${cy - 4}" text-anchor="middle" dominant-baseline="central">${bal}</text>
+    <text id="wc-lab" class="wc-lab" x="${cx}" y="${cy + 21}" text-anchor="middle">BALANCE</text></svg>`;
+}
+function areaCard(a, i, animate) {
+  const m = metaOf(a), st = areaStats(a), sc = scoreOf(a), n = st.ts.length;
+  const foot = n
+    ? `<div class="mini"><div style="width:${Math.round(st.todayDone / n * 100)}%"></div></div><span>${st.todayDone}/${n} today</span>`
+    : `<span>No daily tasks yet</span>`;
+  const preview = a.active && n
+    ? `<ul class="pv">${st.ts.slice(0, 3).map(t => `<li class="${st.doneIds.has(t.id) ? 'd' : ''}">${esc(t.title)}</li>`).join('')}</ul>` : '';
+  return `<a class="acard${a.active ? ' is-focus' : ''}${animate ? ' rise' : ''}" href="#area/${a.id}" style="--c:${m.color};--t:${m.color}30;--i:${i}" aria-label="Open ${esc(a.name)}">
+    ${m.icon ? `<svg class="wm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${ICONS[m.icon]}"/></svg>` : ''}
+    <div class="top"><span class="ic">${iconSVG(m, a, 22)}</span>${ringSVG(sc, m.color, 54)}</div>
+    ${a.active ? '<span class="badge">Focus</span>' : ''}
+    <h4>${esc(a.name)}</h4>
+    <p>${esc(m.blurb)}</p>
+    ${preview}
+    <div class="foot">${foot}<span class="go" aria-hidden="true">&rarr;</span></div>
+  </a>`;
+}
+function renderHome(animate) {
+  const o = overall(), bal = o.bal.toFixed(1), rz = animate ? ' rise' : '';
+  let html = `<section class="hero${rz}">
+      <div>
+        <div class="eyebrow">${esc(greeting())}</div>
+        <h2><span class="shine">Your life, at a glance.</span></h2>
+        <p class="hero-quote">&ldquo;${esc(todayQuote())}&rdquo;</p>
+        <div class="stats">
+          <div><b>${bal}</b><span>Balance / 10</span></div>
+          <div><b>${o.pct}%</b><span>Done today</span></div>
+          <div><b>${o.streak}</b><span>Day streak</span></div>
+        </div>
+        <a class="cta" href="#today">Open today&rsquo;s tasks <span aria-hidden="true">&rarr;</span></a>
+      </div>
+      <div class="hero-r">${wheelSVG(bal)}<div class="wheel-note">Your wheel of life. Tap a segment to open that area.</div></div>
+    </section>
+    <div class="sec-head"><h3>Your life areas</h3><p>Open any area for its tasks, progress, notes and guidance.</p></div>
+    <div class="areas">`;
+  state.areas.forEach((a, i) => { html += areaCard(a, i, animate); });
+  html += `<form class="acard add${animate ? ' rise' : ''}" id="addareaform" style="--i:${state.areas.length}">
+      <h4>Add a life area</h4>
+      <p>Business, family, a big goal. Anything you want to track.</p>
+      <div class="addrow"><label for="newarea" class="lbl" hidden>New area name</label><input type="text" id="newarea" placeholder="e.g. Business" autocomplete="off"><button class="primary" type="submit">Add</button></div>
+    </form></div>`;
+  $('#view-home').innerHTML = html;
+}
+function resetWheel() { const n = $('#wc-num'); if (n) { n.textContent = overall().bal.toFixed(1); $('#wc-lab').textContent = 'BALANCE'; } }
+function showPetal(p) { const n = $('#wc-num'); if (n && p) { n.textContent = p.dataset.score; $('#wc-lab').textContent = p.dataset.name.toUpperCase(); } }
+$('#view-home').addEventListener('mouseover', e => showPetal(e.target.closest('.petal')));
+$('#view-home').addEventListener('mouseout', e => { if (e.target.closest('.petal') && !(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest('.petal'))) resetWheel(); });
+$('#view-home').addEventListener('focusin', e => showPetal(e.target.closest('.petal')));
+$('#view-home').addEventListener('focusout', e => { if (e.target.closest('.petal')) resetWheel(); });
+$('#view-home').addEventListener('submit', async e => {
+  if (e.target.id !== 'addareaform') return;
+  e.preventDefault();
+  const name = $('#newarea').value.trim(); if (!name) return;
+  try {
+    const row = await run(sb.from('areas').insert({ name, icon: '⭐', score: 5, active: false, position: state.areas.length }).select().single());
+    state.areas.push(row);
+    location.hash = '#area/' + row.id;
+  } catch (_) {}
+});
+
+// ---------- Area page ----------
+function renderArea(id, animate) {
+  const a = state.areas.find(x => String(x.id) === id);
+  if (!a) { location.hash = '#home'; return; }
+  const m = metaOf(a), st = areaStats(a), sc = scoreOf(a), rz = animate ? ' rise' : '';
+  const style = `--c:${m.color};--t:${m.color}30`;
+  const have = new Set(st.ts.map(t => t.title.toLowerCase()));
+  const sugg = m.habits.filter(h => !have.has(h.toLowerCase()));
+  let heat = '';
+  for (let i = 29; i >= 0; i--) {
+    const d = daysAgo(i), n = st.cis.filter(c => c.day === d).length;
+    const f = st.ts.length ? Math.min(1, n / st.ts.length) : 0;
+    const bg = f ? `background:${m.color};opacity:${(.25 + .75 * f).toFixed(2)}` : '';
+    heat += `<i style="${bg}" title="${d}: ${n} done"></i>`;
+  }
+  $('#view-area').innerHTML = `
+    <a class="back" href="#home">&larr; All life areas</a>
+    <section class="ahero${rz}" style="${style}" data-area="${a.id}">
+      <div class="ah-l">
+        <span class="ic big">${iconSVG(m, a, 34)}</span>
+        <div><div class="eyebrow">${a.active ? 'Focus area' : 'Life area'}</div><h2>${esc(a.name)}</h2><p>${esc(m.blurb)}</p></div>
+      </div>
+      <div class="ah-r">
+        ${ringSVG(sc, m.color, 92)}
+        <div class="ctrl">
+          <label for="scorein">Satisfaction <b id="scoreval" style="color:var(--gold-hi)">${sc}</b> / 10</label>
+          <input id="scorein" type="range" min="1" max="10" value="${sc}" data-act="score">
+          <label class="switch"><input type="checkbox" data-act="active" ${a.active ? 'checked' : ''}> Make this a focus area</label>
+        </div>
+      </div>
+    </section>
+    <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
+      <div class="col">
+        <section class="card">
+          <span class="card-title">Today&rsquo;s tasks</span>
+          <p class="card-sub">${st.ts.length ? `${st.todayDone} of ${st.ts.length} done today` : 'Add the small daily actions that move this area forward.'}</p>
+          ${st.ts.map(t => `<div class="task ${st.doneIds.has(t.id) ? 'done' : ''}">
+              <input type="checkbox" id="t-${t.id}" data-task="${t.id}" ${st.doneIds.has(t.id) ? 'checked' : ''}>
+              <span><label for="t-${t.id}">${esc(t.title)}</label></span>
+              <button class="small danger" data-act="deltask" data-id="${t.id}" aria-label="Remove ${esc(t.title)}">Remove</button></div>`).join('')}
+          <form class="addrow" data-act="addtask"><input type="text" placeholder="Add a daily task" aria-label="New daily task" autocomplete="off"><button class="primary" type="submit">Add</button></form>
+        </section>
+        ${sugg.length ? `<section class="card"><span class="card-title">Suggested daily tasks</span><p class="card-sub">Tap to add one to your daily list.</p>
+          <div class="chips">${sugg.map(h => `<button class="chip" type="button" data-act="suggest" data-title="${esc(h)}">${esc(h)}</button>`).join('')}</div></section>` : ''}
+        <section class="card">
+          <label class="card-title" for="notes">Notes &amp; goals</label>
+          <p class="card-sub">What does a 10 out of 10 look like here? Saved when you click away.</p>
+          <textarea id="notes" data-act="notes" placeholder="Goals, ideas and details for ${esc(a.name)}...">${esc(a.notes)}</textarea>
+        </section>
+      </div>
+      <div class="col">
+        <section class="card">
+          <span class="card-title">Last 30 days</span>
+          <div class="kpis">
+            <div><b>${st.streak}</b><span>Day streak</span></div>
+            <div><b>${st.rate === null ? '–' : st.rate + '%'}</b><span>Completion</span></div>
+            <div><b>${st.last30}</b><span>Check-ins</span></div>
+          </div>
+          <div class="heat" aria-label="Daily check-ins over the last 30 days">${heat}</div>
+          <div class="heat-legend"><span>30 days ago</span><span>Today</span></div>
+        </section>
+        <section class="card">
+          <span class="card-title">What to know</span>
+          <ol class="tips">${m.tips.map(t => `<li>${esc(t)}</li>`).join('')}</ol>
+        </section>
+        <button class="small danger del-area" type="button" data-act="delarea">Delete this area</button>
+      </div>
+    </div>`;
+}
+async function toggleTask(id, checked) {
   const day = todayStr();
   try {
-    if (e.target.checked) {
+    if (checked) {
       const row = await run(sb.from('checkins').insert({ task_id: id, day }).select().single());
       state.checkins.push(row);
     } else {
@@ -508,74 +899,82 @@ $('#view-today').addEventListener('change', async e => {
       state.checkins = state.checkins.filter(c => !(c.task_id === id && c.day === day));
     }
   } catch (_) {}
-  renderToday();
-});
-
-function renderAreas() {
-  let html = '';
-  state.areas.forEach(a => {
-    const ts = state.tasks.filter(t => t.area_id === a.id);
-    html += `<div class="card" data-area="${a.id}">
-      <div class="area-head">
-        <h3>${esc(a.icon)} ${esc(a.name)}</h3>
-        <label class="row muted"><input type="checkbox" data-act="active" ${a.active ? 'checked' : ''}> Active</label>
-      </div>
-      <div class="score"><span class="muted">Satisfaction</span>
-        <input type="range" min="1" max="10" value="${a.score ?? 5}" data-act="score"><strong>${a.score ?? 5}</strong>/10</div>
-      <textarea data-act="notes" placeholder="Notes, goals, details for this area...">${esc(a.notes)}</textarea>
-      <div style="margin-top:10px">${ts.map(t => `<div class="task"><span>${esc(t.title)}</span>
-        <button class="small danger" data-act="deltask" data-id="${t.id}">Remove</button></div>`).join('')}</div>
-      <div class="row" style="margin-top:8px"><input type="text" placeholder="Add a daily task" data-new="task">
-        <button class="small primary" data-act="addtask">Add</button></div>
-      <div style="margin-top:10px;text-align:right"><button class="small danger" data-act="delarea">Delete area</button></div>
-    </div>`;
-  });
-  html += `<div class="card"><strong>Add a new life area</strong>
-    <div class="row" style="margin-top:8px"><input type="text" id="newarea" placeholder="e.g. Business, Family, Faith"><button class="primary" id="addarea">Add</button></div></div>`;
-  $('#view-areas').innerHTML = html;
 }
-$('#view-areas').addEventListener('click', async e => {
-  if (e.target.id === 'addarea') {
-    const name = $('#newarea').value.trim(); if (!name) return;
-    try {
-      const row = await run(sb.from('areas').insert({ name, icon: '⭐', score: 5, active: false, position: state.areas.length }).select().single());
-      state.areas.push(row);
-    } catch (_) {}
-    return renderAreas();
-  }
-  const act = e.target.dataset.act; if (!act) return;
-  const card = e.target.closest('[data-area]'); const areaId = card?.dataset.area;
+async function addTask(areaId, title) {
+  const row = await run(sb.from('tasks').insert({ area_id: areaId, title }).select().single());
+  state.tasks.push(row);
+}
+const currentArea = () => { const r = route(); return r.view === 'area' ? state.areas.find(x => String(x.id) === r.id) : null; };
+$('#view-area').addEventListener('submit', async e => {
+  if (e.target.dataset.act !== 'addtask') return;
+  e.preventDefault();
+  const a = currentArea(), input = e.target.querySelector('input'), title = input.value.trim();
+  if (!a || !title) return;
+  try { await addTask(a.id, title); render(); } catch (_) {}
+});
+$('#view-area').addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const a = currentArea(); if (!a) return;
+  const act = el.dataset.act;
   try {
-    if (act === 'addtask') {
-      const input = card.querySelector('[data-new=task]'); const title = input.value.trim(); if (!title) return;
-      const row = await run(sb.from('tasks').insert({ area_id: areaId, title }).select().single());
-      state.tasks.push(row); renderAreas();
-    } else if (act === 'deltask') {
-      await run(sb.from('tasks').delete().eq('id', e.target.dataset.id));
-      state.tasks = state.tasks.filter(t => t.id !== e.target.dataset.id);
-      state.checkins = state.checkins.filter(c => c.task_id !== e.target.dataset.id); renderAreas();
+    if (act === 'suggest') { await addTask(a.id, el.dataset.title); render(); }
+    else if (act === 'deltask') {
+      await run(sb.from('tasks').delete().eq('id', el.dataset.id));
+      state.tasks = state.tasks.filter(t => t.id !== el.dataset.id);
+      state.checkins = state.checkins.filter(c => c.task_id !== el.dataset.id); render();
     } else if (act === 'delarea') {
-      if (!confirm('Delete this area and all its tasks and history?')) return;
-      await run(sb.from('areas').delete().eq('id', areaId));
-      const ids = state.tasks.filter(t => t.area_id === areaId).map(t => t.id);
-      state.areas = state.areas.filter(a => a.id !== areaId);
-      state.tasks = state.tasks.filter(t => t.area_id !== areaId);
-      state.checkins = state.checkins.filter(c => !ids.includes(c.task_id)); renderAreas();
+      if (!confirm(`Delete "${a.name}" and all its tasks and history?`)) return;
+      await run(sb.from('areas').delete().eq('id', a.id));
+      const ids = tasksOf(a).map(t => t.id);
+      state.areas = state.areas.filter(x => x.id !== a.id);
+      state.tasks = state.tasks.filter(t => t.area_id !== a.id);
+      state.checkins = state.checkins.filter(c => !ids.includes(c.task_id));
+      location.hash = '#home';
     }
   } catch (_) {}
 });
-$('#view-areas').addEventListener('change', async e => {
-  const act = e.target.dataset.act; const card = e.target.closest('[data-area]'); if (!act || !card) return;
-  const a = state.areas.find(x => x.id === card.dataset.area);
+$('#view-area').addEventListener('input', e => { if (e.target.dataset.act === 'score') $('#scoreval').textContent = e.target.value; });
+$('#view-area').addEventListener('change', async e => {
+  const a = currentArea(); if (!a) return;
+  if (e.target.dataset.task) { await toggleTask(e.target.dataset.task, e.target.checked); return render(); }
+  const act = e.target.dataset.act;
   const patch = act === 'active' ? { active: e.target.checked } : act === 'score' ? { score: +e.target.value } : act === 'notes' ? { notes: e.target.value } : null;
   if (!patch) return;
-  try { await run(sb.from('areas').update(patch).eq('id', a.id)); Object.assign(a, patch); } catch (_) {}
-  if (act === 'score') e.target.nextElementSibling.textContent = e.target.value;
-});
-$('#view-areas').addEventListener('input', e => {
-  if (e.target.dataset.act === 'score') e.target.nextElementSibling.textContent = e.target.value;
+  try {
+    await run(sb.from('areas').update(patch).eq('id', a.id)); Object.assign(a, patch);
+    if (act === 'notes') toast('Notes saved'); else render();
+  } catch (_) {}
 });
 
+// ---------- Today ----------
+function renderToday() {
+  const day = todayStr();
+  const done = new Set(state.checkins.filter(c => c.day === day).map(c => c.task_id));
+  const activeAreas = state.areas.filter(a => a.active);
+  const tasks = state.tasks.filter(t => activeAreas.some(a => a.id === t.area_id));
+  const pct = tasks.length ? Math.round(tasks.filter(t => done.has(t.id)).length / tasks.length * 100) : 0;
+  let html = `<div class="card"><div class="eyebrow">${esc(greeting())}</div><strong style="margin-top:6px">Today&rsquo;s focus</strong>
+    <div class="bar"><div style="width:${pct}%"></div></div><div class="muted">${pct}% of today's tasks done</div></div>`;
+  if (!activeAreas.length) html += '<div class="card muted">No focus areas yet. Open an area from Home and make it a focus area.</div>';
+  activeAreas.forEach(a => {
+    const m = metaOf(a), ts = tasksOf(a);
+    html += `<div class="card" style="--c:${m.color};--t:${m.color}30"><div class="row" style="justify-content:space-between">
+      <a href="#area/${a.id}" class="row" style="gap:12px;color:inherit;text-decoration:none"><span class="ic">${iconSVG(m, a, 20)}</span><strong style="font-family:var(--serif);font-size:1.45rem">${esc(a.name)}</strong></a>
+      <a class="back" href="#area/${a.id}" style="min-height:0">Open &rarr;</a></div>`;
+    html += ts.length ? ts.map(t => `<label class="task ${done.has(t.id) ? 'done' : ''}">
+        <input type="checkbox" data-task="${t.id}" ${done.has(t.id) ? 'checked' : ''}><span>${esc(t.title)}</span></label>`).join('')
+      : `<div class="muted" style="margin-top:10px">No daily tasks yet. <a href="#area/${a.id}" style="color:var(--gold-hi)">Add some</a>.</div>`;
+    html += '</div>';
+  });
+  $('#view-today').innerHTML = html;
+}
+$('#view-today').addEventListener('change', async e => {
+  const id = e.target.dataset.task; if (!id) return;
+  await toggleTask(id, e.target.checked);
+  renderToday();
+});
+
+// ---------- Progress ----------
 function renderProgress() {
   $('#view-progress').innerHTML = `
     <div class="card"><div class="row" style="justify-content:space-between"><strong>Daily completion</strong>
@@ -607,15 +1006,13 @@ function renderProgress() {
 
   let rows = '<tr><th>Area</th><th>Rate</th><th>Streak</th><th>Score</th></tr>';
   state.areas.forEach(a => {
-    const ids = new Set(state.tasks.filter(t => t.area_id === a.id).map(t => t.id));
+    const ids = new Set(tasksOf(a).map(t => t.id));
     const cis = state.checkins.filter(c => ids.has(c.task_id));
     const from = daysAgo(state.range - 1);
     const done = cis.filter(c => c.day >= from).length;
     const rate = ids.size ? Math.round(done / (ids.size * state.range) * 100) : 0;
-    const days = new Set(cis.map(c => c.day));
-    let streak = 0, i = days.has(todayStr()) ? 0 : 1;
-    while (days.has(daysAgo(i))) { streak++; i++; }
-    rows += `<tr><td>${esc(a.icon)} ${esc(a.name)}</td><td>${ids.size ? rate + '%' : '-'}</td><td>${streak ? streak + ' day' + (streak > 1 ? 's' : '') : '-'}</td><td>${a.score ?? '-'}/10</td></tr>`;
+    const streak = streakOf(new Set(cis.map(c => c.day)));
+    rows += `<tr><td><a href="#area/${a.id}">${esc(a.name)}</a></td><td>${ids.size ? rate + '%' : '-'}</td><td>${streak ? streak + ' day' + (streak > 1 ? 's' : '') : '-'}</td><td>${scoreOf(a)}/10</td></tr>`;
   });
   $('#areatable').innerHTML = rows;
 }
