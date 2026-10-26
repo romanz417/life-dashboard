@@ -121,9 +121,17 @@
   .mini > div { height:100%; border-radius:99px; background:var(--c); }
   .go { margin-left:auto; display:inline-flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; border:1px solid var(--line); color:var(--gold-hi); font-size:1rem; transition:transform .25s ease, background .25s ease; }
   .acard:hover .go { transform:translateX(3px); background:rgba(212,175,55,.14); }
-  .acard.add { border-style:dashed; border-color:rgba(212,175,55,.35); background:rgba(255,255,255,.02); justify-content:center; }
-  .acard.add:hover { transform:none; }
-  .acard.add h4 { font-size:1.4rem; }
+  .acard.add { min-height:360px; justify-content:flex-end; gap:12px; cursor:text; border:1px dashed rgba(212,175,55,.55);
+    background:radial-gradient(380px 280px at 100% 0%, rgba(212,175,55,.18), transparent 70%), repeating-linear-gradient(135deg, rgba(255,255,255,.022) 0 2px, transparent 2px 16px), linear-gradient(160deg, #1A1A24, #0B0B10); }
+  .acard.add:hover { transform:translateY(-4px); border-color:rgba(243,222,152,.85); }
+  .acard.add:focus-within { border-style:solid; border-color:var(--gold-hi); box-shadow:0 0 0 4px rgba(212,175,55,.14), 0 26px 54px rgba(0,0,0,.55); }
+  .acard.add h4 { margin:0; font-size:2rem; }
+  .add-plus { position:absolute; top:22px; right:22px; display:flex; align-items:center; justify-content:center; width:58px; height:58px; border-radius:50%; background:var(--goldgrad); color:#17130A; box-shadow:0 12px 30px rgba(212,175,55,.35); transition:transform .3s; }
+  .acard.add:hover .add-plus, .acard.add:focus-within .add-plus { transform:rotate(90deg); }
+  .add-sugg { margin-top:0; }
+  .add-sugg .chip { min-height:36px; padding:0 13px; font-size:.8rem; }
+  .acard.add .addrow { margin-top:4px; }
+  .acard.add .switch { min-height:36px; font-size:.84rem; color:var(--muted); }
 
   /* ---- Photo life-area cards ---- */
   .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0; }
@@ -480,9 +488,16 @@
     .ic { width:42px; height:42px; border-radius:13px; }
     .badge { top:16px; left:68px; }
     .acard:not(.is-focus) .foot .mini { display:none; }
-    .acard.add { grid-column:span 1; min-height:190px; }
+    .acard.add { grid-column:span 2; min-height:0; padding:18px; }
     .acard.add p { display:none; }
-    .acard.add .addrow { flex-direction:column; }
+    .acard.add h4 { font-size:1.5rem; }
+    .add-plus { top:16px; right:16px; width:46px; height:46px; }
+    .acard.add.half { grid-column:span 1; padding:14px; }
+    .acard.add.half h4 { font-size:1.2rem; padding-right:40px; }
+    .acard.add.half .add-sugg, .acard.add.half .eyebrow { display:none; }
+    .acard.add.half .addrow { flex-direction:column; }
+    .acard.add.half .add-plus { top:12px; right:12px; width:38px; height:38px; }
+    .acard.add.half .switch { font-size:.74rem; }
     .ahero { border-radius:24px; }
     .ah-l { gap:16px; }
     .ic.big { width:60px; height:60px; border-radius:18px; }
@@ -1855,10 +1870,16 @@ function renderHome(animate) {
     <div class="sec-head"><div><div class="eyebrow">Maisha yako &middot; Your life</div><h3>Your life areas</h3></div><p>Nine parts of one life. Open any area for its tasks, progress, notes and guidance.</p></div>
     <div class="areas">`;
   state.areas.forEach((a, i) => { html += areaCard(a, i, animate); });
-  html += `<form class="acard add${animate ? ' rise' : ''}" id="addareaform" style="--i:${state.areas.length}">
+  const sugg = ['Business', 'Family', 'Side hustle', 'Travel', 'Giving'].filter(n => !state.areas.some(a => a.name.toLowerCase() === n.toLowerCase())).slice(0, 4);
+  const oddSingles = state.areas.filter(a => !a.active).length % 2 === 1;   // on phones, fill the empty half-row
+  html += `<form class="acard add${oddSingles ? ' half' : ''}${animate ? ' rise' : ''}" id="addareaform" style="--i:${state.areas.length}" novalidate>
+      <span class="add-plus" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="eyebrow">New life area</div>
       <h4>Add a life area</h4>
-      <p>Business, family, a big goal. Anything you want to track.</p>
-      <div class="addrow"><label for="newarea" class="lbl" hidden>New area name</label><input type="text" id="newarea" placeholder="e.g. Business" autocomplete="off"><button class="primary" type="submit">Add</button></div>
+      <p>Business, family, a big goal. Anything you want to track gets its own card, page, tasks and goals.</p>
+      ${sugg.length ? `<div class="chips add-sugg">${sugg.map(n => `<button class="chip" type="button" data-newname="${esc(n)}">${esc(n)}</button>`).join('')}</div>` : ''}
+      <div class="addrow"><label for="newarea" class="sr-only">New area name</label><input type="text" id="newarea" placeholder="Name your new area" autocomplete="off" maxlength="40"><button class="primary" type="submit">Add</button></div>
+      <label class="switch"><input type="checkbox" id="newfocus"> Make it a focus area</label>
     </form></div>`;
   $('#view-home').innerHTML = html;
 }
@@ -1871,12 +1892,22 @@ $('#view-home').addEventListener('focusout', e => { if (e.target.closest('.petal
 $('#view-home').addEventListener('submit', async e => {
   if (e.target.id !== 'addareaform') return;
   e.preventDefault();
-  const name = $('#newarea').value.trim(); if (!name) return;
+  const input = $('#newarea'), name = input.value.trim();
+  if (!name) { input.focus(); return toast('Type a name for your new area first, or tap a suggestion'); }
+  if (state.areas.some(a => a.name.toLowerCase() === name.toLowerCase())) { input.focus(); return toast(`You already have "${name}"`); }
+  const btn = e.target.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Adding…';
   try {
-    const row = await run(sb.from('areas').insert({ name, icon: '⭐', score: 5, active: false, position: state.areas.length }).select().single());
-    state.areas.push(row);
+    const row = await run(sb.from('areas').insert({ name, icon: '⭐', score: 5, active: $('#newfocus').checked, position: state.areas.length }).select().single());
+    state.areas.push(row); toast(`"${name}" added. Set it up here.`);
     location.hash = '#area/' + row.id;
-  } catch (_) {}
+  } catch (_) { btn.disabled = false; btn.textContent = 'Add'; }
+});
+// suggestions fill the name; tapping anywhere on the card jumps to the name box
+$('#view-home').addEventListener('click', e => {
+  const card = e.target.closest('#addareaform'); if (!card) return;
+  const s = e.target.closest('[data-newname]');
+  if (s) { $('#newarea').value = s.dataset.newname; $('#newarea').focus(); return; }
+  if (!e.target.closest('input, button, label')) $('#newarea').focus();
 });
 
 // ---------- Area page ----------
