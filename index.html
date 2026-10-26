@@ -745,8 +745,59 @@
   .sp-jn li { padding:12px 14px; border-left:2px solid var(--gold); background:rgba(255,255,255,.03); border-radius:0 12px 12px 0; }
   .sp-jn b { display:block; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin-bottom:4px; }
   .sp-jn p { margin:0; font-family:var(--serif); font-style:italic; font-size:1.06rem; color:#E4DCC6; line-height:1.4; white-space:pre-line; }
+  .sp-nav { display:flex; align-items:center; gap:8px; padding:5px; border-radius:99px; border:1px solid var(--line); background:rgba(255,255,255,.04); }
+  .sp-nav span { min-width:84px; text-align:center; font-size:.74rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-hi); }
+  .sp-nav button { width:38px; height:38px; padding:0; border-radius:50%; }
+  .sp-nav button:disabled { opacity:.35; cursor:default; }
+  .sp-rail60 { display:flex; gap:10px; margin:24px 0 10px; }
+  .sp-ph { display:grid; grid-auto-flow:column; grid-auto-columns:minmax(0,1fr); gap:3px; padding-top:10px; border-top:2px solid rgba(212,175,55,.35); }
+  .sp-ph i { height:22px; border-radius:5px; background:rgba(255,255,255,.07); }
+  .sp-ph i.done { background:var(--goldgrad); }
+  .sp-ph i.part { background:rgba(212,175,55,.38); }
+  .sp-ph i.miss { background:rgba(255,138,128,.16); }
+  .sp-ph i.now { outline:2px solid var(--gold-hi); outline-offset:2px; box-shadow:0 0 16px rgba(212,175,55,.6); }
+  .sp-railkey { display:flex; flex-wrap:wrap; gap:6px 16px; margin-bottom:26px; font-size:.72rem; color:var(--muted); }
+  .sp-railkey b { display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+  .sp-railkey .k-done { background:var(--goldgrad); } .sp-railkey .k-part { background:rgba(212,175,55,.38); } .sp-railkey .k-miss { background:rgba(255,138,128,.3); }
+  .sp-railkey .r { flex-basis:100%; color:#E4DCC6; }
+  .sp-chks { display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+  .sp-chk { display:flex; align-items:center; gap:14px; padding:14px 16px; border-radius:16px; border:1px solid var(--line2); background:rgba(255,255,255,.03); cursor:pointer; transition:border-color .2s, background .2s; }
+  .sp-chk:hover { border-color:var(--line); }
+  .sp-chk input { position:absolute; opacity:0; width:1px; height:1px; }
+  .sp-chk .box { flex:none; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:9px; border:1.5px solid rgba(212,175,55,.55); color:transparent; font-size:.95rem; font-weight:800; }
+  .sp-chk.on { border-color:rgba(243,222,152,.45); background:rgba(212,175,55,.08); }
+  .sp-chk.on .box { background:var(--goldgrad); border-color:transparent; color:#17130A; }
+  .sp-chk.on .tx b { color:var(--muted); text-decoration:line-through; text-decoration-color:rgba(212,175,55,.6); }
+  .sp-chk input:focus-visible + .box { outline:2px solid var(--gold-hi); outline-offset:2px; }
+  .sp-chk.locked { cursor:default; opacity:.75; }
+  .sp-chk .tx { flex:1; display:flex; flex-direction:column; gap:3px; min-width:0; }
+  .sp-chk .tx b { font-weight:600; font-size:.94rem; line-height:1.4; color:#F2EAD3; }
+  .sp-chk .tx small { font-size:.8rem; color:var(--muted); line-height:1.4; }
+  .sp-items { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .sp-items li { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid var(--line2); }
+  .sp-items li > label, .sp-items li > span { flex:1; display:flex; align-items:center; gap:12px; min-width:0; cursor:pointer; }
+  .sp-items li > span { cursor:default; flex-direction:column; align-items:flex-start; gap:2px; }
+  .sp-items label span { display:flex; flex-direction:column; gap:2px; }
+  .sp-items input { width:20px; height:20px; flex:none; }
+  .sp-items small { font-size:.74rem; color:var(--muted); }
+  .sp-items li.on { border-color:rgba(243,222,152,.4); }
+  .sp-items.wish li > span { font-family:var(--serif); font-size:1.15rem; font-weight:600; color:#FFF6DC; }
+  .sp-items.wish small { font-family:var(--sans); }
+  .sp-items.wish li.on > span { color:var(--gold-hi); }
+  .sp-items .danger { padding:4px 10px; }
+  .sp-gold { color:var(--gold-hi); border-color:var(--line); white-space:nowrap; }
+  .sp-empty { margin:14px 0 0; color:var(--muted); font-size:.88rem; font-style:italic; }
+  .sp-goal { margin-top:12px; }
+  .sp-goal > div:first-child { display:flex; justify-content:space-between; gap:10px; font-size:.86rem; color:#E4DCC6; }
+  .sp-goal b { font-family:var(--serif); font-size:1.05rem; color:var(--gold-hi); }
+  .sp-goal .bar { margin:6px 0 0; height:8px; }
+  .sp-goal.ok .bar > div { background:linear-gradient(90deg,#B5C94B,#F3DE98); }
+  .sx-hunch { width:100%; max-width:440px; }
   @media (max-width:820px) {
     .sp-jbody, .sp-pair { grid-template-columns:1fr; }
+    .sp-rail60 { gap:5px; }
+    .sp-ph { gap:2px; }
+    .sp-ph i { height:16px; border-radius:3px; }
     .sp-journey { padding:24px 18px; }
     .sp-rail i { width:24px; height:24px; font-size:.78rem; }
     .sp-rail::before { top:11px; }
@@ -917,7 +968,7 @@ const DEFAULT_AREAS = [
 let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], targets: [], expenses: [],
   openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
   budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false,
-  spirit: [], affOff: 0, spAll: false };
+  spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null };
 let chart = null;
 
 function toast(msg) {
@@ -1087,6 +1138,7 @@ async function load() {
   state.budgets = await soft(sb.from('budgets').select('*'));
   state.plan = await soft(sb.from('plan_items').select('*').order('position'));
   state.spirit = await soft(sb.from('spirit_logs').select('*').order('day'));
+  state.spiritItems = await soft(sb.from('spirit_items').select('*').order('created_at'));
 }
 // like run(), but an error leaves the app working with an empty list
 async function soft(promise) {
@@ -1147,7 +1199,7 @@ const META = [
     proverb: 'Mungu ni mwema', meaning: 'God is good', lang: 'Swahili',
     blurb: 'Awareness, consciousness and the creative power of your inner word.',
     habits: ['Speak one affirmation when stress shows up', 'Catch and restate one negative sentence', 'Write one thing you are grateful for', 'Do one quiet act of kindness'],
-    tips: ['Your attention is your power. What you dwell on with feeling tends to grow.', 'Never miss twice. On a busy day, two minutes still keeps the thread unbroken.', 'The drowsy moments before sleep are when the mind is most open. Use them.', 'Watch your words. Restate anything you would not want to come true.'] },
+    tips: ['Life is a game of giving and receiving. What you send out in word and feeling comes back.', 'Ask for a clear lead every morning, and follow hunches quickly, before doubt talks you out of them.', 'Never miss twice. On a busy day, a 2-minute meditation and one task keep the thread unbroken.', 'Watch your words. Restate anything you would not want to come true.'] },
   { re: /fun|recreation|hobby|rest|play/i, short: 'Fun', color: '#F08A4B', icon: 'fun',
     photo: 'photo-1768244016470-271b210a8407', credit: 'Brian Kungu', pos: '50% 35%',
     proverb: 'Furahia maisha', meaning: 'Enjoy life', lang: 'Swahili',
@@ -1994,99 +2046,246 @@ function renderArea(id, animate, sub = 'overview') {
       </div>
     </div>` : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
 }
-// ---------- Spiritual Life: a guided path of awareness (New Thought teachers, in our own words) ----------
-const JOURNEY = [
-  { t: 'The Watcher Within', who: 'Neville Goddard', read: 'The Power of Awareness', when: 'morning',
-    teach: 'Before any thought, feeling or plan, there is the simple awareness that you exist: the quiet sense of "I am". Neville taught that this awareness is your true self, and that whatever you join to "I am", you begin to become.',
-    steps: ['Sit comfortably and close your eyes.', 'Watch your thoughts come and go without following them.', 'Notice the one who is watching. Rest there, in the plain feeling "I am".', 'Finish by saying slowly: "I am peace. I am purpose."'],
-    prompt: 'What did you notice about the part of you that watches your thoughts?',
-    aff: 'I am the awareness behind my thoughts, and I choose them wisely.' },
-  { t: 'The Garden of the Mind', who: 'James Allen', read: 'As a Man Thinketh', when: 'morning',
-    teach: 'Allen compared the mind to a garden. Whatever is planted, by choice or by neglect, will grow. Over time, your circumstances become the harvest of your habitual thinking.',
-    steps: ['Through the day, notice the thoughts you return to most.', 'Name one weed: a thought that drains your peace.', 'Choose a seed to plant in its place, and repeat it whenever the weed appears.'],
-    prompt: 'Which weed did you find, and what seed are you planting instead?',
-    aff: 'My mind is a garden. Today I plant only what I wish to grow.' },
-  { t: 'The Listening Subconscious', who: 'Joseph Murphy', read: 'The Power of Your Subconscious Mind', when: 'evening',
-    teach: 'Murphy taught that the subconscious accepts whatever the conscious mind impresses on it with belief and feeling, then works day and night to bring it about. It listens most openly in the drowsy moments before sleep.',
-    steps: ['As you lie down tonight, choose one short phrase, such as "Peace and purpose fill my life."', 'Let your body grow heavy and relaxed.', 'Repeat the phrase softly, like a lullaby, until you drift off.'],
-    prompt: 'What phrase did you give your subconscious, and how did it feel to fall asleep with it?',
-    aff: 'My subconscious mind accepts only peace, health and purpose.' },
-  { t: 'The Spoken Word', who: 'Florence Scovel Shinn', read: 'The Game of Life and How to Play It', when: 'morning',
-    teach: 'Scovel Shinn taught that words are seeds that carry power, and that we shape our experience by what we repeatedly declare. She urged her students to watch their words and speak only what they wish to see.',
-    steps: ['Speak today’s affirmations aloud, slowly, three times each.', 'During the day, catch one negative statement you make.', 'Restate it out loud as what you want instead.'],
-    prompt: 'Which words did you catch yourself using, and how did you restate them?',
-    aff: 'Every word I speak today builds the life I desire.' },
-  { t: 'Imagination Creates', who: 'Neville Goddard', read: 'Feeling Is the Secret', when: 'morning',
-    teach: 'Neville saw imagination not as fantasy but as the creative power within you. What you imagine vividly and persistently, while feeling it as real, tends to harden into fact.',
-    steps: ['Decide one thing you truly want in the next three months.', 'Ask: what would I see or hear if it were already done?', 'Build a scene a few seconds long that implies it is done, such as a friend congratulating you.'],
-    prompt: 'Describe your scene. Who is there, and what is said?',
-    aff: 'I imagine with feeling, and my world takes shape around it.' },
-  { t: 'The Wish Fulfilled', who: 'Neville Goddard', read: 'Feeling Is the Secret', when: 'evening',
-    teach: 'For Neville, feeling is the secret. Seeing the scene is not enough. You step inside it and feel the relief, joy and naturalness of the wish already fulfilled, best of all in the drowsy state close to sleep.',
-    steps: ['Lie down and relax until you feel drowsy, as if about to fall asleep.', 'Run yesterday’s scene in the first person, from inside it.', 'Loop it until it feels natural and real, then fall asleep in that feeling.'],
-    prompt: 'What did the fulfilled feeling feel like in your body?',
-    aff: 'I rest in the feeling that it is already done.' },
-  { t: 'Revision', who: 'Neville Goddard', read: 'Awakened Imagination', when: 'evening',
-    teach: 'Neville taught that each night you can revise the day: replay a moment that went badly as you wish it had gone, until the new version feels true. In doing so you release the old event instead of carrying it forward.',
-    steps: ['Tonight, review your day backwards, from now to the moment you woke.', 'Stop at one moment you would change.', 'Replay it as you wish it had happened, two or three times, until it feels real.'],
-    prompt: 'Which moment did you revise, and how does it sit with you now?',
-    aff: 'I let go of what was. I revise, renew and begin again.' },
-  { t: 'Living from the End', who: 'Neville Goddard', read: 'The Power of Awareness', when: 'morning',
-    teach: 'Rather than thinking about your goal, you think from it. Neville encouraged his listeners to take on the mood, posture and choices of the person who already has what they want.',
-    steps: ['Picture yourself three months from now, with peace and purpose fully alive.', 'Ask: how would that person spend this morning?', 'Make one choice today the way that person would.'],
-    prompt: 'What choice did you make from the end today?',
-    aff: 'I live from the end. I am already the person I wish to be.' },
-  { t: 'Gratitude & Receiving', who: 'Wallace D. Wattles', read: 'The Science of Getting Rich', when: 'morning',
-    teach: 'Wattles held that gratitude keeps the mind in close harmony with the source of all good. A thankful mind expects the best and so moves toward it. A complaining mind closes the door.',
-    steps: ['Write down ten things you are grateful for right now.', 'Add one thing you are asking for, and give thanks for it as if already received.', 'Read the whole list aloud, slowly.'],
-    prompt: 'What did you give thanks for in advance?',
-    aff: 'I am grateful in advance for the good that is on its way.' },
-  { t: 'The Mental Diet', who: 'Emmet Fox', read: 'The Seven Day Mental Diet', when: 'morning',
-    teach: 'Fox proposed a simple challenge: for seven days, refuse to dwell on any negative thought. You cannot stop thoughts arriving, but you can decline to entertain them and turn your attention gently to something good.',
-    steps: ['Begin a seven-day mental diet today.', 'When a negative thought comes, do not fight it. Simply turn to its opposite.', 'If you slip, notice it, smile and start again.'],
-    prompt: 'Which thought kept coming back, and what did you turn to instead?',
-    aff: 'I release worry. What is mine comes to me in perfect timing.' },
-  { t: 'Divine Design', who: 'Florence Scovel Shinn', read: 'The Game of Life and How to Play It', when: 'morning',
-    teach: 'Scovel Shinn spoke of a divine design for every life: a perfect plan, and a place only you can fill. Her advice was to ask to be shown it, then watch for leads such as hunches, ideas and doors that open.',
-    steps: ['Ask quietly: "Show me the plan for my life, and give me a clear lead."', 'During the day, note any hunch, idea or coincidence.', 'Follow one small lead, even if it seems minor.'],
-    prompt: 'What lead appeared, and what does it tell you about your purpose?',
-    aff: 'I am guided, step by step, into the life I was made for.' },
-  { t: 'Spiritual Mind Treatment', who: 'Ernest Holmes', read: 'The Science of Mind', when: 'evening',
-    teach: 'Holmes taught a five-step affirmative prayer: recognise the one Life present everywhere, unify with it, declare your good as true now, give thanks, and release it. It brings everything on this path together.',
-    steps: ['Recognise: there is one Life, one Intelligence, present everywhere.', 'Unify: that Life is within me and expresses as me.', 'Realise: declare peace and purpose as true now. Give thanks, then release it, knowing it is done.'],
-    prompt: 'Write your own short treatment for peace and purpose.',
-    aff: 'Infinite intelligence guides my decisions, and my life is good.' }
+// ---------- Spiritual Life: 60 days with Florence Scovel Shinn (teachings summarised in our own words) ----------
+const PROGRAM_START = '2026-10-27', PROGRAM_DAYS = 60;
+const BOOKS = {
+  GL: { n: 'The Game of Life and How to Play It', y: 1925, min: 15 },
+  YW: { n: 'Your Word Is Your Wand', y: 1928, min: 5 },
+  SD: { n: 'The Secret Door to Success', y: 1940, min: 15 },
+  PS: { n: 'The Power of the Spoken Word', y: 1945, min: 15 }
+};
+const PHASES = [
+  { from: 1, to: 18, b: 'GL', name: 'Learn the Game', focus: 'Learn the spiritual laws, write your wishes and start trusting your hunches.', days: 14, hunch: 10, follow: 3, wishes: 3 },
+  { from: 19, to: 32, b: 'YW', name: 'Your Word Is Your Wand', focus: 'Make the spoken word a daily habit and act on your leads.', days: 11, hunch: 10, follow: 4 },
+  { from: 33, to: 46, b: 'SD', name: 'The Secret Door', focus: 'Expect, prepare and step through the doors that open.', days: 11, hunch: 12, follow: 5 },
+  { from: 47, to: 55, b: 'PS', name: 'The Spoken Word', focus: 'Speak with authority and act fearlessly on your guidance.', days: 7, hunch: 8, follow: 4 },
+  { from: 56, to: 60, b: 'GL', name: 'Victory & Fulfilment', focus: 'Review, give thanks and set the next season.', days: 4, hunch: 5, follow: 2 }
 ];
+const GOALS60 = { days: 50, hunch: 45, follow: 18, manifest: 1 };
+// [book, chapter no, chapter title, teaching, [task 1, task 2], affirmation, journal prompt]
+const P = [
+  ['GL', 1, 'The Game', 'Shinn opens by saying life is not a battle but a game, played by spiritual law. Whatever you send out in word, thought and deed comes back to you, and imagination draws the pattern your life follows.',
+    ['Write your three biggest wishes for the next two months in your Wish list below.', 'Notice one thing you send out today (a word, a mood, a judgement) and what comes back.'],
+    'I play the game of life with joy, and good returns to me.', 'What am I sending out most often, and is it what I want back?'],
+  ['GL', 1, 'The Game', 'She describes three parts of mind: the subconscious, which simply carries out; the conscious mind, which sees appearances; and the superconscious, the divine mind within that holds your perfect plan.',
+    ['Write the three parts of mind in your own words, one line each.', 'Each time you worry today, say: "I hand this to the divine mind within me."'],
+    'The divine mind within me knows the way and shows it to me.', 'When have I felt guided by something wiser than my own thinking?'],
+  ['GL', 2, 'The Law of Prosperity', 'Shinn teaches that your source of supply is spirit, not one job or one person. Faith is shown by preparing for your good before it appears.',
+    ['Read "My supply comes from an endless source" aloud three times today.', 'Do one small act of preparation for a wish, as if it were already on its way.'],
+    'My supply flows from an endless source, through many channels.', 'Where am I limiting my supply to just one channel?'],
+  ['GL', 2, 'The Law of Prosperity', 'Fear and worry block the flow; giving and gratitude open it. She urged her students to act fearlessly, as if the good were already theirs.',
+    ['Give something freely today (time, help or money), however small, expecting nothing back.', 'Replace every "I can’t afford it" with "It is on its way to me."'],
+    'I give freely and I receive gladly.', 'How did it feel to give without expecting a return?'],
+  ['GL', 3, 'The Power of the Word', 'Your words are a force that shapes your experience. Whatever you speak with feeling tends to return to you, so speak only what you wish to see.',
+    ['Catch three careless negative statements today and restate each one aloud.', 'Speak today’s affirmation aloud ten times, slowly.'],
+    'My words are seeds of good, and they bear good fruit.', 'Which negative words do I use most without noticing?'],
+  ['GL', 3, 'The Power of the Word', 'Shinn often gave a student one exact sentence to repeat until the situation changed. A short, clear word, repeated with conviction, does the work.',
+    ['Write a one-sentence affirmation for your biggest wish that feels true to you.', 'Say it every time you wash your hands today.'],
+    'I speak the word, and it is done in perfect ways.', 'Which words felt most alive when I said them?'],
+  ['GL', 4, 'The Law of Nonresistance', 'Nothing can stand against a person who does not resist. When you stop fighting a situation and bless it instead, it loses its hold on you.',
+    ['Choose one person or situation that annoys you and bless it silently three times today.', 'When you feel resistance, drop your shoulders and breathe out slowly before you respond.'],
+    'I bless every situation, and it works for my good.', 'What shifted when I stopped resisting?'],
+  ['GL', 5, 'The Law of Karma and the Law of Forgiveness', 'What you give returns to you, but forgiveness and grace can cancel old patterns. Forgiving others, and yourself, frees the energy you have tied up in the past.',
+    ['Write the name of one person to forgive and say aloud: "I forgive you and release you."', 'Write a few lines forgiving yourself for one past mistake.'],
+    'I forgive everyone, and the way opens for my good.', 'What did I feel when I let that person go?'],
+  ['GL', 5, 'The Law of Karma and the Law of Forgiveness', 'Shinn saw grace as stronger than old consequences. Kindness given freely keeps the law working in your favour.',
+    ['Do a kind act for someone who cannot repay you.', 'Write down one way life has been generous to you this week.'],
+    'I live under grace, free of old patterns.', 'Where has life already been generous to me?'],
+  ['GL', 6, 'Casting the Burden', 'To impress the subconscious, you hand the worry over completely to the spirit within. Once it is truly released, the superconscious takes charge of the answer.',
+    ['Write your biggest worry on paper, and beneath it: "I cast this burden and go free."', 'Each time the worry returns today, repeat that sentence once and move on.'],
+    'I cast this burden on the spirit within, and I go free.', 'What was hardest about letting go of this worry?'],
+  ['GL', 6, 'Casting the Burden', 'The subconscious accepts what you impress on it with feeling and repetition. Shinn found that once a burden is truly released, peace usually comes first, then the answer.',
+    ['Tonight, repeat your wish affirmation slowly until you fall asleep.', 'Tomorrow morning, write how you now feel about the worry you cast.'],
+    'I am at peace. The answer is on its way.', 'Did any answer or idea arrive after I let go?'],
+  ['GL', 7, 'Love', 'Love casts out fear, while resentment and jealousy block your good. Love that does not grasp draws its own back to you.',
+    ['Send a sincere, specific message of appreciation to someone today.', 'Notice one moment of resentment and replace it with good wishes for that person.'],
+    'Love flows through me and dissolves every fear.', 'Who do I find hardest to love, and what would change if I blessed them?'],
+  ['GL', 8, 'Intuition or Guidance', 'Intuition is a spiritual faculty. It does not explain; it simply points the way. Shinn urged her students to ask for clear leads and to follow them promptly.',
+    ['Start your Intuition log: write down every hunch or nudge today, however small.', 'Ask this morning: "Show me a clear lead today," then watch for it.'],
+    'I am divinely guided, and I follow the leads that come to me.', 'What did my first hunch today feel like in my body?'],
+  ['GL', 8, 'Intuition or Guidance', 'Guidance often comes as a quiet nudge, a remark someone makes, or a page that falls open. The key is to act quickly, before reasoning talks you out of it.',
+    ['Follow one small hunch today straight away, without arguing yourself out of it.', 'Tonight, write what happened when you followed it.'],
+    'I act on my intuition quickly and without fear.', 'What happened when I trusted the nudge?'],
+  ['GL', 8, 'Intuition or Guidance', 'Shinn taught that you can ask for a definite sign and receive one. Intuition grows stronger the more you trust it and use it.',
+    ['Before one decision today, pause, breathe and ask "Is this right?" Note your first yes or no.', 'Log at least two hunches today.'],
+    'My intuition grows clearer every day.', 'How does a true "yes" feel to me, compared with a "no"?'],
+  ['GL', 9, 'Perfect Self-Expression or the Divine Design', 'There is a divine design for every life: a place only you can fill and work only you can do. When you find it, work starts to feel like play.',
+    ['List five activities that make you lose track of time.', 'Say "Let the divine design of my life come through," and note any idea that follows.'],
+    'The divine design of my life now comes to pass.', 'What would I do even if nobody paid me?'],
+  ['GL', 9, 'Perfect Self-Expression or the Divine Design', 'Your true desires are clues to the divine design. Shinn taught asking only for what is divinely right for you, so you never have to force your way.',
+    ['Write one paragraph describing your life when you are living your divine design.', 'Take one 15-minute action toward it today.'],
+    'I ask only for what is divinely mine, and it comes in perfect ways.', 'Which of my wishes truly belongs to my divine design?'],
+  ['GL', 10, 'Denials and Affirmations', 'A denial clears away an old belief, and an affirmation plants a new one. Used together, they are like clearing a field and then sowing it.',
+    ['Write one denial and one affirmation for your biggest wish, e.g. "Fear has no power over me. I am free."', 'Speak both this morning and again tonight.'],
+    'Every false belief dissolves. Only good is true for me.', 'Which old belief am I most ready to deny?'],
+
+  ['YW', 1, 'Your Word Is Your Wand', 'Shinn’s second book is a book of affirmations. Her idea is that your word works like a magic wand: spoken with faith, it changes conditions.',
+    ['Copy the one sentence from this chapter that speaks to you most.', 'Carry it with you and say it five times today.'],
+    'My word is my wand, and I use it only for good.', 'What would change if I truly believed my words had power?'],
+  ['YW', 2, 'Success', 'She treats success as the natural result of doing your rightful work with confidence, not as luck.',
+    ['Write one success you want this month, in a single sentence.', 'Choose one success affirmation and say it before you start work.'],
+    'I am in my true place, and success follows me.', 'What does success this month look like, in plain terms?'],
+  ['YW', 3, 'Prosperity', 'Prosperity begins as a state of mind: gratitude for what you have, and expectation of more.',
+    ['Say your prosperity affirmation each time you spend money today.', 'List ten things of value you already have.'],
+    'I am rich in ideas, in friends and in every good thing.', 'What do I already have that I take for granted?'],
+  ['YW', 4, 'Happiness', 'Happiness is not a reward at the end of the road. It is a state you choose, and it draws more good to you.',
+    ['Do one thing purely for joy today.', 'Tonight, write three moments you enjoyed.'],
+    'Joy is my natural state, and it draws good to me.', 'When did I feel most alive today?'],
+  ['YW', 5, 'Love', 'The affirmations on love dissolve fear of loss and draw relationships that are right for you.',
+    ['Bless everyone you meet today, silently.', 'Do one act of loving service at home.'],
+    'I give love, and love comes back to me multiplied.', 'How did people respond when I blessed them?'],
+  ['YW', 7, 'Forgiveness', 'Forgiveness clears the channel for good to reach you. It is a release, not an approval.',
+    ['Write three names to forgive and release each one aloud.', 'Tonight, note whether you feel lighter.'],
+    'I release everyone, and I am released.', 'What am I still holding on to, and why?'],
+  ['YW', 8, 'Words of Wisdom', 'A collection of short sayings, best read slowly. Take one and live with it for the whole day.',
+    ['Pick the saying that challenges you most and write why.', 'Apply it in one real situation today.'],
+    'Wisdom guides my words and my choices.', 'How did the saying play out in my day?'],
+  ['YW', 9, 'Faith', 'For Shinn, faith is expectancy: acting as if your good has already been given.',
+    ['Do one thing today that shows you expect your wish to come.', 'Replace "I hope" with "I expect" every time you catch it.'],
+    'I expect my good, and I prepare for it.', 'What would I do differently if I fully expected my wish?'],
+  ['YW', 10, 'Loss', 'She taught that nothing that is truly yours can be lost. What is right for you returns, or is replaced by something better.',
+    ['Think of something you lost or missed, and say: "Nothing is lost in divine mind."', 'Release one regret in writing.'],
+    'What is mine by divine right cannot be lost.', 'What did a past loss make room for?'],
+  ['YW', 11, 'Debt', 'She saw debt partly as a belief in lack, and urged replacing thoughts of owing with thoughts of supply and gratitude, alongside practical steps.',
+    ['Bless one bill or obligation instead of resenting it.', 'Take one practical step on a debt today, however small.'],
+    'Every obligation is met with ease, and I am free.', 'How does my body feel when I think about money now?'],
+  ['YW', 14, 'Guidance', 'The affirmations on guidance ask for clear leads and the courage to follow them.',
+    ['Write one question you need guidance on at the top of a page.', 'Log every hunch that relates to it today.'],
+    'Infinite intelligence gives me clear and definite leads.', 'Which lead felt strongest today?'],
+  ['YW', 15, 'Protection', 'Shinn used words of protection to dissolve fear, so you can move through the day with confidence.',
+    ['Before you leave home, say a short word of protection for yourself and your family.', 'Notice and drop one fearful "what if" thought today.'],
+    'I am surrounded by divine protection wherever I go.', 'Which fear lost its grip today?'],
+  ['YW', 17, 'The Divine Design', 'Returning to her central idea: there is a perfect plan for your life, and affirming it draws you toward it.',
+    ['Re-read your divine design paragraph from Day 17 and update it.', 'Take one 20-minute action toward it.'],
+    'I fulfil my divine design, and every door opens.', 'How has my picture of the divine design changed?'],
+  ['YW', 31, 'Miscellaneous & Conclusion', 'The book closes with affirmations for every need. Choose the few that are yours and use them daily.',
+    ['Write your three favourite affirmations from this book on a card.', 'Review your Wish list. Has anything moved? Note any sign.'],
+    'I speak the word, and my good comes quickly.', 'What signs of my wishes have I noticed so far?'],
+
+  ['SD', 1, 'The Secret Door to Success', 'Her third book begins with the idea that success comes through an inner door. Right thinking and faith open the way when outer doors seem closed.',
+    ['Name one "closed door" in your life and affirm that a better door is opening.', 'Act on one opportunity you have been ignoring.'],
+    'The secret door to my success now opens.', 'Which door have I been knocking on that may be the wrong one?'],
+  ['SD', 2, 'Bricks Without Straw', 'When you seem to lack what you need, faith shows the way. You start with what you have, and supply appears as you move.',
+    ['Start one task today with what you already have, without waiting for perfect conditions.', 'List three resources you have overlooked.'],
+    'I begin with what I have, and supply meets me on the way.', 'What am I waiting for that I could start without?'],
+  ['SD', 3, 'And Five of Them Were Wise', 'Drawing on the parable of the wise and foolish virgins, she teaches readiness: keep your lamp of faith filled so you are prepared when your good arrives.',
+    ['Prepare for one wish as if it were coming this week: clear the space, make the plan.', 'Keep your lamp full: spend 10 quiet minutes today.'],
+    'I am ready for my good, and it finds me prepared.', 'How prepared am I, really, for my wish to arrive?'],
+  ['SD', 4, 'What Do You Expect?', 'You tend to receive what you expect. Your expectations are silent affirmations, so watch them closely.',
+    ['Write what you honestly expect about your biggest wish, then rewrite it as you want it.', 'Expect one good surprise today and look for it.'],
+    'I expect the best, and the best comes to me.', 'What surprise came, and did I expect it?'],
+  ['SD', 5, 'The Long Arm of God', 'Divine help can reach into any situation, however far away or impossible it seems.',
+    ['Name one situation that feels impossible and hand it over in words.', 'Note any unexpected help that arrives this week.'],
+    'Divine help reaches every situation in my life.', 'Where have I received help I never planned for?'],
+  ['SD', 6, 'The Fork in the Road', 'At every choice there is a road of faith and a road of fear. Guidance shows the right one when you stop and ask.',
+    ['Write down a decision you face. Sit quietly, ask which way is right, and note your first feeling.', 'Choose the path of faith in one small thing today.'],
+    'I always choose the right road, guided from within.', 'Which road did my intuition point to?'],
+  ['SD', 7, 'Crossing Your Red Sea', 'When an obstacle stands before you like a sea, keep moving in faith. The way opens as you step forward.',
+    ['Take one step today on something you have been afraid to start.', 'Write how it felt to move before you were sure.'],
+    'The way opens before me as I move forward in faith.', 'What opened after I took the step?'],
+  ['SD', 8, 'The Watchman at the Gate', 'Be the watchman at the gate of your mind, and choose which thoughts may enter.',
+    ['Each time a fearful thought arrives today, say "Not this," and replace it.', 'Cut one source of negativity (a feed, a conversation) for the whole day.'],
+    'I guard the gate of my mind, and only good enters.', 'Which thoughts tried hardest to get past the gate?'],
+  ['SD', 9, 'The Way of Abundance', 'Abundance is a way of walking through life: grateful, generous and expecting plenty for all.',
+    ['Give thanks aloud for ten specific things.', 'Share something you have plenty of.'],
+    'I walk the way of abundance, and there is plenty for all.', 'Where do I already have more than enough?'],
+  ['SD', 10, 'I Shall Never Want', 'Built on the 23rd Psalm: when you trust the shepherd within, every need is provided for.',
+    ['Write each need you have, and beside it write "provided for".', 'When a thought of lack comes, say: "I shall not want."'],
+    'I shall not want. Every need is met.', 'Which need felt hardest to trust?'],
+  ['SD', 11, 'Look With Wonder', 'Wonder and expectancy open the eyes to the good that is already unfolding around you.',
+    ['Write five small miracles you noticed today.', 'Say out loud that something wonderful is coming, and mean it.'],
+    'I look with wonder at what is unfolding before me.', 'What did I notice today that I would usually miss?'],
+  ['SD', 12, 'Catch Up with Your Good', 'Your good is already prepared. Your part is to catch up with it, rising to the feeling of already having it.',
+    ['Spend 5 minutes feeling, not just picturing, one wish as already done.', 'Do one thing today the way your future self would.'],
+    'I catch up with my good now.', 'What did it feel like to live as if it were done?'],
+  ['SD', 13, 'Rivers in the Desert', 'Even in dry, discouraging seasons, supply can appear unexpectedly, like rivers in the desert.',
+    ['Name your "desert" and write an affirmation of plenty for it.', 'Look for one unexpected opening today and note it.'],
+    'Rivers of good flow even in the dry places of my life.', 'Where is my desert, and where could water come from?'],
+  ['SD', 14, 'The Inner Meaning of Snow White and the Seven Dwarves', 'Shinn reads the fairy tale as a story of the soul: the true self survives envy and a long sleep, and then awakens.',
+    ['Write one way your true self has been asleep, and one way it is waking up.', 'Review your Intuition log: how many hunches have you followed?'],
+    'My true self is awake and alive.', 'What has woken up in me during these weeks?'],
+
+  ['PS', 1, 'Weapons Ye Know Not Of', 'Her last book, compiled after her death, opens with the idea that you have spiritual weapons, such as faith, the spoken word and nonresistance, that the world knows nothing about.',
+    ['List your three spiritual weapons and use one today on a real problem.', 'Speak your wish affirmation with full authority, three times.'],
+    'I have weapons the world knows not of, and they work for me.', 'Which spiritual tool worked best for me today?'],
+  ['PS', 2, 'I Give Unto You Power', 'You have been given power over fear and limitation. It grows the more you use it.',
+    ['Write "I have power over every fear and every limit," and say it once an hour.', 'Do the task you have put off the longest.'],
+    'Power is given to me to overcome every obstacle.', 'How did it feel to finish what I had been avoiding?'],
+  ['PS', 3, 'Be Strong; Fear Not', 'Fear is faith turned upside down. Courage comes from remembering that spirit is with you.',
+    ['Name your biggest fear in writing, then write a fearless answer to it.', 'Do one small brave act today.'],
+    'I am strong and I am unafraid.', 'What did my brave act teach me?'],
+  ['PS', 4, 'The Glory of the Lord', 'Seeing the light and goodness of spirit in every situation lifts you above appearances.',
+    ['Spend 10 minutes outside, noticing beauty.', 'Find the good in one difficult situation and write it down.'],
+    'I see the light of spirit in every situation.', 'Where did I find light in a hard place?'],
+  ['PS', 5, 'Peace and Prosperity', 'Peace comes first; prosperity follows a calm, trusting mind.',
+    ['Start the day with 5 minutes of stillness before you touch your phone.', 'Make one money decision from a feeling of peace, not fear.'],
+    'Peace and plenty fill my life.', 'How do my choices change when I am at peace?'],
+  ['PS', 6, 'Your Big Opportunity', 'Opportunity is always present, often disguised as an ordinary moment. Faith recognises it and moves.',
+    ['Write down one opportunity in front of you right now.', 'Take one step on it before the day ends.'],
+    'I see my big opportunity and I seize it.', 'What opportunity have I been walking past?'],
+  ['PS', 7, 'In Nothing Be Anxious', 'Anxiety is a prayer for what you do not want. Hand it over, and let peace guard your mind.',
+    ['Each time anxiety appears, breathe out slowly and say: "In nothing be anxious."', 'Tonight, write down one anxious thought and hand it over.'],
+    'I am free from anxiety. All is well.', 'What was I anxious about, and what actually happened?'],
+  ['PS', 8, 'Fearlessness', 'Fearlessness is the sign of real faith, and it is what allows guidance to act through you.',
+    ['Act on a hunch you have been too nervous to follow.', 'Log the outcome in your Intuition log.'],
+    'I am fearless, and I follow my guidance.', 'What happened when I acted without fear?'],
+  ['PS', 9, 'Victory and Fulfillment', 'The book closes in victory: the good you have affirmed comes into fulfilment.',
+    ['Write down every sign of progress on your wishes so far.', 'Give thanks for each one aloud.'],
+    'Victory and fulfilment are mine now.', 'Which sign of progress means the most to me?'],
+
+  ['GL', 8, 'Intuition or Guidance (re-read)', 'Come back to the chapter that started your intuition work. Read it as the person you have become.',
+    ['Re-read the chapter and mark what you now understand differently.', 'Count the hunches in your log and how many proved right.'],
+    'My intuition is strong, clear and trusted.', 'How has my relationship with my intuition changed?'],
+  ['GL', 3, 'The Power of the Word (re-read)', 'Return to the power of the word, and choose the words you will carry into the next season.',
+    ['Write your personal set of five affirmations for the next 60 days.', 'Record yourself saying them and play it back.'],
+    'My word is power, and I use it wisely.', 'Which five sentences will shape my next season?'],
+  ['YW', 1, 'Your Word Is Your Wand (review)', 'Look at what your word has done. Celebrate what came, release what no longer fits, and choose again.',
+    ['Go through your Wish list and mark each wish manifested, in progress or released.', 'Write three new wishes for the next 60 days.'],
+    'My dreams are coming true, one by one.', 'What came true, and what did I learn from waiting?'],
+  ['SD', 12, 'Catch Up with Your Good (review)', 'Step into your future self and look back with gratitude.',
+    ['Write a letter from yourself six months ahead, describing what came true.', 'Take one step from that letter today.'],
+    'I am already living the life I desire.', 'What does my future self want me to know?'],
+  ['PS', 9, 'Victory and Fulfillment (closing)', 'Your 60 days are complete. Give thanks for every demonstration, large and small, and choose how you will keep playing the game.',
+    ['Write your 60-day reflection: what changed in your intuition, and what manifested.', 'Choose your daily practice for the next season.'],
+    'I give thanks. It is finished, and it is good.', 'Who have I become in these 60 days?']
+].map(([b, ch, t, teach, tasks, aff, q], i) => ({ n: i + 1, b, ch, t, teach, tasks, aff, q }));
 const AFFIRM = [
-  'I am at peace. Nothing outside me can disturb the stillness within.',
-  'My purpose is clear to me and unfolds with ease.',
-  'I am calm, centred and in command of my thoughts.',
-  'Peace flows through me and into everything I touch.',
+  'I am divinely guided in all my ways.',
   'I trust the quiet voice within. It always leads me well.',
+  'My dreams come true in perfect ways, at the perfect time.',
   'The right doors open for me, and the right people find me.',
-  'Gentleness and strength live together in me.',
-  'I meet every situation with a calm and open heart.',
-  'My work has meaning and my life has direction.',
-  'I give thanks for this day and the purpose it carries.',
-  'I am becoming more fully myself every day.',
-  'Whatever I need comes to me at the right time.',
-  'I am safe, I am guided and I am free.',
-  'I choose thoughts that bring me peace.'
-].concat(JOURNEY.map(s => s.aff));
+  'I see clearly, I decide quickly and I act with faith.',
+  'I am at peace. Nothing outside me can disturb the stillness within.',
+  'Whatever is mine by divine right comes to me now.',
+  'I am grateful in advance for the good that is on its way.',
+  'Every hunch I follow leads me closer to my divine design.',
+  'I am calm, confident and in command of my thoughts.',
+  'I give thanks that my good is already done.',
+  'My purpose is clear to me and unfolds with ease.'
+];
 const SUN = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>';
 const MOON = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+const BOOKI = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg>';
+const parseYmd = s => { const [y, m, d] = s.split('-').map(Number); return new Date(y, m - 1, d); };
+const progNum = (day = todayStr()) => Math.round((parseYmd(day) - parseYmd(PROGRAM_START)) / 864e5) + 1;
+const progDate = n => { const d = parseYmd(PROGRAM_START); d.setDate(d.getDate() + n - 1); return ymd(d); };
+const niceDate = s => parseYmd(s).toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+const progDay = n => P[Math.min(PROGRAM_DAYS, Math.max(1, n)) - 1];
+const phaseOf = n => PHASES.find(p => n >= p.from && n <= p.to) || PHASES[0];
+const curNum = () => Math.min(PROGRAM_DAYS, Math.max(1, progNum()));      // the program day for today (Day 1 before it starts)
 const spToday = kind => state.spirit.find(r => r.kind === kind && r.day === todayStr());
 const spStreak = kinds => streakOf(new Set(state.spirit.filter(r => kinds.includes(r.kind)).map(r => r.day)));
-function journeyState() {
-  const done = state.spirit.filter(r => r.kind === 'journey').sort((x, y) => (y.step || 0) - (x.step || 0));
-  const count = done.length ? done[0].step || 0 : 0, today = spToday('journey');
-  const n = today ? today.step : count + 1;          // the stage on show; keeps counting past 12 for later rounds
-  return { done, count, today, n, stage: JOURNEY[(n - 1) % JOURNEY.length], pos: (n - 1) % JOURNEY.length, round: Math.floor((n - 1) / JOURNEY.length) + 1 };
+const progRow = n => state.spirit.find(r => r.kind === 'program' && r.step === n);
+const meditated = date => state.spirit.some(r => r.day === date && (r.kind === 'morning' || r.kind === 'evening'));
+function dayItems(n) {
+  const r = progRow(n) || {}, d = r.data || {}, t = d.t || [];
+  return { read: !!d.read, med: meditated(progDate(n)), t0: t.includes(0), t1: t.includes(1), note: r.note || '' };
 }
+function dayDone(n) { const x = dayItems(n); return x.read && x.med && x.t0 && x.t1; }
+const items = kind => (state.spiritItems || []).filter(x => x.kind === kind);
 function todaysAffirmations() {
-  const s = journeyState().stage, pool = AFFIRM.filter(x => x !== s.aff);
-  const d = new Date(), day = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 864e5), b = (day + state.affOff) * 2;
-  return [s.aff, pool[b % pool.length], pool[(b + 1) % pool.length]];
+  const d = progDay(curNum()), b = (curNum() + state.affOff) * 2;
+  return [d.aff, AFFIRM[b % AFFIRM.length], AFFIRM[(b + 1) % AFFIRM.length]];
 }
 function spark(series, w = 220, h = 48) {
   let out = '';
@@ -2106,71 +2305,122 @@ function rateRow(field, label, val) {
   return `<div class="sp-rrow"><span>${label}</span><div class="sp-dots" role="group" aria-label="${label} today, 1 to 5">${[1, 2, 3, 4, 5].map(v =>
     `<button type="button" class="${val === v ? 'on' : ''}" data-act="sp-rate" data-sx="rate" data-f="${field}" data-v="${v}" aria-pressed="${val === v}">${v}</button>`).join('')}</div></div>`;
 }
+function goalBar(label, have, need) {
+  const pct = Math.min(100, Math.round(have / need * 100)), ok = have >= need;
+  return `<div class="sp-goal ${ok ? 'ok' : ''}"><div><span>${label}</span><b>${Math.min(have, 9999)} / ${need}${ok ? ' &#10003;' : ''}</b></div><div class="bar"><div style="width:${pct}%"></div></div></div>`;
+}
 function spiritSection(a, rz) {
-  const j = journeyState(), s = j.stage;
+  const now = progNum(), started = now >= 1, ended = now > PROGRAM_DAYS;
+  const view = Math.min(Math.max(1, state.spDay || curNum()), curNum()), d = progDay(view), ph = phaseOf(view), bk = BOOKS[d.b];
+  const x = dayItems(view), date = progDate(view), locked = !started;
   const mo = spToday('morning'), ev = spToday('evening'), af = spToday('affirm'), rf = spToday('reflect') || {};
-  const rail = JOURNEY.map((x, i) => {
-    const n = (j.round - 1) * JOURNEY.length + i + 1;
-    return `<li class="${n <= j.count ? 'done' : ''} ${n === j.n ? 'now' : ''}" title="${i + 1}. ${esc(x.t)}"><i>${n <= j.count ? '&#10003;' : i + 1}</i><span>${esc(x.t)}</span></li>`;
-  }).join('');
-  const yest = daysAgo(1), any = d => state.spirit.some(r => r.day === d && (r.kind === 'morning' || r.kind === 'evening'));
-  const nudge = state.spirit.length && !any(yest) && !any(todayStr())
-    ? `<div class="sp-nudge${rz}">${SUN}<span><b>Never miss twice.</b> Yesterday slipped by, and that is fine. A 2-minute session today keeps the thread unbroken.</span></div>` : '';
+  const doneDays = P.filter(p => p.n <= Math.min(now, PROGRAM_DAYS) && dayDone(p.n)).length;
+  // 60-day rail, coloured by phase
+  const rail = PHASES.map(p => `<div class="sp-ph" style="flex:${p.to - p.from + 1}" title="${esc(p.name)}: days ${p.from}–${p.to}">${
+    Array.from({ length: p.to - p.from + 1 }, (_, i) => { const n = p.from + i;
+      const c = dayDone(n) ? 'done' : (progRow(n) || meditated(progDate(n))) && n <= now ? 'part' : n < now ? 'miss' : '';
+      return `<i class="${c} ${n === view ? 'now' : ''}"></i>`; }).join('')}</div>`).join('');
+  const check = (key, label, sub, on, extra = '') => `<label class="sp-chk ${on ? 'on' : ''} ${locked ? 'locked' : ''}">
+      <input type="checkbox" data-act="sp-chk" data-k="${key}" data-n="${view}" ${on ? 'checked' : ''} ${locked || key === 'med' ? 'disabled' : ''}>
+      <span class="box" aria-hidden="true">&#10003;</span><span class="tx"><b>${label}</b>${sub ? `<small>${sub}</small>` : ''}</span>${extra}</label>`;
+  const medBtn = x.med ? '' : `<button type="button" class="small" data-act="sp-start" data-kind="${new Date().getHours() < 15 ? 'morning' : 'evening'}" data-min="10" ${locked || view !== curNum() ? 'disabled' : ''}>Start</button>`;
+  const yest = daysAgo(1), any = dd => state.spirit.some(r => r.day === dd && (r.kind === 'morning' || r.kind === 'evening' || r.kind === 'program'));
+  const nudge = started && !ended && now > 1 && !any(yest) && !any(todayStr())
+    ? `<div class="sp-nudge${rz}">${SUN}<span><b>Never miss twice.</b> Yesterday slipped by, and that is fine. A 2-minute meditation and one task today keep the thread unbroken.</span></div>` : '';
   const sess = (kind, row) => {
     const pm = kind === 'evening';
     return `<div class="sp-sess ${pm ? 'pm' : 'am'} ${row ? 'is-done' : ''}">
       <div class="sp-sess-h"><span class="sp-ico">${pm ? MOON : SUN}</span>
-        <div><span class="eyebrow">${pm ? 'Evening &middot; before sleep' : 'Morning &middot; on waking'}</span><h4>${pm ? 'Revision &amp; rest' : 'The spoken word'}</h4></div>
+        <div><span class="eyebrow">${pm ? 'Evening &middot; before sleep' : 'Morning &middot; on waking'}</span><h4>${pm ? 'Release &amp; rest' : 'Stillness &amp; the spoken word'}</h4></div>
         ${row ? `<span class="sp-tick">&#10003; ${row.minutes ? Math.round(row.minutes) + ' min' : 'Done'}</span>` : ''}</div>
-      <p>${pm ? 'Review the day, revise one moment, then drift toward sleep in the feeling of your wish fulfilled.' : 'Settle into awareness, speak your affirmations aloud and see the day ending in peace.'}</p>
+      <p>${pm ? 'Notice where guidance spoke today, forgive and release, then fall asleep repeating your word with the feeling that it is done.' : 'Be still, cast your burden, speak your word, see your wish fulfilled and ask for a clear lead for the day.'}</p>
       <div class="sp-btns"><button class="primary" type="button" data-act="sp-start" data-kind="${kind}" data-min="10">${row ? 'Go again' : 'Begin'} &middot; 10 min</button>
         <button type="button" data-act="sp-start" data-kind="${kind}" data-min="2">Busy day &middot; 2 min</button>
         ${row ? '' : `<button type="button" class="sp-link" data-act="sp-mark" data-kind="${kind}">I did it my own way</button>`}</div></div>`;
   };
   let grid = '';
   for (let i = 29; i >= 0; i--) {
-    const d = daysAgo(i), m = state.spirit.some(r => r.day === d && r.kind === 'morning'), e = state.spirit.some(r => r.day === d && r.kind === 'evening');
-    grid += `<i class="${m ? 'm' : ''} ${e ? 'e' : ''}" title="${d}: ${[m && 'morning', e && 'evening'].filter(Boolean).join(' & ') || 'no session'}"></i>`;
+    const dd = daysAgo(i), m = state.spirit.some(r => r.day === dd && r.kind === 'morning'), e = state.spirit.some(r => r.day === dd && r.kind === 'evening');
+    grid += `<i class="${m ? 'm' : ''} ${e ? 'e' : ''}" title="${dd}: ${[m && 'morning', e && 'evening'].filter(Boolean).join(' & ') || 'no session'}"></i>`;
   }
-  const days14 = Array.from({ length: 14 }, (_, i) => daysAgo(13 - i)), rOf = d => state.spirit.find(r => r.kind === 'reflect' && r.day === d) || {};
-  const peace = days14.map(d => rOf(d).peace ?? null), purpose = days14.map(d => rOf(d).purpose ?? null);
-  const avg = v => { const x = v.slice(-7).filter(n => n != null); return x.length ? (x.reduce((t, n) => t + n, 0) / x.length).toFixed(1) : '–'; };
-  const notes = j.done.filter(r => r.note);
+  const days14 = Array.from({ length: 14 }, (_, i) => daysAgo(13 - i)), rOf = dd => state.spirit.find(r => r.kind === 'reflect' && r.day === dd) || {};
+  const peace = days14.map(dd => rOf(dd).peace ?? null), purpose = days14.map(dd => rOf(dd).purpose ?? null);
+  const avg = v => { const y = v.slice(-7).filter(n => n != null); return y.length ? (y.reduce((t, n) => t + n, 0) / y.length).toFixed(1) : '–'; };
+  // goals
+  const inPh = (arr, p) => arr.filter(h => { const n = progNum(h.day); return n >= p.from && n <= p.to; });
+  const hun = items('hunch'), wishes = items('wish'), pDone = P.filter(q => q.n >= ph.from && q.n <= Math.min(ph.to, now) && dayDone(q.n)).length;
+  const notes = state.spirit.filter(r => r.kind === 'program' && r.note).sort((p, q) => q.step - p.step);
+  const hunchList = hun.slice().sort((p, q) => (q.day + q.created_at).localeCompare(p.day + p.created_at)).slice(0, state.spHAll ? 200 : 5);
   return `<div class="sp">
     ${nudge}
     <section class="card sp-journey${rz}" style="--d:.06s">
-      <div class="sp-jh"><div><span class="eyebrow">The Inner Path &middot; Stage ${j.pos + 1} of ${JOURNEY.length}${j.round > 1 ? ' &middot; Round ' + j.round : ''}</span>
-        <h3>${esc(s.t)}</h3><p class="sp-who">Inspired by ${esc(s.who)} &middot; <em>${esc(s.read)}</em></p></div>
-        <span class="sp-when">${s.when === 'evening' ? MOON + ' Practise tonight' : SUN + ' Practise this morning'}</span></div>
-      <ol class="sp-rail" aria-label="Your 12-stage journey">${rail}</ol>
+      <div class="sp-jh"><div><span class="eyebrow">60 days with Florence Scovel Shinn &middot; ${started ? `Day ${view} of ${PROGRAM_DAYS}` : 'Begins tomorrow'} &middot; ${esc(ph.name)}</span>
+        <h3>${esc(d.t.replace(/ \((re-read|review|closing)\)$/, ''))}</h3>
+        <p class="sp-who">${started ? esc(niceDate(date)) : `Starts ${esc(niceDate(PROGRAM_START))}. Here is a preview of Day 1.`} &middot; <em>${esc(bk.n)}</em> (${bk.y})</p></div>
+        <div class="sp-nav">${started ? `<button type="button" class="small" data-act="sp-day" data-n="${view - 1}" ${view <= 1 ? 'disabled' : ''} aria-label="Previous day">&larr;</button>
+          <span>${view === curNum() ? (ended ? 'Final day' : 'Today') : 'Catching up'}</span>
+          <button type="button" class="small" data-act="sp-day" data-n="${view + 1}" ${view >= curNum() ? 'disabled' : ''} aria-label="Next day">&rarr;</button>` : '<span>Tomorrow</span>'}</div></div>
+      <div class="sp-rail60" aria-label="${doneDays} of ${PROGRAM_DAYS} days complete">${rail}</div>
+      <div class="sp-railkey"><span><b class="k-done"></b>Complete</span><span><b class="k-part"></b>Partly done</span><span><b class="k-miss"></b>Missed</span><span class="r">${doneDays} of ${PROGRAM_DAYS} days complete &middot; Phase goal: ${esc(ph.focus)}</span></div>
       <div class="sp-jbody">
-        <div><span class="lbl">The teaching</span><p class="sp-teach">${esc(s.teach)}</p>
-          <span class="lbl">Today&rsquo;s practice</span><ol class="sp-steps">${s.steps.map(x => `<li>${esc(x)}</li>`).join('')}</ol></div>
-        <div class="sp-reflect"><blockquote class="sp-aff">&ldquo;${esc(s.aff)}&rdquo;</blockquote>
-          ${j.today ? `<div class="sp-done"><b>Stage ${j.pos + 1} complete.</b> ${j.pos + 1 === JOURNEY.length ? 'You have walked the whole path. Tomorrow a new round begins, deeper this time.' : 'The next stage opens tomorrow. Keep living this one today.'}${j.today.note ? `<p>${esc(j.today.note)}</p>` : ''}</div>`
-          : `<form data-act="sp-journey"><label class="lbl" for="sp-note">Reflect</label><p class="card-sub">${esc(s.prompt)}</p>
-              <textarea id="sp-note" name="note" placeholder="A few honest lines are enough..."></textarea>
-              <button class="primary" type="submit">Complete stage ${j.pos + 1}</button></form>`}
+        <div><span class="lbl">The teaching</span><p class="sp-teach">${esc(d.teach)}</p>
+          <span class="lbl">Today&rsquo;s path</span>
+          <div class="sp-chks">
+            ${check('read', `Read: ${esc(bk.n)}, ${d.b === 'YW' ? 'section' : 'chapter'} ${d.ch}`, `&ldquo;${esc(d.t.replace(/ \((re-read|review|closing)\)$/, ''))}&rdquo; &middot; about ${bk.min} minutes`, x.read)}
+            ${check('med', 'Guided meditation', x.med ? 'Done. Logged from your session.' : '10 minutes, or 2 on a busy day. Ticks itself when you finish a session.', x.med, medBtn)}
+            ${check('t0', esc(d.tasks[0]), '', x.t0)}
+            ${check('t1', esc(d.tasks[1]), '', x.t1)}
+          </div></div>
+        <div class="sp-reflect"><blockquote class="sp-aff">&ldquo;${esc(d.aff)}&rdquo;</blockquote>
+          <form data-act="sp-journal" data-n="${view}"><label class="lbl" for="sp-note">Journal</label><p class="card-sub">${esc(d.q)}</p>
+            <textarea id="sp-note" name="note" placeholder="A few honest lines are enough..." ${locked ? 'disabled' : ''}>${esc(x.note)}</textarea>
+            <button class="primary" type="submit" ${locked ? 'disabled' : ''}>${x.note ? 'Update journal' : 'Save journal'}</button></form>
+          ${dayDone(view) ? `<div class="sp-done"><b>Day ${view} complete.</b> ${view === PROGRAM_DAYS ? 'You have completed all 60 days. Beautiful work.' : 'Well done. Tomorrow brings the next step.'}</div>` : ''}
         </div>
       </div>
     </section>
     <div class="sp-pair${rz}" style="--d:.1s">${sess('morning', mo)}${sess('evening', ev)}</div>
     <div class="agrid${rz}" style="--d:.14s">
       <div class="col">
+        <section class="card sp-intu"><span class="card-title">Intuition log</span>
+          <p class="card-sub">Shinn called intuition your guide. Write every hunch, nudge or lead, then tick it when you act on it.</p>
+          <form class="addrow" data-act="sp-hunch"><input type="text" name="text" placeholder="I had a feeling that..." aria-label="New hunch" autocomplete="off"><button class="primary" type="submit">Log</button></form>
+          ${hunchList.length ? `<ul class="sp-items">${hunchList.map(h => `<li class="${h.followed ? 'on' : ''}">
+              <label><input type="checkbox" data-act="sp-follow" data-id="${h.id}" ${h.followed ? 'checked' : ''}><span>${esc(h.text)}<small>${esc(niceDate(h.day))}${h.followed ? ' &middot; Followed' : ''}</small></span></label>
+              <button type="button" class="small danger" data-act="sp-delitem" data-id="${h.id}" aria-label="Remove hunch">&times;</button></li>`).join('')}</ul>
+            ${hun.length > 5 ? `<button class="sp-link" type="button" data-act="sp-hall">${state.spHAll ? 'Show fewer' : `Show all ${hun.length}`}</button>` : ''}`
+          : '<p class="sp-empty">No hunches yet. Tomorrow morning, ask for a clear lead and write down the first thing that comes.</p>'}
+        </section>
         <section class="card sp-affs"><span class="card-title">Today&rsquo;s affirmations</span>
-          <p class="card-sub">Peace and purpose. Speak them aloud, slowly, and feel them as true.</p>
-          <ul>${todaysAffirmations().map(x => `<li>${esc(x)}</li>`).join('')}</ul>
+          <p class="card-sub">Your word is your wand. Speak these aloud, slowly, with conviction.</p>
+          <ul>${todaysAffirmations().map(y => `<li>${esc(y)}</li>`).join('')}</ul>
           <div class="sp-btns">${af ? '<span class="sp-tick">&#10003; Spoken today</span>' : '<button class="primary" type="button" data-act="sp-affirm">I have spoken these</button>'}
             <button type="button" data-act="sp-swap">Show others</button></div></section>
-        ${notes.length ? `<section class="card"><span class="card-title">Your reflections</span><p class="card-sub">What the path has shown you so far.</p>
-          <ul class="sp-jn">${(state.spAll ? notes : notes.slice(0, 3)).map(r => `<li><b>Stage ${((r.step - 1) % JOURNEY.length) + 1} &middot; ${esc(JOURNEY[(r.step - 1) % JOURNEY.length].t)} &middot; ${esc(r.day)}</b><p>${esc(r.note)}</p></li>`).join('')}</ul>
+        ${notes.length ? `<section class="card"><span class="card-title">Your journal</span><p class="card-sub">What the 60 days have shown you so far.</p>
+          <ul class="sp-jn">${(state.spAll ? notes : notes.slice(0, 3)).map(r => `<li><b>Day ${r.step} &middot; ${esc(progDay(r.step).t)}</b><p>${esc(r.note)}</p></li>`).join('')}</ul>
           ${notes.length > 3 ? `<button class="sp-link" type="button" data-act="sp-all">${state.spAll ? 'Show fewer' : `Show all ${notes.length}`}</button>` : ''}</section>` : ''}
       </div>
       <div class="col">
+        <section class="card sp-wish"><span class="card-title">Wish list</span>
+          <p class="card-sub">The dreams you are manifesting. Speak them as already yours, and mark each one when it comes.</p>
+          <form class="addrow" data-act="sp-wish"><input type="text" name="text" placeholder="I am so grateful that..." aria-label="New wish" autocomplete="off"><button class="primary" type="submit">Add</button></form>
+          ${wishes.length ? `<ul class="sp-items wish">${wishes.slice().sort((p, q) => (!!p.manifested_at - !!q.manifested_at) || p.created_at.localeCompare(q.created_at)).map(w => `<li class="${w.manifested_at ? 'on' : ''}">
+              <span>${esc(w.text)}<small>${w.manifested_at ? `Manifested ${esc(niceDate(w.manifested_at))}` : `Declared ${esc(niceDate(w.day))}`}</small></span>
+              ${w.manifested_at ? `<button type="button" class="small" data-act="sp-unmanifest" data-id="${w.id}">Undo</button>` : `<button type="button" class="small sp-gold" data-act="sp-manifest" data-id="${w.id}">It came &#10022;</button>`}
+              <button type="button" class="small danger" data-act="sp-delitem" data-id="${w.id}" aria-label="Remove wish">&times;</button></li>`).join('')}</ul>`
+          : '<p class="sp-empty">Day 1 asks you to write your three biggest wishes here.</p>'}
+        </section>
+        <section class="card sp-goals"><span class="card-title">Goals</span>
+          <span class="lbl" style="display:block;margin-top:12px">This phase &middot; ${esc(ph.name)} (days ${ph.from}–${ph.to})</span>
+          ${goalBar('Days complete', pDone, ph.days)}${goalBar('Hunches logged', inPh(hun, ph).length, ph.hunch)}${goalBar('Hunches followed', inPh(hun, ph).filter(h => h.followed).length, ph.follow)}
+          ${ph.wishes ? goalBar('Wishes written', wishes.length, ph.wishes) : ''}
+          <span class="lbl" style="display:block;margin-top:18px">All 60 days &middot; to ${esc(niceDate(progDate(PROGRAM_DAYS)))}</span>
+          ${goalBar('Days complete', doneDays, GOALS60.days)}${goalBar('Hunches logged', hun.length, GOALS60.hunch)}${goalBar('Hunches followed', hun.filter(h => h.followed).length, GOALS60.follow)}${goalBar('Wishes manifested', wishes.filter(w => w.manifested_at).length, GOALS60.manifest)}
+        </section>
         <section class="card"><span class="card-title">Your rhythm</span>
-          <div class="kpis"><div><b>${spStreak(['morning'])}</b><span>Morning streak</span></div><div><b>${spStreak(['evening'])}</b><span>Evening streak</span></div><div><b>${j.count}</b><span>Stages walked</span></div></div>
+          <div class="kpis"><div><b>${spStreak(['morning'])}</b><span>Morning streak</span></div><div><b>${spStreak(['evening'])}</b><span>Evening streak</span></div><div><b>${spStreak(['affirm'])}</b><span>Spoken-word streak</span></div></div>
           <div class="sp-grid" aria-label="Morning and evening sessions over the last 30 days">${grid}</div>
-          <div class="sp-key"><span><b style="background:#F0C46A"></b>Morning</span><span><b style="background:#8F9BF0"></b>Evening</span><span>Affirmation streak: ${spStreak(['affirm'])}</span></div>
+          <div class="sp-key"><span><b style="background:#F0C46A"></b>Morning</span><span><b style="background:#8F9BF0"></b>Evening</span></div>
           <div class="sp-rate"><span class="lbl">How is your spirit today?</span>
             ${rateRow('peace', 'Peace', rf.peace)}${rateRow('purpose', 'Purpose', rf.purpose)}
             <div class="sp-trend">${spark([[peace, '#F3DE98'], [purpose, '#B5C94B']])}
@@ -2191,25 +2441,35 @@ async function spLog(kind, extra = {}, areaId) {
   const row = await run(sb.from('spirit_logs').insert({ area_id: areaId || (currentArea() || {}).id || null, day: todayStr(), kind, ...extra }).select().single());
   state.spirit.push(row); return row;
 }
+async function progSave(n, patch, areaId) {      // one 'program' row per program day, dated to that day
+  const ex = progRow(n);
+  if (ex) { await run(sb.from('spirit_logs').update(patch).eq('id', ex.id)); Object.assign(ex, patch); return ex; }
+  const row = await run(sb.from('spirit_logs').insert({ area_id: areaId, day: progDate(n), kind: 'program', step: n, ...patch }).select().single());
+  state.spirit.push(row); return row;
+}
+async function addHunch(text, areaId) {
+  const row = await run(sb.from('spirit_items').insert({ area_id: areaId || null, kind: 'hunch', text, day: todayStr() }).select().single());
+  state.spiritItems.push(row); return row;
+}
 
 // The guided session: a full-screen, breathing countdown that walks through the practice
 let SX = null;
 function sxCues(kind) {
-  const s = journeyState().stage, affs = todaysAffirmations();
+  const d = progDay(curNum()), affs = todaysAffirmations();
   return kind === 'evening' ? [
-    { w: 1, t: 'Arrive', s: 'Lie or sit comfortably. Breathe in for four, out for six. Let the day fall away.' },
-    { w: 1.5, t: 'Look back', s: 'Review your day backwards, from this moment to when you woke. Watch it calmly, without judging.' },
-    { w: 2, t: 'Revise', s: 'Stop at one moment you would change. Replay it the way you wish it had gone, until it feels real.' },
-    { w: 2, t: s.t, s: 'Today’s stage:', list: s.steps },
-    { w: 2.5, t: 'The wish fulfilled', s: 'Let yourself grow drowsy. Step inside a short scene that implies your wish is done, and feel the relief and joy of it.' },
-    { w: 1, t: 'Rest', s: 'Give thanks. Carry this feeling with you into sleep.' }
+    { w: 1, t: 'Arrive', s: 'Lie or sit comfortably. Breathe out slowly and let the day fall away.' },
+    { w: 1.5, t: 'Where did guidance speak?', s: 'Review your day. Notice every nudge, hunch or coincidence, and whether you followed it.' },
+    { w: 2, t: 'Forgive and release', s: 'Release anyone who troubled you today: "I forgive you and let you go." Release yourself too.' },
+    { w: 2, t: d.t.replace(/ \((re-read|review|closing)\)$/, ''), s: d.teach },
+    { w: 2.5, t: 'It is done', s: 'Drift toward sleep repeating your word softly, feeling your wish as already fulfilled.', list: [d.aff] },
+    { w: 1, t: 'Rest', s: 'Give thanks, and let the subconscious carry it through the night.' }
   ] : [
-    { w: 1, t: 'Arrive', s: 'Sit tall and soften your shoulders. Breathe in for four, out for six.' },
-    { w: 1.5, t: 'I am', s: 'Let thoughts drift past like clouds. Rest in the plain awareness: I am.' },
-    { w: 2, t: s.t, s: 'Today’s stage:', list: s.steps },
-    { w: 2.5, t: 'Speak your word', s: 'Say each one aloud, slowly, three times, and feel it as true.', list: affs },
-    { w: 1.5, t: 'See the day', s: 'Picture today unfolding well and ending in peace. Feel it as already done.' },
-    { w: 1, t: 'Give thanks', s: 'Give thanks for this day and the purpose it carries. Open your eyes when you are ready.' }
+    { w: 1, t: 'Be still', s: 'Sit tall and close your eyes. Breathe in for four, out for six, and let the mind grow quiet.' },
+    { w: 1.5, t: 'Cast the burden', s: 'Name anything weighing on you, then let it go: "I cast this burden and go free."' },
+    { w: 2.5, t: 'Speak your word', s: 'Say each one aloud, slowly, three times, with conviction.', list: affs },
+    { w: 2, t: 'See it done', s: 'Picture one wish already fulfilled. Feel the joy of it, and give thanks as if it has happened.' },
+    { w: 2, t: 'Ask for a lead', s: 'Ask silently: "Show me a clear lead today." Then listen. Notice the first impression, word or image that comes.' },
+    { w: 1, t: 'Give thanks', s: 'Give thanks that your good is on its way. Open your eyes when you are ready.' }
   ];
 }
 const mmss = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
@@ -2272,11 +2532,12 @@ async function sxFinish(full) {
   const el = $('#sx');
   if (!full && spent < 60) { sxClose(); return toast('Session ended. Come back whenever you are ready.'); }
   sxChime(SX.ctx);
-  try { await spLog(SX.kind, { minutes: mins, short: SX.mins < 10 }, SX.area); } catch (_) {}
+  try { await spLog(SX.kind, { minutes: mins, short: SX.mins < 10 }, SX.area); if (progNum() >= 1 && dayDone(curNum())) setTimeout(() => toast(`Day ${curNum()} complete. Well done.`), 400); } catch (_) {}
   const rf = spToday('reflect') || {}, ev = SX.kind === 'evening';
   el.innerHTML = `<div class="sx-in sx-done"><div class="sx-seal">&#10003;</div><h3>${ev ? 'Rest well' : 'Go in peace'}</h3>
     <p>${mins >= 1 ? Math.round(mins) : mins} minute${mins === 1 ? '' : 's'} of ${ev ? 'evening' : 'morning'} practice, saved to your rhythm.</p>
-    <blockquote class="sp-aff">&ldquo;${esc(journeyState().stage.aff)}&rdquo;</blockquote>
+    <blockquote class="sp-aff">&ldquo;${esc(progDay(curNum()).aff)}&rdquo;</blockquote>
+    ${ev ? '' : `<form class="addrow sx-hunch" data-sx-form="hunch"><input type="text" name="text" placeholder="Did a hunch or lead come? Write it here" aria-label="Log a hunch" autocomplete="off"><button class="primary" type="submit">Log</button></form>`}
     ${ev ? `<div class="sp-rate"><span class="lbl">Before you sleep: how was today?</span>${rateRow('peace', 'Peace', rf.peace)}${rateRow('purpose', 'Purpose', rf.purpose)}</div>` : ''}
     <button class="primary" type="button" data-sx="close" style="min-width:180px;min-height:48px">Close</button></div>`;
 }
@@ -2299,7 +2560,13 @@ document.addEventListener('click', async e => {
     b.parentNode.querySelectorAll('button').forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); });
   }
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && SX) { if (SX.finished) sxClose(); else sxFinish(false); } });
+document.addEventListener('submit', async e => {
+  if (!e.target.closest('#sx') || !SX) return; e.preventDefault();
+  const i = e.target.querySelector('input'), text = i.value.trim(); if (!text) return;
+  try { await addHunch(text, SX.area); } catch (_) { return; }
+  e.target.outerHTML = '<p class="sp-tick" style="margin:0 auto">&#10003; Hunch logged. Watch where it leads.</p>';
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && SX && !e.target.closest('#sx form')) { if (SX.finished) sxClose(); else sxFinish(false); } });
 
 async function toggleTask(id, checked) {
   const day = todayStr();
@@ -2327,10 +2594,14 @@ $('#view-area').addEventListener('submit', async e => {
     if (act === 'addtask') {
       const title = e.target.querySelector('input').value.trim(); if (!title) return;
       await addTask(a.id, title);
-    } else if (act === 'sp-journey') {
-      const j = journeyState(); if (j.today) return;
-      await spLog('journey', { step: j.n, note: String(f.get('note') || '').trim() || null }, a.id);
-      toast(j.pos + 1 === JOURNEY.length ? 'You have walked the whole path. Beautiful work.' : `Stage ${j.pos + 1} complete. The next opens tomorrow.`);
+    } else if (act === 'sp-journal') {
+      const n = Number(e.target.dataset.n); if (progNum() < 1) return;
+      await progSave(n, { note: String(f.get('note') || '').trim() || null }, a.id); toast('Journal saved');
+    } else if (act === 'sp-hunch' || act === 'sp-wish') {
+      const text = String(f.get('text') || '').trim(); if (!text) return;
+      if (act === 'sp-hunch') { await addHunch(text, a.id); toast('Hunch logged. Watch where it leads.'); }
+      else { const row = await run(sb.from('spirit_items').insert({ area_id: a.id, kind: 'wish', text, day: todayStr() }).select().single()); state.spiritItems.push(row); toast('Wish declared. See it as already done.'); }
+      render(); const el = document.querySelector(`form[data-act="${act}"] input`); if (el) el.focus(); return;
     } else if (act === 'logsave') {
       const amount = num(f.get('amount')); if (!amount) return toast('Enter an amount');
       const tid = String(f.get('target') || ''), tgt = tid ? state.targets.find(x => x.id === tid) : null;
@@ -2470,6 +2741,18 @@ $('#view-area').addEventListener('click', async e => {
     else if (act === 'sp-affirm') { await spLog('affirm', {}, a.id); render(); toast('Spoken. Let the words do their work.'); }
     else if (act === 'sp-swap') { state.affOff++; render(); }
     else if (act === 'sp-all') { state.spAll = !state.spAll; render(); }
+    else if (act === 'sp-hall') { state.spHAll = !state.spHAll; render(); }
+    else if (act === 'sp-day') { state.spDay = Number(el.dataset.n); render(); }
+    else if (act === 'sp-manifest' || act === 'sp-unmanifest') {
+      const w = state.spiritItems.find(x => x.id === el.dataset.id); if (!w) return;
+      const v = act === 'sp-manifest' ? todayStr() : null;
+      await run(sb.from('spirit_items').update({ manifested_at: v }).eq('id', w.id)); w.manifested_at = v; render();
+      if (v) toast('A demonstration! Give thanks for it.');
+    }
+    else if (act === 'sp-delitem') {
+      const w = state.spiritItems.find(x => x.id === el.dataset.id); if (!w || !confirm(`Remove "${w.text}"?`)) return;
+      await run(sb.from('spirit_items').delete().eq('id', w.id)); state.spiritItems = state.spiritItems.filter(x => x.id !== w.id); render();
+    }
     else if (act === 'sp-rate') { await spLog('reflect', { [el.dataset.f]: Number(el.dataset.v) }, a.id); render(); }
     else if (act === 'suggest') { await addTask(a.id, el.dataset.title); render(); }
     else if (act === 'deltask') {
@@ -2512,6 +2795,17 @@ $('#view-area').addEventListener('change', async e => {
     return;
   }
   if (e.target.dataset.task) { await toggleTask(e.target.dataset.task, e.target.checked); return render(); }
+  if (e.target.dataset.act === 'sp-chk') {
+    const n = Number(e.target.dataset.n), k = e.target.dataset.k, on = e.target.checked, d = Object.assign({ read: false, t: [] }, (progRow(n) || {}).data || {});
+    if (k === 'read') d.read = on; else { const i = k === 't0' ? 0 : 1; d.t = (d.t || []).filter(x => x !== i); if (on) d.t.push(i); }
+    try { await progSave(n, { data: d }, a.id); if (dayDone(n)) toast(`Day ${n} complete. Well done.`); } catch (_) {}
+    return render();
+  }
+  if (e.target.dataset.act === 'sp-follow') {
+    const h = state.spiritItems.find(x => x.id === e.target.dataset.id); if (!h) return;
+    try { await run(sb.from('spirit_items').update({ followed: e.target.checked }).eq('id', h.id)); h.followed = e.target.checked; } catch (_) {}
+    return render();
+  }
   const act = e.target.dataset.act;
   const patch = act === 'active' ? { active: e.target.checked } : act === 'score' ? { score: +e.target.value } : act === 'notes' ? { notes: e.target.value } : null;
   if (!patch) return;

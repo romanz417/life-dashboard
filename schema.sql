@@ -156,16 +156,34 @@ create table if not exists spirit_logs (
   user_id uuid references auth.users(id) default auth.uid(),
   area_id uuid references areas(id) on delete cascade,
   day date not null default current_date,
-  kind text not null check (kind in ('morning', 'evening', 'affirm', 'journey', 'reflect')),
+  kind text not null check (kind in ('morning', 'evening', 'affirm', 'journey', 'reflect', 'program')),
   minutes numeric check (minutes is null or minutes >= 0),
   short boolean not null default false,
   step int,                                                   -- journey stage number (keeps counting past 12)
   note text,                                                  -- journey reflection
   peace int check (peace is null or peace between 1 and 5),
   purpose int check (purpose is null or purpose between 1 and 5),
+  data jsonb,                                                 -- 'program' rows: {read, t:[task indexes done]}; day = that program day's date
   created_at timestamptz default now(),
   unique (user_id, day, kind)
 );
 create index if not exists spirit_logs_user_day_idx on spirit_logs(user_id, day);
 alter table spirit_logs enable row level security;
 create policy "own spirit logs" on spirit_logs for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Spiritual Life: intuition log (kind 'hunch') and wish list (kind 'wish') for the 60-day Florence Scovel Shinn program
+create table if not exists spirit_items (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete cascade,
+  kind text not null check (kind in ('hunch', 'wish')),
+  text text not null,
+  day date not null default current_date,
+  followed boolean not null default false,
+  outcome text,
+  manifested_at date,
+  created_at timestamptz default now()
+);
+create index if not exists spirit_items_user_idx on spirit_items(user_id, kind, day);
+alter table spirit_items enable row level security;
+create policy "own spirit items" on spirit_items for all using (user_id = auth.uid()) with check (user_id = auth.uid());
