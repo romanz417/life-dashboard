@@ -224,7 +224,7 @@
   .subtabs a.on { background:var(--goldgrad); color:#17130A; }
   .subtabs .sm { display:none; }
   .cu { font-family:var(--sans); font-size:.5em; font-weight:700; letter-spacing:.08em; color:var(--muted); vertical-align:.35em; }
-  .ftiles { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; margin-bottom:18px; }
+  .ftiles { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px; margin-bottom:18px; }
   .ftiles a { display:flex; flex-direction:column; gap:6px; padding:18px 20px; border-radius:20px; border:1px solid var(--line2); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); color:inherit; text-decoration:none; transition:border-color .2s, transform .2s; }
   .ftiles a:hover { border-color:rgba(243,222,152,.5); transform:translateY(-2px); }
   .ftiles b { font-family:var(--serif); font-size:1.8rem; line-height:1.05; color:#FFF6DC; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -323,6 +323,70 @@
   .exlist .dayhead { padding:16px 0 6px; border-top:0; font-size:.62rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
   .exlist li > i { flex:none; width:10px; height:10px; border-radius:3px; }
 
+  /* ---- Money plan: alerts, income split, budget, emergency fund, debt details ---- */
+  .alerts { margin-bottom:18px; padding:18px 20px; border-radius:20px; border:1px solid rgba(240,138,75,.35); background:rgba(240,138,75,.06); }
+  .alerts ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px; }
+  .alerts a { display:flex; align-items:center; gap:10px; min-height:36px; color:#F3E7CF; text-decoration:none; font-size:.9rem; }
+  .alerts a::before { content:""; flex:none; width:8px; height:8px; border-radius:50%; background:#FFC27A; }
+  .alerts li.bad a::before { background:#FF8A80; } .alerts li.info a::before { background:var(--gold); }
+  .alerts a:hover { color:var(--gold-hi); }
+  .plan { margin-bottom:18px; }
+  .plist { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .plist li { display:grid; grid-template-columns:minmax(120px,1.2fr) 56px minmax(110px,auto) minmax(150px,1.4fr); align-items:center; gap:14px; font-size:.9rem; }
+  .plist .pn { display:flex; align-items:center; gap:10px; font-weight:600; min-width:0; }
+  .plist .pn i { flex:none; width:10px; height:10px; border-radius:3px; background:var(--cc); }
+  .plist .pp { color:var(--gold-hi); font-weight:800; text-align:right; }
+  .plist .pa { font-family:var(--serif); font-size:1.15rem; font-weight:700; color:#FFF6DC; white-space:nowrap; }
+  .plist .pbar { display:flex; align-items:center; gap:10px; min-width:0; }
+  .plist .pbar > span { flex:1; height:8px; border-radius:99px; background:rgba(255,255,255,.08); overflow:hidden; }
+  .plist .pbar > span > span { display:block; height:100%; border-radius:99px; background:var(--cc); }
+  .plist li.over .pbar > span > span { background:#FF6B5E; }
+  .plist .pbar small { flex:none; color:var(--muted); font-size:.76rem; white-space:nowrap; }
+  .plist li.over .pbar small { color:#FF9B92; }
+  .warnline { margin:10px 0 0; color:#FFC27A; font-size:.88rem; }
+  .pform .prow { display:grid; grid-template-columns:minmax(0,1.6fr) 96px minmax(0,1.3fr) auto; align-items:center; gap:10px; margin-top:10px; }
+  .pform input, .pform select { min-height:44px; }
+  .pct { position:relative; } .pct input { padding-right:28px; }
+  .pct span { position:absolute; right:12px; top:50%; transform:translateY(-50%); color:var(--muted); pointer-events:none; }
+  .ptotal { color:var(--muted); font-size:.9rem; } .ptotal b { color:var(--gold-hi); }
+  .splitbox { padding:14px 16px; border-radius:16px; border:1px solid rgba(212,175,55,.42); background:rgba(212,175,55,.07); }
+  .splitchips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .splitchips span { padding:7px 12px; border-radius:99px; background:rgba(255,255,255,.06); font-size:.8rem; color:#E4DCC6; }
+  .splitchips b { color:var(--gold-hi); }
+  .blist { list-style:none; margin:16px 0 0; padding:0; display:flex; flex-direction:column; gap:12px; }
+  .blist li { display:grid; grid-template-columns:minmax(130px,1.2fr) minmax(80px,2fr) auto minmax(96px,auto); align-items:center; gap:14px; font-size:.88rem; }
+  .bname { display:flex; align-items:center; gap:10px; min-width:0; font-weight:600; }
+  .bname i { flex:none; width:10px; height:10px; border-radius:3px; background:var(--cc); }
+  .bname em { font-style:normal; font-size:.56rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); border:1px solid var(--line2); border-radius:99px; padding:2px 7px; }
+  .bbar { height:8px; border-radius:99px; background:rgba(255,255,255,.08); overflow:hidden; }
+  .bbar span { display:block; height:100%; border-radius:99px; background:var(--cc); }
+  .blist li.warn .bbar span { background:#F0A04B; } .blist li.over .bbar span { background:#FF6B5E; }
+  .bnum { color:#E4DCC6; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .bst { text-align:right; color:var(--muted); white-space:nowrap; font-size:.8rem; }
+  .blist li.warn .bst { color:#FFC27A; } .blist li.over .bst { color:#FF9B92; font-weight:700; }
+  .bform .brow { display:grid; grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto; align-items:center; gap:12px; padding:8px 0; border-top:1px solid var(--line2); }
+  .bform .brow:first-child { border-top:0; }
+  .bform input[type=text] { min-height:42px; }
+  .ess { display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); white-space:nowrap; cursor:pointer; }
+  .emfund { display:flex; gap:22px; margin-bottom:18px; padding:28px; border-radius:26px; border:1px solid rgba(63,191,138,.45);
+    background:radial-gradient(520px 300px at 0% 0%, rgba(63,191,138,.16), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .em-ic { flex:none; display:flex; align-items:center; justify-content:center; width:64px; height:64px; border-radius:20px; background:rgba(63,191,138,.14); border:1px solid rgba(63,191,138,.5); color:#6FD3A5; }
+  .em-body { flex:1; min-width:0; display:flex; flex-direction:column; gap:14px; }
+  .em-body h3 { margin:6px 0 0; font-family:var(--serif); font-size:2rem; font-weight:600; line-height:1.05; }
+  .em-top { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:16px; }
+  .em-months { text-align:right; }
+  .em-months b { display:block; font-family:var(--serif); font-size:2.6rem; line-height:1; color:#86E3B5; }
+  .em-months span { font-size:.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+  .emfund .gbar > div { background:linear-gradient(90deg, #2F9E6B, #3FBF8A, #86E3B5); box-shadow:0 0 18px rgba(63,191,138,.35); }
+  .gbar i.mk { top:3px; bottom:3px; width:1px; margin-left:0; border-radius:0; background:rgba(10,10,15,.6); box-shadow:none; }
+  .dchips { display:flex; flex-wrap:wrap; gap:6px; }
+  .dchips span { padding:5px 10px; border-radius:99px; background:rgba(255,255,255,.05); border:1px solid var(--line2); font-size:.74rem; color:#E4DCC6; }
+  .dchips .warn { color:#FFC27A; border-color:rgba(240,138,75,.45); }
+  .dchips .bad { color:#FF9B92; border-color:rgba(255,107,94,.5); }
+  .dchips .ok { color:#86E3B5; }
+  .payfirst { flex:none; margin-left:auto; padding:5px 10px; border-radius:99px; font-size:.58rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#17130A; background:linear-gradient(135deg, #FFC27A, #F08A4B); }
+  .tr-head .seg { margin-top:14px; width:max-content; max-width:100%; }
+
   @media (max-width:980px) {
     .hero { grid-template-columns:1fr; padding:28px 24px; }
     .acard { grid-column:span 6; }
@@ -330,7 +394,11 @@
   }
   @media (max-width:820px) {
     .agrid, .goals, .ex-two { grid-template-columns:1fr; }
-    .tr-sum, .ex-kpis { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .tr-sum, .ex-kpis, .ftiles { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .plist li { grid-template-columns:minmax(0,1fr) 48px auto; }
+    .plist .pbar { grid-column:1 / -1; }
+    .blist li { grid-template-columns:minmax(0,1fr) auto; gap:6px 12px; }
+    .blist .bname { order:1; } .blist .bst { order:2; } .blist .bbar { order:3; grid-column:1 / -1; } .blist .bnum { order:4; grid-column:1 / -1; font-size:.78rem; color:var(--muted); }
     .ex-split { grid-template-columns:1fr; justify-items:center; }
     .catlist { width:100%; }
     .ahero { padding:26px 22px; }
@@ -379,6 +447,15 @@
     .titem .gform { grid-template-columns:1fr; }
     .catlist li { grid-template-columns:12px minmax(0,1fr) auto 36px; }
     .catlist .cb { display:none; }
+    .ftiles { grid-template-columns:1fr; }
+    .emfund { flex-direction:column; gap:14px; padding:20px; border-radius:22px; }
+    .em-ic { width:52px; height:52px; border-radius:16px; }
+    .em-months { text-align:left; }
+    .pform .prow { grid-template-columns:minmax(0,1fr) 84px auto; }
+    .pform .prow input[name=name] { grid-column:1 / -1; }
+    .pform .prow select { order:2; } .pform .prow .pct { order:3; } .pform .prow button { order:4; }
+    .bform .brow { grid-template-columns:minmax(0,1fr) 130px; }
+    .bform .ess { grid-column:1 / -1; }
     .subtabs .lg { display:none; }
     .subtabs .sm { display:inline; }
     .tr-sum b, .ex-kpis b { font-size:1.12rem; }
@@ -635,7 +712,8 @@ const DEFAULT_AREAS = [
 ];
 
 let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], targets: [], expenses: [],
-  openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30 };
+  openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
+  budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false };
 let chart = null;
 
 function toast(msg) {
@@ -802,6 +880,8 @@ async function load() {
   state.entries = await soft(sb.from('goal_entries').select('*').order('day', { ascending: false }));
   state.targets = await soft(sb.from('targets').select('*').order('position').order('created_at'));
   state.expenses = await soft(sb.from('expenses').select('*').gte('day', monthStart(-12)).order('day', { ascending: false }));
+  state.budgets = await soft(sb.from('budgets').select('*'));
+  state.plan = await soft(sb.from('plan_items').select('*').order('position'));
 }
 // like run(), but an error leaves the app working with an empty list
 async function soft(promise) {
@@ -973,6 +1053,7 @@ function goalCard(g) {
   return `<article class="goal" data-goal="${g.id}">
     <div class="goal-head"><div><div class="eyebrow">Monthly goal · ${esc(s.monthName)}</div><h3>${esc(g.title)}</h3>${g.description ? `<p class="desc">${esc(g.description)}</p>` : ''}</div>${pill}</div>
     <div class="goal-amt"><b>${unitStr(g, s.total)}</b><span>of ${unitStr(g, s.target)} &middot; ${s.pct}%</span></div>
+    ${splitBox(g)}
     <div><div class="gbar" role="img" aria-label="${s.pct}% of target reached; ${s.expectedPct}% of the month has passed"><div style="width:${s.pct}%"></div><i style="left:${s.expectedPct}%"></i></div>
       <div class="gbar-legend"><span>White marker: where you should be today</span><span>${s.left} day${s.left === 1 ? '' : 's'} left</span></div></div>
     <div class="kpis">
@@ -1038,6 +1119,11 @@ function targetForm(kind, t) {
     <label><span class="sublbl">${L.amtLbl} (UGX)</span><input name="amount" type="text" inputmode="decimal" placeholder="e.g. 2,000,000" value="${t ? money(t.amount) : ''}" required autocomplete="off"></label>
     <label><span class="sublbl">${L.paidLbl}</span><input name="paid_before" type="text" inputmode="decimal" placeholder="0" value="${t && Number(t.paid_before) ? money(t.paid_before) : ''}" autocomplete="off"></label>
     ${kind === 'fund' ? `<label><span class="sublbl">Target date (optional)</span><input name="deadline" type="date" value="${t && t.deadline ? String(t.deadline).slice(0, 10) : ''}"></label>` : ''}
+    ${kind === 'debt' ? `
+    <label><span class="sublbl">Interest rate % (optional)</span><input name="interest_rate" type="text" inputmode="decimal" placeholder="e.g. 2.5" value="${t && hasRate(t) ? Number(t.interest_rate) : ''}" autocomplete="off"></label>
+    <label><span class="sublbl">Rate is charged per</span><select name="rate_period"><option value="month"${!t || t.rate_period === 'month' ? ' selected' : ''}>Month</option><option value="year"${t && t.rate_period !== 'month' ? ' selected' : ''}>Year</option></select></label>
+    <label><span class="sublbl">Minimum monthly payment (optional)</span><input name="min_payment" type="text" inputmode="decimal" placeholder="e.g. 300,000" value="${t && Number(t.min_payment) ? money(t.min_payment) : ''}" autocomplete="off"></label>
+    <label><span class="sublbl">Due day of the month (optional)</span><input name="due_day" type="number" min="1" max="31" placeholder="e.g. 15" value="${t && t.due_day ? t.due_day : ''}"></label>` : ''}
     <label class="${kind === 'fund' ? '' : 'full'}"><span class="sublbl">Note (optional)</span><input name="note" type="text" value="${t && t.note ? esc(t.note) : ''}" autocomplete="off"></label>
     <button class="primary full" type="submit">${t ? 'Save changes' : kind === 'debt' ? 'Add to debt tracker' : 'Add financial goal'}</button>
     ${t ? `<button class="linkbtn full" type="button" data-act="deltarget" data-id="${t.id}">${kind === 'debt' ? 'Remove from debt tracker' : 'Remove this financial goal'}</button>` : ''}
@@ -1045,16 +1131,22 @@ function targetForm(kind, t) {
 }
 function trackerSection(a, kind) {
   const L = TRACKERS[kind];
-  const all = targetsOf(a, kind).map(t => ({ t, s: targetStats(t) }));
-  const items = all.filter(x => !x.s.achieved).sort((x, y) => (x.s.done - y.s.done) || (y.s.remaining - x.s.remaining));
+  const all = targetsOf(a, kind).filter(t => t.role !== 'emergency').map(t => ({ t, s: targetStats(t) }));
+  const items = all.filter(x => !x.s.achieved).sort((x, y) => (x.s.done - y.s.done) || (kind === 'debt'
+    ? (state.debtOrder === 'smallest' ? x.s.remaining - y.s.remaining : (annualRate(y.t) - annualRate(x.t)) || (x.s.remaining - y.s.remaining))
+    : y.s.remaining - x.s.remaining));
+  const openCount = items.filter(x => !x.s.done).length;
+  let interestLine = '';
   const won = all.filter(x => x.s.achieved).sort((x, y) => String(y.t.achieved_at).localeCompare(String(x.t.achieved_at)));
   const tickSvg = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   const tot = items.reduce((s, x) => s + x.s.amount, 0), paid = items.reduce((s, x) => s + Math.min(x.s.paid, x.s.amount), 0);
   const rem = Math.max(0, tot - paid), pct = tot ? Math.round(paid / tot * 100) : 0;
   let fourth;
   if (kind === 'debt') {
-    const g = goalsOf(a).find(g => g.kind === 'debt'), per = g ? Number(g.target) : 0, months = per && rem ? Math.ceil(rem / per) : 0;
-    fourth = `<div class="hl"><b>${!rem ? 'Debt-free' : months ? monthLong(monthKey(months - 1)) : '–'}</b><span>${rem && per ? `Debt-free date at ${short(per)} a month` : 'Debt-free date'}</span></div>`;
+    const g = goalsOf(a).find(g => g.kind === 'debt'), per = g ? Number(g.target) : 0, plan = rem ? payoffPlan(a) : { months: 0, interest: 0 };
+    fourth = `<div class="hl"><b>${!rem ? 'Debt-free' : !plan ? '–' : plan.never ? 'Not yet' : monthLong(monthKey(plan.months - 1))}</b><span>${!rem ? 'All cleared' : !plan ? 'Set a monthly payoff goal' : plan.never ? 'Payment too low to beat the interest' : `Debt-free date at ${short(per)} a month`}</span></div>`;
+    if (plan && !plan.never && plan.interest >= 1) interestLine = `<p class="tr-empty">Estimated interest still to pay: <b style="color:var(--gold-hi)">UGX ${money(plan.interest)}</b>. Paying the highest-interest debt first keeps this as low as possible.</p>`;
+    else if (rem && items.some(x => !x.s.done && !hasRate(x.t))) interestLine = '<p class="tr-empty">Add each debt’s interest rate (Edit) for a more accurate debt-free date and the best order to pay them.</p>';
   } else {
     const dated = items.filter(x => x.s.monthly !== null && !x.s.done), monthly = dated.reduce((s, x) => s + x.s.monthly, 0);
     fourth = `<div class="hl"><b>${dated.length ? cur(monthly) : '–'}</b><span>${dated.length ? 'Needed per month' : 'Add target dates to see monthly needs'}</span></div>`;
@@ -1062,7 +1154,7 @@ function trackerSection(a, kind) {
   const col = i => STREAM_COLORS[i % STREAM_COLORS.length];
   const cards = items.map(({ t, s }, i) => {
     const sub = s.done ? (kind === 'debt' ? 'Paid in full' : 'Fully funded') : kind === 'fund' && t.deadline ?`By ${fmtDate(t.deadline)}${s.monthsLeft ? ` · ${s.monthsLeft} month${s.monthsLeft > 1 ? 's' : ''} left` : ''}`
-      : s.last ? `Last ${kind === 'debt' ? 'payment' : 'deposit'} ${fmtDate(s.last.day)}` : kind === 'debt' ? 'No payments recorded yet' : 'Nothing set aside yet';
+      : s.last ? `Last ${kind === 'debt' ? 'payment' : 'deposit'} ${fmtDate(s.last.day)}` : kind === 'debt' ? 'No payments recorded yet' : Number(t.paid_before) ? 'No new savings logged yet' : 'Nothing set aside yet';
     const hist = state.openHist === t.id ? (s.es.length || Number(t.paid_before) ? `<ul class="elist">${s.es.map(e => `<li><span class="when">${esc(fmtDate(e.day))}</span><span>${e.note ? esc(e.note) : kind === 'debt' ? 'Payment' : 'Deposit'}</span><span class="amt">UGX ${money(e.amount)}</span><button class="small danger" type="button" data-act="delentry" data-id="${e.id}" aria-label="Delete this entry">&times;</button></li>`).join('')}
         ${Number(t.paid_before) ? `<li><span class="when">Before</span><span>${kind === 'debt' ? 'Paid before tracking' : 'Saved before tracking'}</span><span class="amt">UGX ${money(t.paid_before)}</span></li>` : ''}</ul>` : `<p class="tr-empty">No ${kind === 'debt' ? 'payments' : 'deposits'} yet.</p>`) : '';
     const pay = state.openPay === t.id ? `<form class="gform" data-act="paysave" data-id="${t.id}">
@@ -1071,10 +1163,11 @@ function trackerSection(a, kind) {
         <label class="full"><span class="sublbl">Note (optional)</span><input name="note" type="text" autocomplete="off"></label>
         <button class="primary full" type="submit">Save ${kind === 'debt' ? 'payment' : 'deposit'}</button></form>` : '';
     return `<article class="titem${s.done ? ' done' : ''}" style="--c:${col(i)}">
-      <div class="ti-top"><span class="av">${esc(initials(t.name))}</span><div style="min-width:0"><h4>${esc(t.name)}</h4><small>${esc(sub)}</small></div>${s.done && kind === 'debt' ? `<span class="tbadge">${L.done}</span>` : ''}${kind === 'fund' ? `<button class="tick" type="button" data-act="achieve" data-id="${t.id}" aria-label="Tick off ${esc(t.name)} as achieved" title="Tick off as achieved">${tickSvg}</button>` : ''}</div>
+      <div class="ti-top"><span class="av">${esc(initials(t.name))}</span><div style="min-width:0"><h4>${esc(t.name)}</h4><small>${esc(sub)}</small></div>${kind === 'debt' && i === 0 && !s.done && openCount > 1 ? '<span class="payfirst">Pay first</span>' : ''}${s.done && kind === 'debt' ? `<span class="tbadge">${L.done}</span>` : ''}${kind === 'fund' ? `<button class="tick" type="button" data-act="achieve" data-id="${t.id}" aria-label="Tick off ${esc(t.name)} as achieved" title="Tick off as achieved">${tickSvg}</button>` : ''}</div>
       <div class="ti-amt"><b>UGX ${money(s.remaining)}</b><span>${L.remain} &middot; UGX ${money(Math.min(s.paid, s.amount))} of ${money(s.amount)} ${L.paidWord}</span></div>
       <div class="ti-bar"><div style="width:${s.pct}%"></div></div>
       <div class="ti-meta"><span>${s.pct}% ${L.paidWord}</span><span>${kind === 'fund' && s.monthly !== null && !s.done ? `UGX ${money(s.monthly)} a month` : ''}</span></div>
+      ${kind === 'debt' ? debtChips(t, s) : ''}
       ${t.note ? `<p class="tr-empty" style="font-size:.82rem">${esc(t.note)}</p>` : ''}
       ${pay}${state.editTarget === t.id ? targetForm(kind, t) : ''}${hist}
       <div class="ti-actions">
@@ -1085,11 +1178,13 @@ function trackerSection(a, kind) {
       </div></article>`;
   }).join('');
   return `<section class="tracker ${kind}">
-    <div class="tr-head"><div class="eyebrow">${L.eyebrow}</div><h3>${L.title}</h3><p>${L.desc}</p></div>
+    <div class="tr-head"><div class="eyebrow">${L.eyebrow}</div><h3>${L.title}</h3><p>${L.desc}</p>
+      ${kind === 'debt' && openCount > 1 ? `<div class="seg" role="group" aria-label="Payoff order">${[['interest', 'Highest interest first'], ['smallest', 'Smallest balance first']].map(([k, l]) => `<button type="button" class="${state.debtOrder === k ? 'on' : ''}" data-act="debtorder" data-o="${k}" aria-pressed="${state.debtOrder === k}">${l}</button>`).join('')}</div>` : ''}</div>
     ${items.length ? `
       <div class="tr-sum"><div><b>${cur(tot)}</b><span>${L.totalLbl}</span></div><div><b>${cur(paid)}</b><span>${L.paidTot}</span></div><div><b>${cur(rem)}</b><span>${L.remainTot}</span></div>${fourth}</div>
       <div><div class="gbar" role="img" aria-label="${pct}% ${L.paidWord}"><div style="width:${pct}%"></div></div>
         <div class="gbar-legend"><span>${pct}% ${kind === 'debt' ? 'of all debt paid' : 'saved across your open goals'}</span><span>${items.filter(x => x.s.done).length} of ${items.length} ${kind === 'debt' ? 'cleared' : 'fully funded'}</span></div></div>
+      ${interestLine}
       <div class="tr-grid">${cards}</div>` : `<p class="tr-empty">${won.length ? 'Everything on your list is achieved. Add the next thing you want.' : L.empty}</p>`}
     ${won.length ? `<div class="won"><span class="sublbl">Achieved &middot; ${won.length}</span><ul>${won.map(({ t, s }) => `<li>
         <span class="wtick">${tickSvg}</span>
@@ -1117,8 +1212,10 @@ function financeTiles(a) {
   const mk = monthKey(0), spent = state.expenses.filter(e => String(e.day).startsWith(mk));
   const tot = spent.reduce((s, e) => s + Number(e.amount), 0), top = groupCats(spent)[0];
   const ds = targetsOf(a, 'debt').map(targetStats), drem = ds.reduce((s, x) => s + x.remaining, 0);
-  const fs = targetsOf(a, 'fund').map(targetStats).filter(x => !x.achieved), frem = fs.reduce((s, x) => s + x.remaining, 0);
+  const fs = targetsOf(a, 'fund').filter(t => t.role !== 'emergency').map(targetStats).filter(x => !x.achieved), frem = fs.reduce((s, x) => s + x.remaining, 0);
+  const em = emergencyOf(a), es = em ? targetStats(em) : null, essM = em ? Number(em.essentials || 0) : 0;
   return `<div class="ftiles">
+    <a href="#area/${a.id}/goals"><span class="sublbl">Emergency fund</span><b>${em ? (essM ? (es.paid / essM).toFixed(1) + ' months' : cur(es.paid)) : 'Not set up'}</b><small>${em ? (essM ? `of ${Math.round(Number(em.amount) / essM)} months covered` : 'saved') : 'Start here'} &rarr;</small></a>
     <a href="#area/${a.id}/expenses"><span class="sublbl">Spent this month</span><b>${cur(tot)}</b><small>${top ? 'Most on ' + esc(top.name) : 'Start your daily expense log'} &rarr;</small></a>
     <a href="#area/${a.id}/debts"><span class="sublbl">Debt remaining</span><b>${cur(drem)}</b><small>${ds.length ? `${ds.filter(x => !x.done).length} of ${ds.length} still owed` : 'Add who you owe'} &rarr;</small></a>
     <a href="#area/${a.id}/goals"><span class="sublbl">Still to go on your goals</span><b>${cur(frem)}</b><small>${fs.length ? `${fs.length} goal${fs.length > 1 ? 's' : ''} in progress` : 'Add what you want to achieve'} &rarr;</small></a>
@@ -1194,6 +1291,7 @@ function expensesSection(a) {
       <div><b>${cur(tMonth)}</b><span>This month</span></div>
       <div><b>${delta === null ? '–' : (delta > 0 ? '+' : '') + delta + '%'}</b><span>vs same point last month</span></div>
     </div>
+    ${budgetCard()}
     <section class="card">
       <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:12px"><span class="card-title">Where your money goes</span>
         <div class="seg" role="group" aria-label="Period">${periods.map(([k, l]) => `<button type="button" class="${P === k ? 'on' : ''}" data-act="expper" data-p="${k}" aria-pressed="${P === k}">${l}</button>`).join('')}</div></div>
@@ -1209,6 +1307,214 @@ function expensesSection(a) {
     </div>
     <section class="card"><span class="card-title">Recent expenses</span>${recent}</section>
   </section>`;
+}
+
+// ---------- Money plan: emergency fund, budgets, income split, debt order ----------
+const emergencyOf = a => state.targets.find(t => t.area_id === a.id && t.kind === 'fund' && t.role === 'emergency');
+const monthEntries = pred => state.entries.filter(e => String(e.day).startsWith(monthKey(0)) && pred(e)).reduce((s, e) => s + Number(e.amount), 0);
+const essentialsFromBudget = () => state.budgets.filter(b => b.essential).reduce((s, b) => s + Number(b.amount), 0);
+const ordinal = n => n + ((n % 100 >= 11 && n % 100 <= 13) ? 'th' : (['th', 'st', 'nd', 'rd'][n % 10] || 'th'));
+const hasRate = t => t.interest_rate !== null && t.interest_rate !== undefined && t.interest_rate !== '';
+const annualRate = t => hasRate(t) ? Number(t.interest_rate) * (t.rate_period === 'month' ? 12 : 1) : 0;
+const monthlyRate = t => hasRate(t) ? Number(t.interest_rate) / 100 / (t.rate_period === 'month' ? 1 : 12) : 0;
+const SHIELD = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>';
+
+function dueInfo(t, s) {
+  if (!t.due_day || s.done) return null;
+  const now = new Date(), lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  if (s.es.some(e => String(e.day).startsWith(monthKey(0)))) return { txt: 'Paid this month', lvl: 'ok' };
+  const due = Math.min(Number(t.due_day), lastDay), diff = due - now.getDate();
+  if (diff < 0) return { txt: `Overdue by ${-diff} day${diff === -1 ? '' : 's'}`, lvl: 'bad' };
+  if (diff === 0) return { txt: 'Due today', lvl: 'bad' };
+  if (diff <= 5) return { txt: `Due in ${diff} day${diff === 1 ? '' : 's'}`, lvl: 'warn' };
+  return { txt: `Due on the ${ordinal(due)}`, lvl: 'ok' };
+}
+function debtChips(t, s) {
+  const chips = [];
+  if (hasRate(t)) chips.push(`${Number(t.interest_rate)}% a ${t.rate_period === 'month' ? 'month' : 'year'}`);
+  if (Number(t.min_payment)) chips.push(`Min UGX ${short(t.min_payment)}`);
+  const due = dueInfo(t, s);
+  if (!chips.length && !due) return '';
+  return `<div class="dchips">${chips.map(c => `<span>${esc(c)}</span>`).join('')}${due ? `<span class="${due.lvl}">${esc(due.txt)}</span>` : ''}</div>`;
+}
+// Month-by-month simulation: interest is added, minimums are paid, the rest of the monthly
+// payoff budget goes to debts in the chosen order (highest interest or smallest balance first).
+function payoffPlan(a) {
+  const g = goalsOf(a).find(x => x.kind === 'debt'), P = g ? Number(g.target) : 0;
+  const ds = targetsOf(a, 'debt').map(t => ({ t, bal: targetStats(t).remaining, r: monthlyRate(t), min: Number(t.min_payment || 0) })).filter(x => x.bal > 0);
+  if (!ds.length) return { months: 0, interest: 0 };
+  if (!P) return null;
+  const order = () => ds.filter(x => x.bal > 0).sort((x, y) => state.debtOrder === 'smallest' ? x.bal - y.bal : (annualRate(y.t) - annualRate(x.t)) || (x.bal - y.bal));
+  let m = 0, interest = 0;
+  while (ds.some(x => x.bal > 0.5) && m < 600) {
+    m++;
+    ds.forEach(x => { if (x.bal > 0) { const i = x.bal * x.r; x.bal += i; interest += i; } });
+    let left = P;
+    ds.forEach(x => { if (x.bal > 0 && left > 0) { const pay = Math.min(x.min, x.bal, left); x.bal -= pay; left -= pay; } });
+    for (const x of order()) { if (left <= 0) break; const pay = Math.min(x.bal, left); x.bal -= pay; left -= pay; }
+  }
+  return m >= 600 ? { never: true } : { months: m, interest };
+}
+
+function emergencySection(a) {
+  const t = emergencyOf(a);
+  if (!t || state.emEdit) {
+    const ess = t ? Number(t.essentials || 0) : essentialsFromBudget();
+    const months = t && Number(t.essentials) ? Math.round(Number(t.amount) / Number(t.essentials)) : 3;
+    return `<section class="emfund">
+      <div class="em-ic">${SHIELD}</div>
+      <div class="em-body"><div><div class="eyebrow">${t ? 'Your safety net' : 'Step one'}</div><h3>${t ? 'Edit your emergency fund' : 'Start with an emergency fund'}</h3></div>
+        <p class="tr-empty">When income comes from trading and freelance work, a cushion of 3 to 6 months of essential costs stops one slow month from turning into new debt. Build it before the wish list.${!t && ess ? ` Your essential budget categories add up to UGX ${money(ess)} a month.` : ''}</p>
+        <form class="gform" data-act="emsave">
+          <label><span class="sublbl">Essential costs per month (UGX)</span><input name="essentials" type="text" inputmode="decimal" value="${ess ? money(ess) : ''}" placeholder="e.g. 1,500,000" required autocomplete="off"></label>
+          <label><span class="sublbl">Months to cover</span><select name="months">${[3, 4, 5, 6].map(n => `<option value="${n}"${n === months ? ' selected' : ''}>${n} months</option>`).join('')}</select></label>
+          ${t ? '' : '<label class="full"><span class="sublbl">Already saved (optional)</span><input name="paid_before" type="text" inputmode="decimal" placeholder="0" autocomplete="off"></label>'}
+          <button class="primary full" type="submit">${t ? 'Save changes' : 'Create my emergency fund'}</button>
+          ${t ? '<button class="linkbtn full" type="button" data-act="emcancel">Cancel</button>' : ''}
+        </form></div></section>`;
+  }
+  const s = targetStats(t), ess = Number(t.essentials || 0), covered = ess ? s.paid / ess : 0, goalMonths = ess ? Math.round(Number(t.amount) / ess) : 0;
+  const marks = goalMonths > 1 ? Array.from({ length: goalMonths - 1 }, (_, i) => `<i class="mk" style="left:${((i + 1) / goalMonths * 100).toFixed(2)}%"></i>`).join('') : '';
+  const pay = state.openPay === t.id ? `<form class="gform" data-act="paysave" data-id="${t.id}">
+      <label><span class="sublbl">Amount (UGX)</span><input name="amount" type="text" inputmode="decimal" placeholder="e.g. 200,000" required autocomplete="off"></label>
+      <label><span class="sublbl">Date</span><input name="day" type="date" value="${todayStr()}" max="${todayStr()}"></label>
+      <button class="primary full" type="submit">Save deposit</button></form>` : '';
+  const hist = state.openHist === t.id ? (s.es.length ? `<ul class="elist">${s.es.map(e => `<li><span class="when">${esc(fmtDate(e.day))}</span><span>${e.note ? esc(e.note) : 'Deposit'}</span><span class="amt">UGX ${money(e.amount)}</span><button class="small danger" type="button" data-act="delentry" data-id="${e.id}" aria-label="Delete this deposit">&times;</button></li>`).join('')}</ul>` : '<p class="tr-empty">No deposits yet.</p>') : '';
+  return `<section class="emfund">
+    <div class="em-ic">${SHIELD}</div>
+    <div class="em-body">
+      <div class="em-top"><div><div class="eyebrow">Your safety net</div><h3>Emergency fund</h3></div>
+        <div class="em-months"><b>${covered.toFixed(1)}</b><span>of ${goalMonths} months covered</span></div></div>
+      <div class="goal-amt"><b>UGX ${money(s.remaining)}</b><span>to go &middot; UGX ${money(Math.min(s.paid, s.amount))} of ${money(s.amount)} saved</span></div>
+      <div><div class="gbar" role="img" aria-label="${covered.toFixed(1)} of ${goalMonths} months covered"><div style="width:${s.pct}%"></div>${marks}</div>
+        <div class="gbar-legend"><span>Each mark is one month of essentials (UGX ${money(ess)})</span><span>UGX ${money(monthEntries(e => e.target_id === t.id))} added this month</span></div></div>
+      ${pay}${hist}
+      <div class="ti-actions">
+        ${s.done ? '<span class="tbadge" style="margin-left:0">Fully funded</span>' : `<button class="primary small" type="button" data-act="payopen" data-id="${t.id}">${state.openPay === t.id ? 'Close' : 'Add savings'}</button>`}
+        <button class="small" type="button" data-act="histopen" data-id="${t.id}">${state.openHist === t.id ? 'Hide history' : 'History'}${s.es.length ? ` (${s.es.length})` : ''}</button>
+        <button class="small" type="button" data-act="emedit">Edit</button>
+      </div>
+    </div></section>`;
+}
+
+function budgetCard() {
+  const mk = monthKey(0), now = new Date(), days = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(), day = now.getDate();
+  const spentBy = {};
+  state.expenses.filter(e => String(e.day).startsWith(mk)).forEach(e => { spentBy[e.category] = (spentBy[e.category] || 0) + Number(e.amount); });
+  const customs = [...new Set(state.expenses.map(e => e.category).concat(state.budgets.map(b => b.category)))].filter(c => !CATS.includes(c));
+  const cats = [...CATS.slice(0, -1), ...customs, 'Other'];
+  if (state.editBudget) {
+    const bm = Object.fromEntries(state.budgets.map(b => [b.category, b]));
+    return `<section class="card budget"><span class="card-title">Set your monthly budget</span>
+      <p class="card-sub">Give each category a monthly limit, and tick the essentials (rent, food, transport, school fees). Essentials also size your emergency fund. Leave a box empty for no limit.</p>
+      <form class="bform" data-act="budgetsave">${cats.map((c, i) => `<div class="brow" style="--cc:${catColor(c)}">
+          <span class="bname"><i></i>${esc(c)}</span><input type="hidden" name="cat" value="${esc(c)}">
+          <input name="amt" type="text" inputmode="decimal" placeholder="No limit" value="${bm[c] ? money(bm[c].amount) : ''}" aria-label="Monthly limit for ${esc(c)}" autocomplete="off">
+          <label class="ess"><input type="checkbox" name="ess" value="${i}"${bm[c] && bm[c].essential ? ' checked' : ''}> Essential</label></div>`).join('')}
+        <div class="row" style="gap:10px;margin-top:16px"><button class="primary" type="submit">Save budget</button><button type="button" data-act="budgetedit">Cancel</button></div>
+      </form></section>`;
+  }
+  if (!state.budgets.length) return `<section class="card budget"><span class="card-title">Monthly budget</span>
+      <p class="card-sub">You can now see where your money goes. A budget decides where it should go: a limit for each category, with a warning before you overspend.</p>
+      <button class="primary" type="button" data-act="budgetedit" style="margin-top:8px">Set your budget</button></section>`;
+  const rows = state.budgets.map(b => ({ b, spent: spentBy[b.category] || 0 })).sort((x, y) => y.spent / Number(y.b.amount) - x.spent / Number(x.b.amount));
+  const total = rows.reduce((s, r) => s + Number(r.b.amount), 0), spent = rows.reduce((s, r) => s + r.spent, 0);
+  const unb = Object.entries(spentBy).filter(([c]) => !state.budgets.some(b => b.category === c)).reduce((s, [, v]) => s + v, 0);
+  const pace = Math.round(day / days * 100), pct = total ? Math.round(spent / total * 100) : 0;
+  return `<section class="card budget">
+    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px"><span class="card-title">Monthly budget</span><button class="small" type="button" data-act="budgetedit">Edit budget</button></div>
+    <div class="goal-amt" style="margin-top:12px"><b>UGX ${money(Math.abs(total - spent))}</b><span>${total - spent >= 0 ? 'left' : 'over'} of your UGX ${money(total)} budget &middot; ${days - day} day${days - day === 1 ? '' : 's'} to go</span></div>
+    <div class="gbar" style="margin-top:12px" role="img" aria-label="${pct}% of budget used, ${pace}% of the month gone"><div style="width:${Math.min(100, pct)}%"></div><i style="left:${pace}%"></i></div>
+    <div class="gbar-legend"><span>${pct}% used &middot; marker shows ${pace}% of the month gone</span>${unb ? `<span>UGX ${money(unb)} spent outside your budget</span>` : ''}</div>
+    <ul class="blist">${rows.map(({ b, spent }) => {
+      const lim = Number(b.amount), p = Math.round(spent / lim * 100), st = p >= 100 ? 'over' : p >= 80 ? 'warn' : 'ok';
+      return `<li class="${st}" style="--cc:${catColor(b.category)}"><span class="bname"><i></i>${esc(b.category)}${b.essential ? ' <em>Essential</em>' : ''}</span>
+        <span class="bbar"><span style="width:${Math.min(100, p)}%"></span></span><span class="bnum">${short(spent)} of ${short(lim)}</span>
+        <span class="bst">${st === 'over' ? `Over by ${short(spent - lim)}` : `${short(lim - spent)} left`}</span></li>`;
+    }).join('')}</ul>
+  </section>`;
+}
+function budgetNote(category) {
+  const b = state.budgets.find(x => x.category === category); if (!b) return '';
+  const sp = state.expenses.filter(e => String(e.day).startsWith(monthKey(0)) && e.category === category).reduce((s, e) => s + Number(e.amount), 0);
+  const p = Math.round(sp / Number(b.amount) * 100);
+  return p >= 100 ? `Over budget on ${category}: ${p}% used` : p >= 80 ? `${category}: ${p}% of this month's budget used` : '';
+}
+
+const LINKS = { debt: 'Debt payments', emergency: 'Emergency fund', goals: 'Financial goals', living: 'Living costs (expenses)', none: 'Not tracked' };
+const SUGGESTED_PLAN = [['Debt payments', 37.5, 'debt'], ['Emergency fund', 10, 'emergency'], ['Living costs', 40, 'living'], ['Financial goals', 5, 'goals'], ['Giving & family', 5, 'none'], ['Tax set-aside', 2.5, 'none']];
+function planActual(a, link) {
+  if (link === 'debt') { const g = goalsOf(a).find(x => x.kind === 'debt'); return g ? goalStats(g).total : null; }
+  if (link === 'emergency') { const em = emergencyOf(a); return em ? monthEntries(e => e.target_id === em.id) : 0; }
+  if (link === 'goals') { const ids = new Set(state.targets.filter(t => t.kind === 'fund' && t.role !== 'emergency').map(t => t.id)); return monthEntries(e => ids.has(e.target_id)); }
+  if (link === 'living') return state.expenses.filter(e => String(e.day).startsWith(monthKey(0))).reduce((s, e) => s + Number(e.amount), 0);
+  return null;
+}
+function incomePlanCard(a) {
+  const incG = goalsOf(a).find(x => x.kind === 'income'), base = incG ? Number(incG.target) : 0;
+  if (state.editPlan) {
+    const d = state.planDraft, sum = d.reduce((s, r) => s + (Number(r.percent) || 0), 0);
+    return `<section class="card plan"><span class="card-title">Your income split</span>
+      <p class="card-sub">The share of each month's income that goes to each purpose. Link a line to something the app tracks to see what has actually gone there.</p>
+      <form class="pform" data-act="plansave">${d.map((r, i) => `<div class="prow">
+          <input name="name" type="text" value="${esc(r.name)}" placeholder="e.g. Debt payments" aria-label="Line ${i + 1} name" autocomplete="off">
+          <label class="pct"><input name="pct" type="text" inputmode="decimal" value="${esc(r.percent)}" aria-label="Line ${i + 1} percent" autocomplete="off"><span>%</span></label>
+          <select name="link" aria-label="Line ${i + 1} tracked against">${Object.entries(LINKS).map(([k, v]) => `<option value="${k}"${r.link === k ? ' selected' : ''}>${v}</option>`).join('')}</select>
+          <button class="small danger" type="button" data-act="planrm" data-i="${i}" aria-label="Remove line ${i + 1}">&times;</button></div>`).join('')}
+        <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px"><button class="small" type="button" data-act="planadd">+ Add a line</button><span class="ptotal">Total: <b id="plantotal">${sum}</b>% (aim for 100%)</span></div>
+        <div class="row" style="gap:10px;margin-top:14px"><button class="primary" type="submit">Save split</button><button type="button" data-act="planedit">Cancel</button></div>
+      </form></section>`;
+  }
+  if (!state.plan.length) return `<section class="card plan"><span class="card-title">Income plan</span>
+      <p class="card-sub">Decide in advance how every shilling of income is split, so debt and savings are paid first, not from whatever is left at the end of the month.</p>
+      <div class="row" style="gap:10px;margin-top:10px;flex-wrap:wrap"><button class="primary" type="button" data-act="plansuggest">Use the suggested split</button><button type="button" data-act="planedit">Make my own</button></div></section>`;
+  const rows = state.plan.slice().sort((x, y) => (x.position || 0) - (y.position || 0)), total = rows.reduce((s, r) => s + Number(r.percent), 0);
+  return `<section class="card plan">
+    <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:10px"><span class="card-title">Income plan</span><button class="small" type="button" data-act="planedit">Edit split</button></div>
+    <p class="card-sub">How each month's income is split${base ? `, based on your UGX ${money(base)} target` : ''}. Bars show what has actually gone to each so far this month.</p>
+    ${Math.round(total * 10) / 10 !== 100 ? `<p class="warnline">Your split adds up to ${Math.round(total * 10) / 10}%. Adjust it to 100%.</p>` : ''}
+    <ul class="plist">${rows.map((r, i) => {
+      const planned = base * Number(r.percent) / 100, act = planActual(a, r.link), p = act === null || !planned ? null : Math.round(act / planned * 100);
+      return `<li class="${r.link === 'living' && p > 100 ? 'over' : ''}" style="--cc:${STREAM_COLORS[i % STREAM_COLORS.length]}">
+        <span class="pn"><i></i>${esc(r.name)}</span><span class="pp">${Number(r.percent)}%</span><span class="pa">UGX ${money(planned)}</span>
+        <span class="pbar">${p === null ? '<small>Not tracked</small>' : `<span><span style="width:${Math.min(100, p)}%"></span></span><small>${short(act)} so far${r.link === 'living' && p > 100 ? ' (over)' : ''}</small>`}</span></li>`;
+    }).join('')}</ul>
+  </section>`;
+}
+function splitBox(g) {
+  if (!state.splitFor || state.splitFor.goal !== g.id || !state.plan.length) return '';
+  const amt = state.splitFor.amount, rows = state.plan.slice().sort((x, y) => (x.position || 0) - (y.position || 0));
+  return `<div class="splitbox"><div class="row" style="justify-content:space-between;gap:10px"><span class="sublbl" style="margin:0">Split this UGX ${money(amt)} by your plan</span>
+      <button class="small" type="button" data-act="splitclose" aria-label="Close">&times;</button></div>
+    <div class="splitchips">${rows.map(r => `<span><b>${money(amt * Number(r.percent) / 100)}</b> ${esc(r.name)}</span>`).join('')}</div></div>`;
+}
+async function savePlan(rows) {
+  await run(sb.from('plan_items').delete().not('id', 'is', null));
+  const ins = rows.filter(r => String(r.name || '').trim() && Number(r.percent) > 0)
+    .map((r, i) => ({ name: String(r.name).trim(), percent: Math.min(100, Number(r.percent)), link: r.link || 'none', position: i }));
+  state.plan = ins.length ? await run(sb.from('plan_items').insert(ins).select()) : [];
+}
+function syncDraft() {
+  const f = document.querySelector('form[data-act=plansave]'); if (!f) return;
+  const d = new FormData(f), n = d.getAll('name'), p = d.getAll('pct'), l = d.getAll('link');
+  state.planDraft = n.map((x, i) => ({ name: String(x), percent: String(p[i] || '').replace(/[^0-9.]/g, ''), link: l[i] || 'none' }));
+}
+function financeAlerts(a) {
+  const out = [], mk = monthKey(0);
+  state.budgets.forEach(b => {
+    const sp = state.expenses.filter(e => String(e.day).startsWith(mk) && e.category === b.category).reduce((s, e) => s + Number(e.amount), 0);
+    const p = Math.round(sp / Number(b.amount) * 100);
+    if (p >= 100) out.push({ t: `${b.category} is over budget by UGX ${money(sp - b.amount)}`, lvl: 'bad', link: 'expenses' });
+    else if (p >= 80) out.push({ t: `${b.category}: ${p}% of this month's budget used`, lvl: 'warn', link: 'expenses' });
+  });
+  targetsOf(a, 'debt').forEach(t => {
+    const due = dueInfo(t, targetStats(t));
+    if (due && due.lvl !== 'ok') out.push({ t: `${t.name}: ${due.txt.toLowerCase()}${Number(t.min_payment) ? ` (minimum UGX ${money(t.min_payment)})` : ''}`, lvl: due.lvl, link: 'debts' });
+  });
+  if (!emergencyOf(a)) out.push({ t: 'Set up your emergency fund. It protects everything else on this page.', lvl: 'info', link: 'goals' });
+  if (!out.length) return '';
+  out.sort((x, y) => ['bad', 'warn', 'info'].indexOf(x.lvl) - ['bad', 'warn', 'info'].indexOf(y.lvl));
+  return `<section class="alerts"><span class="sublbl">Heads up</span><ul>${out.slice(0, 6).map(x => `<li class="${x.lvl}"><a href="#area/${a.id}/${x.link}">${esc(x.t)} <span aria-hidden="true">&rarr;</span></a></li>`).join('')}</ul></section>`;
 }
 
 // ---------- Router ----------
@@ -1367,7 +1673,7 @@ function renderArea(id, animate, sub = 'overview') {
     </section>
     ${isMoney ? subtabs(a, sub) : ''}
     ${showOverview ? `
-    ${isMoney ? financeTiles(a) : ''}
+    ${isMoney ? financeTiles(a) + financeAlerts(a) + incomePlanCard(a) : ''}
     ${goalsOf(a).length ? `<div class="goals${rz}" style="--d:.08s">${goalsOf(a).map(goalCard).join('')}</div>` : ''}
     ${addGoalForm(goalsOf(a).length > 0)}
     <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
@@ -1406,7 +1712,7 @@ function renderArea(id, animate, sub = 'overview') {
         </section>
         <button class="small danger del-area" type="button" data-act="delarea">Delete this area</button>
       </div>
-    </div>` : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : trackerSection(a, 'fund')}`;
+    </div>` : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
 }
 async function toggleTask(id, checked) {
   const day = todayStr();
@@ -1440,7 +1746,10 @@ $('#view-area').addEventListener('submit', async e => {
       const row = await run(sb.from('goal_entries').insert({ goal_id: e.target.dataset.goal, amount, target_id: tgt ? tgt.id : null,
         source: tgt ? tgt.name : (String(f.get('source') || '').trim() || null), note: String(f.get('note') || '').trim() || null,
         day: f.get('day') || todayStr() }).select().single());
-      state.entries.unshift(row); state.openLog = null; toast('Saved');
+      state.entries.unshift(row); state.openLog = null;
+      const g = state.goals.find(x => x.id === e.target.dataset.goal);
+      if (g && g.kind === 'income' && state.plan.length) { state.splitFor = { goal: g.id, amount }; toast('Saved. Here is how to split it.'); }
+      else toast('Saved');
     } else if (act === 'paysave') {
       const t = state.targets.find(x => x.id === e.target.dataset.id), amount = num(f.get('amount'));
       if (!t) return; if (!amount) return toast('Enter an amount');
@@ -1453,6 +1762,11 @@ $('#view-area').addEventListener('submit', async e => {
       if (!name || !amount) return toast('Add a name and an amount');
       const rec = { name, amount, paid_before: num(f.get('paid_before')) || 0, note: String(f.get('note') || '').trim() || null,
         deadline: kind === 'fund' ? (f.get('deadline') || null) : null };
+      if (kind === 'debt') {
+        const ir = String(f.get('interest_rate') || '').trim(), dd = Number(f.get('due_day')) || null;
+        Object.assign(rec, { interest_rate: ir === '' ? null : num(ir), rate_period: f.get('rate_period') || 'month',
+          min_payment: num(f.get('min_payment')) || null, due_day: dd ? Math.min(31, Math.max(1, Math.round(dd))) : null });
+      }
       if (act === 'addtarget') {
         const row = await run(sb.from('targets').insert({ ...rec, area_id: a.id, kind, position: targetsOf(a, kind).length }).select().single());
         state.targets.push(row); toast(kind === 'debt' ? 'Added to your debt tracker' : 'Financial goal added');
@@ -1460,11 +1774,31 @@ $('#view-area').addEventListener('submit', async e => {
         const t = state.targets.find(x => x.id === e.target.dataset.id); if (!t) return;
         await run(sb.from('targets').update(rec).eq('id', t.id)); Object.assign(t, rec); state.editTarget = null; toast('Saved');
       }
+    } else if (act === 'budgetsave') {
+      const cats = f.getAll('cat'), amts = f.getAll('amt'), ess = new Set(f.getAll('ess').map(Number));
+      const rows = cats.map((c, i) => ({ category: String(c), amount: num(amts[i]), essential: ess.has(i) })).filter(r => r.amount > 0);
+      await run(sb.from('budgets').delete().not('id', 'is', null));
+      state.budgets = rows.length ? await run(sb.from('budgets').insert(rows).select()) : [];
+      state.editBudget = false; toast('Budget saved');
+    } else if (act === 'plansave') {
+      syncDraft(); await savePlan(state.planDraft); state.editPlan = false; toast('Income split saved');
+    } else if (act === 'emsave') {
+      const ess = num(f.get('essentials')), months = Number(f.get('months')) || 3;
+      if (!ess) return toast('Enter your essential costs per month');
+      const em = emergencyOf(a);
+      if (em) {
+        const rec = { essentials: ess, amount: ess * months };
+        await run(sb.from('targets').update(rec).eq('id', em.id)); Object.assign(em, rec); state.emEdit = false; toast('Emergency fund updated');
+      } else {
+        const row = await run(sb.from('targets').insert({ area_id: a.id, kind: 'fund', role: 'emergency', name: 'Emergency fund', essentials: ess,
+          amount: ess * months, paid_before: num(f.get('paid_before')) || 0, position: -1 }).select().single());
+        state.targets.push(row); toast('Emergency fund created');
+      }
     } else if (act === 'expsave') {
       const amount = num(f.get('amount')), category = String(f.get('custom') || '').trim() || String(f.get('category') || '');
       if (!amount) return toast('Enter an amount'); if (!category) return toast('Pick a category');
       const row = await run(sb.from('expenses').insert({ area_id: a.id, amount, category, note: String(f.get('note') || '').trim() || null, day: f.get('day') || todayStr() }).select().single());
-      state.expenses.push(row); state.lastCat = category; toast('Expense added');
+      state.expenses.push(row); state.lastCat = category; toast(budgetNote(category) || 'Expense added');
       render(); const i = document.querySelector('.exform input[name=amount]'); if (i) i.focus(); return;
     } else if (act === 'addgoal') {
       const title = String(f.get('title') || '').trim(), target = num(f.get('target'));
@@ -1514,6 +1848,22 @@ $('#view-area').addEventListener('click', async e => {
       state.openPay = state.editTarget = state.openHist = null; render();
       if (v) toast(`Ticked off: ${t.name}. Well done!`);
     }
+    else if (act === 'budgetedit') { state.editBudget = !state.editBudget; render(); }
+    else if (act === 'planedit') {
+      if (state.editPlan) state.editPlan = false;
+      else {
+        const src = state.plan.length ? state.plan.slice().sort((x, y) => (x.position || 0) - (y.position || 0)) : SUGGESTED_PLAN.map(([name, percent, link]) => ({ name, percent, link }));
+        state.planDraft = src.map(r => ({ name: r.name, percent: Number(r.percent), link: r.link })); state.editPlan = true;
+      }
+      render();
+    }
+    else if (act === 'planadd') { syncDraft(); state.planDraft.push({ name: '', percent: '', link: 'none' }); render(); }
+    else if (act === 'planrm') { syncDraft(); state.planDraft.splice(Number(el.dataset.i), 1); render(); }
+    else if (act === 'plansuggest') { await savePlan(SUGGESTED_PLAN.map(([name, percent, link]) => ({ name, percent, link }))); render(); toast('Suggested split saved. Edit it any time.'); }
+    else if (act === 'splitclose') { state.splitFor = null; render(); }
+    else if (act === 'debtorder') { state.debtOrder = el.dataset.o; render(); }
+    else if (act === 'emedit') { state.emEdit = true; render(); }
+    else if (act === 'emcancel') { state.emEdit = false; render(); }
     else if (act === 'expper') { state.expPeriod = el.dataset.p; render(); }
     else if (act === 'expmore') { state.expAll = !state.expAll; render(); }
     else if (act === 'delexp') {
@@ -1538,6 +1888,11 @@ $('#view-area').addEventListener('click', async e => {
   } catch (_) {}
 });
 $('#view-area').addEventListener('input', e => { if (e.target.dataset.act === 'score') $('#scoreval').textContent = e.target.value; });
+$('#view-area').addEventListener('input', e => {     // live total while editing the income split
+  if (e.target.name !== 'pct' || !e.target.form) return;
+  const s = [...e.target.form.querySelectorAll('input[name=pct]')].reduce((t, i) => t + (Number(i.value.replace(/[^0-9.]/g, '')) || 0), 0);
+  const el = $('#plantotal'); if (el) el.textContent = Math.round(s * 10) / 10;
+});
 $('#view-area').addEventListener('change', async e => {
   const a = currentArea(); if (!a) return;
   if (e.target.dataset.task) { await toggleTask(e.target.dataset.task, e.target.checked); return render(); }
