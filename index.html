@@ -400,7 +400,7 @@ async function start() {
 // ---- Sign-in screen logic ----
 let authMode = 'signin';
 const MODES = {
-  signin:   { title: 'Welcome back', sub: 'Sign in to pick up where you left off.', btn: 'Sign in', sw: 'Create an account', pwl: 'Password', ac: 'current-password', email: true, forgot: true },
+  signin:   { title: 'Welcome back', sub: 'Sign in to pick up where you left off.', btn: 'Sign in', sw: '' /* was 'Create an account'; signups are disabled in Supabase */, pwl: 'Password', ac: 'current-password', email: true, forgot: true },
   signup:   { title: 'Create your account', sub: 'Start tracking the areas that matter most to you.', btn: 'Create account', sw: 'I already have an account', pwl: 'Password', ac: 'new-password', email: true, forgot: false },
   recovery: { title: 'Set a new password', sub: 'Choose a new password for your account.', btn: 'Save new password', sw: '', pwl: 'New password', ac: 'new-password', email: false, forgot: false }
 };
