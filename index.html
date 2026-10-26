@@ -222,6 +222,7 @@
   .subtabs a { flex:1 0 auto; display:flex; align-items:center; justify-content:center; min-height:42px; padding:0 18px; border-radius:99px; color:var(--muted); text-decoration:none; font-weight:700; font-size:.88rem; white-space:nowrap; }
   .subtabs a:hover { color:var(--ink); }
   .subtabs a.on { background:var(--goldgrad); color:#17130A; }
+  .subtabs .sm { display:none; }
   .cu { font-family:var(--sans); font-size:.5em; font-weight:700; letter-spacing:.08em; color:var(--muted); vertical-align:.35em; }
   .ftiles { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; margin-bottom:18px; }
   .ftiles a { display:flex; flex-direction:column; gap:6px; padding:18px 20px; border-radius:20px; border:1px solid var(--line2); background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); color:inherit; text-decoration:none; transition:border-color .2s, transform .2s; }
@@ -262,6 +263,16 @@
   .tr-add summary::-webkit-details-marker { display:none; }
   .tr-add[open] summary { margin-bottom:14px; }
   .tr-empty { margin:0; color:var(--muted); font-size:.92rem; line-height:1.5; }
+  .tick { flex:none; margin-left:auto; display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; padding:0; border-radius:50%; border:1.5px solid rgba(243,222,152,.55); background:transparent; color:rgba(243,222,152,.28); transition:color .2s, background .2s, transform .2s; }
+  .tick:hover { color:#17130A; background:var(--goldgrad); border-color:transparent; transform:scale(1.06); }
+  .tbadge + .tick { margin-left:8px; }
+  .won { padding-top:18px; border-top:1px solid var(--line2); }
+  .won ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:10px; }
+  .won li { display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:16px; border:1px solid rgba(212,175,55,.42); background:linear-gradient(135deg, rgba(243,222,152,.14), rgba(156,122,28,.07)); }
+  .won li > div { flex:1; min-width:0; }
+  .won b { display:block; font-size:.95rem; overflow-wrap:anywhere; }
+  .won small { color:var(--muted); font-size:.76rem; }
+  .wtick { flex:none; display:flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; background:var(--goldgrad); color:#17130A; }
 
   /* ---- Expenses ---- */
   .expenses { display:flex; flex-direction:column; gap:18px; }
@@ -369,6 +380,8 @@
     .catlist li { grid-template-columns:12px minmax(0,1fr) auto 36px; }
     .catlist .cb { display:none; }
     .subtabs .lg { display:none; }
+    .subtabs .sm { display:inline; }
+    .tr-sum b, .ex-kpis b { font-size:1.12rem; }
     .ivs { grid-template-columns:1fr; gap:8px; }
     .ivs div { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
     .ivs .sublbl { margin:0; }
@@ -1000,10 +1013,10 @@ const TRACKERS = {
     add: '+ Add a person or lender you owe', nameLbl: 'Who you owe', namePh: 'e.g. SACCO loan, John', amtLbl: 'Total borrowed', paidLbl: 'Already paid before (optional)',
     pay: 'Record payment', remain: 'remaining', paidWord: 'paid', done: 'Cleared', totalLbl: 'Total owed', paidTot: 'Paid so far', remainTot: 'Remaining',
     empty: 'Add each person or lender you owe. You will see exactly who has been paid and what is left on each debt.' },
-  fund: { title: 'Financial goals', eyebrow: 'What you are building toward', desc: 'The funds you need to cover, how much is in place and what each goal needs per month.',
-    add: '+ Add a financial goal', nameLbl: 'Goal', namePh: 'e.g. Land, School fees, Emergency fund', amtLbl: 'Amount needed', paidLbl: 'Already saved (optional)',
-    pay: 'Add funds', remain: 'still to cover', paidWord: 'covered', done: 'Fully funded', totalLbl: 'Total needed', paidTot: 'Covered so far', remainTot: 'Still to cover',
-    empty: 'Add what you are working toward, like land, school fees, a car or an emergency fund, and the amount each one needs.' }
+  fund: { title: 'Financial goals', eyebrow: 'Things you want to achieve', desc: 'List what you want to achieve and what it costs. Save toward it and watch the amount left shrink, then tick it off when it is done.',
+    add: '+ Add something you want to achieve', nameLbl: 'What do you want to achieve?', namePh: 'e.g. New laptop, Trip to Zanzibar, Plot of land', amtLbl: 'Cost', paidLbl: 'Already saved (optional)',
+    pay: 'Add savings', remain: 'to go', paidWord: 'saved', done: 'Fully funded', totalLbl: 'Total cost', paidTot: 'Saved so far', remainTot: 'Still to go',
+    empty: 'Add the things you want to achieve, like a laptop, a trip, land or a car, with what each one costs.' }
 };
 const targetsOf = (a, kind) => state.targets.filter(t => t.area_id === a.id && t.kind === kind);
 function targetStats(t) {
@@ -1016,7 +1029,7 @@ function targetStats(t) {
     monthsLeft = Math.max(1, (d.getFullYear() - n.getFullYear()) * 12 + d.getMonth() - n.getMonth() + 1);
     monthly = remaining / monthsLeft;
   }
-  return { es, amount, paid, remaining, monthsLeft, monthly, last: es[0], done: remaining <= 0, pct: Math.min(100, Math.round(paid / amount * 100)) };
+  return { es, amount, paid, remaining, monthsLeft, monthly, last: es[0], done: remaining <= 0, achieved: !!t.achieved_at, pct: Math.min(100, Math.round(paid / amount * 100)) };
 }
 function targetForm(kind, t) {
   const L = TRACKERS[kind], act = t ? 'editsave' : 'addtarget';
@@ -1032,8 +1045,10 @@ function targetForm(kind, t) {
 }
 function trackerSection(a, kind) {
   const L = TRACKERS[kind];
-  const items = targetsOf(a, kind).map(t => ({ t, s: targetStats(t) }))
-    .sort((x, y) => (x.s.done - y.s.done) || (y.s.remaining - x.s.remaining));
+  const all = targetsOf(a, kind).map(t => ({ t, s: targetStats(t) }));
+  const items = all.filter(x => !x.s.achieved).sort((x, y) => (x.s.done - y.s.done) || (y.s.remaining - x.s.remaining));
+  const won = all.filter(x => x.s.achieved).sort((x, y) => String(y.t.achieved_at).localeCompare(String(x.t.achieved_at)));
+  const tickSvg = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
   const tot = items.reduce((s, x) => s + x.s.amount, 0), paid = items.reduce((s, x) => s + Math.min(x.s.paid, x.s.amount), 0);
   const rem = Math.max(0, tot - paid), pct = tot ? Math.round(paid / tot * 100) : 0;
   let fourth;
@@ -1056,14 +1071,15 @@ function trackerSection(a, kind) {
         <label class="full"><span class="sublbl">Note (optional)</span><input name="note" type="text" autocomplete="off"></label>
         <button class="primary full" type="submit">Save ${kind === 'debt' ? 'payment' : 'deposit'}</button></form>` : '';
     return `<article class="titem${s.done ? ' done' : ''}" style="--c:${col(i)}">
-      <div class="ti-top"><span class="av">${esc(initials(t.name))}</span><div style="min-width:0"><h4>${esc(t.name)}</h4><small>${esc(sub)}</small></div>${s.done ? `<span class="tbadge">${L.done}</span>` : ''}</div>
+      <div class="ti-top"><span class="av">${esc(initials(t.name))}</span><div style="min-width:0"><h4>${esc(t.name)}</h4><small>${esc(sub)}</small></div>${s.done && kind === 'debt' ? `<span class="tbadge">${L.done}</span>` : ''}${kind === 'fund' ? `<button class="tick" type="button" data-act="achieve" data-id="${t.id}" aria-label="Tick off ${esc(t.name)} as achieved" title="Tick off as achieved">${tickSvg}</button>` : ''}</div>
       <div class="ti-amt"><b>UGX ${money(s.remaining)}</b><span>${L.remain} &middot; UGX ${money(Math.min(s.paid, s.amount))} of ${money(s.amount)} ${L.paidWord}</span></div>
       <div class="ti-bar"><div style="width:${s.pct}%"></div></div>
       <div class="ti-meta"><span>${s.pct}% ${L.paidWord}</span><span>${kind === 'fund' && s.monthly !== null && !s.done ? `UGX ${money(s.monthly)} a month` : ''}</span></div>
       ${t.note ? `<p class="tr-empty" style="font-size:.82rem">${esc(t.note)}</p>` : ''}
       ${pay}${state.editTarget === t.id ? targetForm(kind, t) : ''}${hist}
       <div class="ti-actions">
-        ${s.done ? '' : `<button class="primary small" type="button" data-act="payopen" data-id="${t.id}">${state.openPay === t.id ? 'Close' : L.pay}</button>`}
+        ${s.done ? (kind === 'fund' ? `<button class="primary small" type="button" data-act="achieve" data-id="${t.id}">Tick it off &#10003;</button>` : '')
+          : `<button class="primary small" type="button" data-act="payopen" data-id="${t.id}">${state.openPay === t.id ? 'Close' : L.pay}</button>`}
         <button class="small" type="button" data-act="histopen" data-id="${t.id}">${state.openHist === t.id ? 'Hide history' : 'History'}${s.es.length ? ` (${s.es.length})` : ''}</button>
         <button class="small" type="button" data-act="editopen" data-id="${t.id}">${state.editTarget === t.id ? 'Cancel' : 'Edit'}</button>
       </div></article>`;
@@ -1073,8 +1089,12 @@ function trackerSection(a, kind) {
     ${items.length ? `
       <div class="tr-sum"><div><b>${cur(tot)}</b><span>${L.totalLbl}</span></div><div><b>${cur(paid)}</b><span>${L.paidTot}</span></div><div><b>${cur(rem)}</b><span>${L.remainTot}</span></div>${fourth}</div>
       <div><div class="gbar" role="img" aria-label="${pct}% ${L.paidWord}"><div style="width:${pct}%"></div></div>
-        <div class="gbar-legend"><span>${pct}% ${kind === 'debt' ? 'of all debt paid' : 'of all goals covered'}</span><span>${items.filter(x => x.s.done).length} of ${items.length} ${kind === 'debt' ? 'cleared' : 'fully funded'}</span></div></div>
-      <div class="tr-grid">${cards}</div>` : `<p class="tr-empty">${L.empty}</p>`}
+        <div class="gbar-legend"><span>${pct}% ${kind === 'debt' ? 'of all debt paid' : 'saved across your open goals'}</span><span>${items.filter(x => x.s.done).length} of ${items.length} ${kind === 'debt' ? 'cleared' : 'fully funded'}</span></div></div>
+      <div class="tr-grid">${cards}</div>` : `<p class="tr-empty">${won.length ? 'Everything on your list is achieved. Add the next thing you want.' : L.empty}</p>`}
+    ${won.length ? `<div class="won"><span class="sublbl">Achieved &middot; ${won.length}</span><ul>${won.map(({ t, s }) => `<li>
+        <span class="wtick">${tickSvg}</span>
+        <div><b>${esc(t.name)}</b><small>Achieved ${esc(fmtDate(t.achieved_at))} &middot; UGX ${money(s.amount)}</small></div>
+        <button class="small" type="button" data-act="unachieve" data-id="${t.id}" aria-label="Undo achieved for ${esc(t.name)}">Undo</button></li>`).join('')}</ul></div>` : ''}
     <details class="tr-add"${items.length ? '' : ' open'}><summary>${L.add}</summary>${targetForm(kind)}</details>
   </section>`;
 }
@@ -1090,18 +1110,18 @@ function groupCats(list) {
   return Object.entries(m).map(([name, amt]) => ({ name, amt })).sort((x, y) => y.amt - x.amt);
 }
 function subtabs(a, sub) {
-  const t = [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial </span>Goals']];
+  const t = [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial goals</span><span class="sm">Goals</span>']];
   return `<nav class="subtabs" aria-label="Finances sections">${t.map(([k, l]) => `<a href="#area/${a.id}${k === 'overview' ? '' : '/' + k}" class="${sub === k ? 'on' : ''}"${sub === k ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
 }
 function financeTiles(a) {
   const mk = monthKey(0), spent = state.expenses.filter(e => String(e.day).startsWith(mk));
   const tot = spent.reduce((s, e) => s + Number(e.amount), 0), top = groupCats(spent)[0];
   const ds = targetsOf(a, 'debt').map(targetStats), drem = ds.reduce((s, x) => s + x.remaining, 0);
-  const fs = targetsOf(a, 'fund').map(targetStats), frem = fs.reduce((s, x) => s + x.remaining, 0);
+  const fs = targetsOf(a, 'fund').map(targetStats).filter(x => !x.achieved), frem = fs.reduce((s, x) => s + x.remaining, 0);
   return `<div class="ftiles">
     <a href="#area/${a.id}/expenses"><span class="sublbl">Spent this month</span><b>${cur(tot)}</b><small>${top ? 'Most on ' + esc(top.name) : 'Start your daily expense log'} &rarr;</small></a>
     <a href="#area/${a.id}/debts"><span class="sublbl">Debt remaining</span><b>${cur(drem)}</b><small>${ds.length ? `${ds.filter(x => !x.done).length} of ${ds.length} still owed` : 'Add who you owe'} &rarr;</small></a>
-    <a href="#area/${a.id}/goals"><span class="sublbl">Funds still to cover</span><b>${cur(frem)}</b><small>${fs.length ? `${fs.length} financial goal${fs.length > 1 ? 's' : ''}` : 'Add what you are working toward'} &rarr;</small></a>
+    <a href="#area/${a.id}/goals"><span class="sublbl">Still to go on your goals</span><b>${cur(frem)}</b><small>${fs.length ? `${fs.length} goal${fs.length > 1 ? 's' : ''} in progress` : 'Add what you want to achieve'} &rarr;</small></a>
   </div>`;
 }
 function moneyMinis(a) {
@@ -1486,6 +1506,13 @@ $('#view-area').addEventListener('click', async e => {
       await run(sb.from('targets').delete().eq('id', t.id));
       state.targets = state.targets.filter(x => x.id !== t.id);
       state.entries.forEach(x => { if (x.target_id === t.id) x.target_id = null; }); render();
+    }
+    else if (act === 'achieve' || act === 'unachieve') {
+      const t = state.targets.find(x => x.id === el.dataset.id); if (!t) return;
+      const v = act === 'achieve' ? todayStr() : null;
+      await run(sb.from('targets').update({ achieved_at: v }).eq('id', t.id)); t.achieved_at = v;
+      state.openPay = state.editTarget = state.openHist = null; render();
+      if (v) toast(`Ticked off: ${t.name}. Well done!`);
     }
     else if (act === 'expper') { state.expPeriod = el.dataset.p; render(); }
     else if (act === 'expmore') { state.expAll = !state.expAll; render(); }

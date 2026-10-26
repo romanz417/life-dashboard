@@ -90,6 +90,8 @@ create table if not exists targets (
   created_at timestamptz default now()
 );
 create index if not exists targets_area_idx on targets(area_id);
+-- date a financial goal was ticked off as achieved
+alter table targets add column if not exists achieved_at date;
 alter table targets enable row level security;
 create policy "own targets" on targets for all using (user_id = auth.uid()) with check (user_id = auth.uid());
 
