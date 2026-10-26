@@ -35,7 +35,7 @@
   button.small { padding:5px 12px; font-size:.85rem; }
   button.danger { color:var(--danger); }
   button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible, a:focus-visible { outline:2px solid var(--gold-hi); outline-offset:2px; }
-  input[type=text], input[type=email], input[type=password], textarea, select {
+  input[type=text], input[type=email], input[type=password], input[type=date], textarea, select {
     font:inherit; width:100%; padding:10px 12px; border-radius:12px; border:1px solid var(--line2); background:rgba(255,255,255,.04); color:var(--ink);
   }
   input::placeholder, textarea::placeholder { color:#8E8878; }
@@ -160,13 +160,69 @@
   .tips li::before { content:counter(t, decimal-leading-zero); position:absolute; left:0; top:-3px; font-family:var(--serif); font-size:1.35rem; font-weight:700; color:var(--c, var(--gold)); }
   .del-area { align-self:flex-end; }
 
+  /* ---- Goals ---- */
+  .goals { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; margin-bottom:18px; align-items:start; }
+  .goal { position:relative; display:flex; flex-direction:column; gap:18px; min-width:0; padding:28px; border-radius:26px; border:1px solid rgba(212,175,55,.34);
+    background:radial-gradient(440px 260px at 100% 0%, rgba(212,175,55,.14), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .goal-head { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+  .goal h3 { margin:8px 0 6px; font-family:var(--serif); font-size:2rem; font-weight:600; line-height:1.04; }
+  .goal .desc { margin:0; color:var(--muted); font-size:.9rem; line-height:1.5; }
+  .pill { flex:none; display:inline-flex; align-items:center; padding:7px 12px; border-radius:99px; font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; }
+  .pill.on { color:#86E3B5; background:rgba(63,191,138,.12); border:1px solid rgba(63,191,138,.4); }
+  .pill.behind { color:#FFC27A; background:rgba(240,138,75,.12); border:1px solid rgba(240,138,75,.4); }
+  .pill.reached { color:#17130A; background:var(--goldgrad); }
+  .goal-amt { display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px; }
+  .goal-amt b { font-family:var(--serif); font-size:2.7rem; font-weight:700; line-height:1; color:#FFF6DC; }
+  .goal-amt span { color:var(--muted); font-size:.95rem; }
+  .gbar { position:relative; height:14px; border-radius:99px; background:rgba(255,255,255,.08); }
+  .gbar > div { height:100%; min-width:6px; border-radius:99px; background:linear-gradient(90deg, var(--gold-lo), var(--gold), var(--gold-hi)); box-shadow:0 0 18px rgba(212,175,55,.35); }
+  .gbar i { position:absolute; top:-6px; bottom:-6px; width:2px; margin-left:-1px; border-radius:2px; background:#FFF6DC; box-shadow:0 0 0 3px rgba(10,10,15,.8); }
+  .gbar-legend { display:flex; justify-content:space-between; gap:12px; margin-top:10px; font-size:.74rem; color:var(--muted); }
+  .goal .kpis { margin-top:0; }
+  .sublbl { display:block; margin-bottom:8px; font-size:.6rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+  .sbar { display:flex; gap:2px; height:10px; border-radius:99px; overflow:hidden; background:rgba(255,255,255,.06); }
+  .streams ul { list-style:none; margin:12px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .streams li { display:flex; align-items:center; gap:10px; font-size:.88rem; }
+  .streams li i { flex:none; width:10px; height:10px; border-radius:3px; }
+  .streams li b { margin-left:auto; font-weight:700; color:#FFF6DC; white-space:nowrap; }
+  .hist { position:relative; display:flex; align-items:flex-end; gap:10px; height:96px; }
+  .hist div { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; gap:6px; height:100%; }
+  .hist span { width:100%; max-width:38px; border-radius:8px 8px 3px 3px; background:rgba(255,255,255,.13); }
+  .hist span.now { background:rgba(212,175,55,.45); }
+  .hist span.hit { background:var(--goldgrad); }
+  .hist small { height:14px; line-height:14px; font-size:.66rem; color:var(--muted); }
+  .hist .tline { position:absolute; left:0; right:0; border-top:1px dashed rgba(243,222,152,.6); pointer-events:none; }
+  .goal-actions { display:flex; gap:10px; }
+  .goal-actions .primary { min-height:48px; padding:0 22px; }
+  .gform { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+  .gform label { display:flex; flex-direction:column; min-width:0; }
+  .gform input { min-height:46px; }
+  .gform .full { grid-column:1 / -1; }
+  .gform button.full { min-height:48px; }
+  .elist { list-style:none; margin:0; padding:0; }
+  .elist li { display:flex; align-items:center; gap:12px; padding:10px 0; border-top:1px solid var(--line2); font-size:.88rem; }
+  .elist li:first-child { border-top:0; }
+  .elist .when { flex:none; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .elist em { color:var(--muted); font-style:normal; }
+  .elist .amt { margin-left:auto; font-weight:700; color:var(--gold-hi); white-space:nowrap; }
+  .elist button { padding:2px 10px; }
+  .linkbtn { align-self:flex-start; border:0; background:none; padding:6px 0; color:var(--muted); font-size:.8rem; text-decoration:underline; text-underline-offset:3px; }
+  .linkbtn:hover { color:var(--danger); border:0; }
+  .addgoal { margin-bottom:18px; }
+  .addgoal summary { cursor:pointer; color:var(--gold-hi); font-weight:700; list-style:none; }
+  .addgoal summary::-webkit-details-marker { display:none; }
+  .addgoal[open] summary { margin-bottom:6px; }
+  .gminis { display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .gmini { display:grid; grid-template-columns:minmax(0,1fr) minmax(60px,1.1fr) auto; align-items:center; gap:10px; font-size:.8rem; color:#E4DCC6; }
+  .gmini b { color:var(--gold-hi); white-space:nowrap; }
+
   @media (max-width:980px) {
     .hero { grid-template-columns:1fr; padding:28px 24px; }
     .acard { grid-column:span 6; }
     .acard.is-focus { grid-column:span 12; }
   }
   @media (max-width:820px) {
-    .agrid { grid-template-columns:1fr; }
+    .agrid, .goals { grid-template-columns:1fr; }
     .ahero { padding:26px 22px; }
   }
   @media (max-width:640px) {
@@ -198,6 +254,11 @@
     .ah-l { gap:16px; }
     .ic.big { width:60px; height:60px; border-radius:18px; }
     .kpis b { font-size:1.4rem; }
+    .goal { padding:20px; border-radius:22px; }
+    .goal h3 { font-size:1.6rem; }
+    .goal-amt b { font-size:2.1rem; }
+    .gform { grid-template-columns:1fr; }
+    .acard:not(.is-focus) .gminis { display:none; }
   }
 
   /* ================= Sign-in screen ================= */
@@ -446,7 +507,7 @@ const DEFAULT_AREAS = [
   ['Living Environment','🏡',5,false]
 ];
 
-let state = { areas: [], tasks: [], checkins: [], range: 30 };
+let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], openLog: null, range: 30 };
 let chart = null;
 
 function toast(msg) {
@@ -609,6 +670,12 @@ async function load() {
   state.areas = areas;
   state.tasks = await run(sb.from('tasks').select('*').order('created_at'));
   state.checkins = await run(sb.from('checkins').select('*').gte('day', daysAgo(100)));
+  state.goals = await soft(sb.from('goals').select('*').order('position').order('created_at'));
+  state.entries = await soft(sb.from('goal_entries').select('*').gte('day', monthStart(-12)).order('day', { ascending: false }));
+}
+// like run(), but an error leaves the app working with an empty list
+async function soft(promise) {
+  try { const { data, error } = await promise; return error ? [] : (data || []); } catch (_) { return []; }
 }
 
 // ---------- Area look, guidance and suggested habits ----------
@@ -638,7 +705,7 @@ const META = [
     tips: ['Choose your single most important task before you start the day.', 'Block 90 minutes for deep, uninterrupted work.', 'Review your career goal once a week.', 'Learn one skill that raises your value this quarter.'] },
   { re: /financ|money|wealth/i, short: 'Finances', color: '#E2B84A', icon: 'money',
     blurb: 'Income, savings and feeling in control of your money.',
-    habits: ["Log today's spending", 'Check account and mobile money balances', 'Move a small amount into savings'],
+    habits: ["Log today's income and spending", 'Send one pitch or invoice for paid work', 'Make a debt payment, however small', 'Move a small amount into savings'],
     tips: ['Write down every expense for 30 days. Patterns appear quickly.', 'List each debt with its balance and interest rate.', 'Pay yourself first: save as soon as income arrives.', 'Build a starter cushion of one month of essential costs.'] },
   { re: /mental|emotion|mind|well/i, short: 'Mind', color: '#A78BFA', icon: 'mind',
     blurb: 'Stress, focus and peace of mind.',
@@ -704,6 +771,97 @@ function overall() {
     bal: state.areas.length ? state.areas.reduce((s, a) => s + scoreOf(a), 0) / state.areas.length : 0,
     streak: streakOf(new Set(state.checkins.map(c => c.day)))
   };
+}
+
+// ---------- Goals ----------
+const goalsOf = a => state.goals.filter(g => g.area_id === a.id);
+const money = n => Math.round(n).toLocaleString('en-US');
+function short(n) {
+  n = Math.round(n);
+  if (n >= 1e6) return (n / 1e6).toFixed(2).replace(/\.?0+$/, '') + 'M';
+  if (n >= 1e3) return Math.round(n / 1e3) + 'K';
+  return String(n);
+}
+const unitStr = (g, n) => (g.unit ? g.unit + ' ' : '') + money(n);
+function monthKey(offset = 0) { const d = new Date(); d.setDate(1); d.setMonth(d.getMonth() + offset); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`; }
+const monthStart = offset => monthKey(offset) + '-01';
+function monthLabel(key) { const [y, m] = key.split('-').map(Number); return new Date(y, m - 1, 1).toLocaleDateString(undefined, { month: 'short' }); }
+const STREAM_COLORS = ['#D4AF37', '#3FBF8A', '#5B8DEF', '#E0708E', '#A78BFA', '#35B8C9', '#F08A4B'];
+function goalStats(g) {
+  const now = new Date(), days = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate(), day = now.getDate(), left = days - day;
+  const key = monthKey(0), target = Number(g.target);
+  const es = state.entries.filter(e => e.goal_id === g.id);
+  const sumFor = k => es.filter(e => String(e.day).startsWith(k)).reduce((s, e) => s + Number(e.amount), 0);
+  const cur = es.filter(e => String(e.day).startsWith(key)).sort((a, b) => String(b.day).localeCompare(String(a.day)));
+  const total = sumFor(key), expected = target * day / days, need = Math.max(0, target - total);
+  const history = [];
+  for (let i = 5; i >= 0; i--) { const k = monthKey(-i); history.push({ key: k, sum: sumFor(k) }); }
+  const created = String(g.created_at || '').slice(0, 7), past = [];
+  for (let i = 1; i <= 12; i++) { const k = monthKey(-i); if (created && k < created) break; past.push(sumFor(k) >= target); }
+  const streams = {};
+  cur.forEach(e => { const s = String(e.source || '').trim() || 'Other'; streams[s] = (streams[s] || 0) + Number(e.amount); });
+  return { total, target, expected, need, left, history, streams, cur,
+    pct: Math.min(100, Math.round(total / target * 100)), expectedPct: Math.min(100, Math.round(day / days * 100)),
+    perDay: need / (left + 1), hits: past.filter(Boolean).length,
+    status: total >= target ? 'reached' : total >= expected ? 'on' : 'behind',
+    monthName: now.toLocaleDateString(undefined, { month: 'long' }) };
+}
+function goalMinis(a) {
+  const gs = goalsOf(a); if (!gs.length) return '';
+  return `<div class="gminis">${gs.map(g => { const s = goalStats(g);
+    return `<div class="gmini"><span>${esc(g.title)}</span><div class="mini"><div style="width:${s.pct}%"></div></div><b>${short(s.total)} / ${short(s.target)}</b></div>`; }).join('')}</div>`;
+}
+function goalCard(g) {
+  const s = goalStats(g), open = state.openLog === g.id;
+  const pill = s.status === 'reached' ? '<span class="pill reached">Goal reached</span>'
+    : s.status === 'on' ? '<span class="pill on">On track</span>'
+    : `<span class="pill behind">Behind by ${short(s.expected - s.total)}</span>`;
+  const max = Math.max(s.target, ...s.history.map(h => h.sum)) * 1.08;
+  const hist = s.history.map((h, i) => `<div><span class="${h.sum >= s.target ? 'hit' : ''}${i === 5 ? ' now' : ''}" style="height:${Math.max(4, Math.round(h.sum / max * 64))}px" title="${monthLabel(h.key)}: ${unitStr(g, h.sum)}"></span><small>${monthLabel(h.key)}</small></div>`).join('');
+  const names = Object.keys(s.streams).sort((x, y) => s.streams[y] - s.streams[x]);
+  const col = i => STREAM_COLORS[i % STREAM_COLORS.length];
+  const streams = names.length ? `<div class="streams"><span class="sublbl">${esc(g.source_label || 'Source')} this month</span>
+      <div class="sbar">${names.map((n, i) => `<i style="flex:${s.streams[n]};background:${col(i)}"></i>`).join('')}</div>
+      <ul>${names.map((n, i) => `<li><i style="background:${col(i)}"></i>${esc(n)}<b>${unitStr(g, s.streams[n])}</b></li>`).join('')}</ul></div>` : '';
+  const sources = [...new Set(state.entries.filter(e => e.goal_id === g.id && e.source).map(e => e.source))];
+  const form = open ? `<form class="gform" data-act="logsave" data-goal="${g.id}">
+      <label><span class="sublbl">Amount${g.unit ? ' (' + esc(g.unit) + ')' : ''}</span><input name="amount" type="text" inputmode="decimal" placeholder="e.g. 250,000" required autocomplete="off"></label>
+      <label><span class="sublbl">${esc(g.source_label || 'Source')}</span><input name="source" type="text" list="src-${g.id}" placeholder="Type or pick one" autocomplete="off"><datalist id="src-${g.id}">${sources.map(x => `<option value="${esc(x)}">`).join('')}</datalist></label>
+      <label><span class="sublbl">Date</span><input name="day" type="date" value="${todayStr()}" max="${todayStr()}"></label>
+      <label><span class="sublbl">Note (optional)</span><input name="note" type="text" autocomplete="off"></label>
+      <button class="primary full" type="submit">Save</button></form>` : '';
+  const list = s.cur.length ? `<div><span class="sublbl">This month</span><ul class="elist">${s.cur.slice(0, 6).map(e => `<li>
+      <span class="when">${esc(String(e.day).slice(8, 10))} ${esc(monthLabel(String(e.day).slice(0, 7)))}</span>
+      <span>${esc(e.source || 'Entry')}${e.note ? ` <em>· ${esc(e.note)}</em>` : ''}</span>
+      <span class="amt">${unitStr(g, Number(e.amount))}</span>
+      <button class="small danger" type="button" data-act="delentry" data-id="${e.id}" aria-label="Delete this entry">&times;</button></li>`).join('')}</ul>
+      ${s.cur.length > 6 ? `<p class="muted" style="margin:8px 0 0">and ${s.cur.length - 6} more</p>` : ''}</div>` : '';
+  return `<article class="goal" data-goal="${g.id}">
+    <div class="goal-head"><div><div class="eyebrow">Monthly goal · ${esc(s.monthName)}</div><h3>${esc(g.title)}</h3>${g.description ? `<p class="desc">${esc(g.description)}</p>` : ''}</div>${pill}</div>
+    <div class="goal-amt"><b>${unitStr(g, s.total)}</b><span>of ${unitStr(g, s.target)} &middot; ${s.pct}%</span></div>
+    <div><div class="gbar" role="img" aria-label="${s.pct}% of target reached; ${s.expectedPct}% of the month has passed"><div style="width:${s.pct}%"></div><i style="left:${s.expectedPct}%"></i></div>
+      <div class="gbar-legend"><span>White marker: where you should be today</span><span>${s.left} day${s.left === 1 ? '' : 's'} left</span></div></div>
+    <div class="kpis">
+      <div><b>${s.need ? short(s.need) : '&#10003;'}</b><span>Still to go</span></div>
+      <div><b>${s.need ? short(s.perDay) : '–'}</b><span>Needed per day</span></div>
+      <div><b>${s.hits}</b><span>Months hit</span></div>
+    </div>
+    ${streams}
+    <div><span class="sublbl">Last 6 months</span><div class="hist">${hist}<em class="tline" style="bottom:${20 + Math.round(s.target / max * 64)}px" title="Target"></em></div></div>
+    <div class="goal-actions"><button class="primary" type="button" data-act="logopen" data-goal="${g.id}">${open ? 'Close' : '+ ' + esc(g.entry_label || 'Log progress')}</button></div>
+    ${form}${list}
+    <button class="linkbtn" type="button" data-act="delgoal" data-goal="${g.id}">Remove this goal</button>
+  </article>`;
+}
+function addGoalForm(hasGoals) {
+  return `<details class="card addgoal"><summary>${hasGoals ? '+ Add another goal' : '+ Set a monthly goal for this area'}</summary>
+    <p class="card-sub">A clear monthly number turns a wish into a plan: money saved, workouts done, hours studied.</p>
+    <form class="gform" data-act="addgoal">
+      <label class="full"><span class="sublbl">Goal name</span><input name="title" type="text" placeholder="e.g. Monthly savings" required autocomplete="off"></label>
+      <label><span class="sublbl">Monthly target</span><input name="target" type="text" inputmode="decimal" placeholder="e.g. 500,000" required autocomplete="off"></label>
+      <label><span class="sublbl">Unit</span><input name="unit" type="text" placeholder="e.g. UGX, workouts, hours" autocomplete="off"></label>
+      <button class="primary full" type="submit">Create goal</button>
+    </form></details>`;
 }
 
 // ---------- Router ----------
@@ -772,6 +930,7 @@ function areaCard(a, i, animate) {
     ${a.active ? '<span class="badge">Focus</span>' : ''}
     <h4>${esc(a.name)}</h4>
     <p>${esc(m.blurb)}</p>
+    ${goalMinis(a)}
     ${preview}
     <div class="foot">${foot}<span class="go" aria-hidden="true">&rarr;</span></div>
   </a>`;
@@ -850,6 +1009,8 @@ function renderArea(id, animate) {
         </div>
       </div>
     </section>
+    ${goalsOf(a).length ? `<div class="goals${rz}" style="--d:.08s">${goalsOf(a).map(goalCard).join('')}</div>` : ''}
+    ${addGoalForm(goalsOf(a).length > 0)}
     <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
       <div class="col">
         <section class="card">
@@ -906,18 +1067,50 @@ async function addTask(areaId, title) {
 }
 const currentArea = () => { const r = route(); return r.view === 'area' ? state.areas.find(x => String(x.id) === r.id) : null; };
 $('#view-area').addEventListener('submit', async e => {
-  if (e.target.dataset.act !== 'addtask') return;
+  const act = e.target.dataset.act; if (!act) return;
   e.preventDefault();
-  const a = currentArea(), input = e.target.querySelector('input'), title = input.value.trim();
-  if (!a || !title) return;
-  try { await addTask(a.id, title); render(); } catch (_) {}
+  const a = currentArea(); if (!a) return;
+  const f = new FormData(e.target), num = v => Number(String(v || '').replace(/[^0-9.]/g, ''));
+  try {
+    if (act === 'addtask') {
+      const title = e.target.querySelector('input').value.trim(); if (!title) return;
+      await addTask(a.id, title);
+    } else if (act === 'logsave') {
+      const amount = num(f.get('amount')); if (!amount) return toast('Enter an amount');
+      const row = await run(sb.from('goal_entries').insert({ goal_id: e.target.dataset.goal, amount,
+        source: String(f.get('source') || '').trim() || null, note: String(f.get('note') || '').trim() || null,
+        day: f.get('day') || todayStr() }).select().single());
+      state.entries.unshift(row); state.openLog = null; toast('Saved');
+    } else if (act === 'addgoal') {
+      const title = String(f.get('title') || '').trim(), target = num(f.get('target'));
+      if (!title || !target) return toast('Add a goal name and a monthly target');
+      const row = await run(sb.from('goals').insert({ area_id: a.id, title, target, unit: String(f.get('unit') || '').trim() || null, position: goalsOf(a).length }).select().single());
+      state.goals.push(row);
+    } else return;
+    render();
+  } catch (_) {}
 });
 $('#view-area').addEventListener('click', async e => {
   const el = e.target.closest('[data-act]'); if (!el) return;
   const a = currentArea(); if (!a) return;
   const act = el.dataset.act;
   try {
-    if (act === 'suggest') { await addTask(a.id, el.dataset.title); render(); }
+    if (act === 'logopen') {
+      state.openLog = state.openLog === el.dataset.goal ? null : el.dataset.goal; render();
+      const i = document.querySelector(`.goal[data-goal="${el.dataset.goal}"] input[name=amount]`); if (i) i.focus();
+    }
+    else if (act === 'delentry') {
+      if (!confirm('Delete this entry?')) return;
+      await run(sb.from('goal_entries').delete().eq('id', el.dataset.id));
+      state.entries = state.entries.filter(x => x.id !== el.dataset.id); render();
+    }
+    else if (act === 'delgoal') {
+      if (!confirm('Remove this goal and all its history?')) return;
+      await run(sb.from('goals').delete().eq('id', el.dataset.goal));
+      state.goals = state.goals.filter(g => g.id !== el.dataset.goal);
+      state.entries = state.entries.filter(x => x.goal_id !== el.dataset.goal); render();
+    }
+    else if (act === 'suggest') { await addTask(a.id, el.dataset.title); render(); }
     else if (act === 'deltask') {
       await run(sb.from('tasks').delete().eq('id', el.dataset.id));
       state.tasks = state.tasks.filter(t => t.id !== el.dataset.id);
