@@ -146,3 +146,26 @@ create table if not exists expenses (
 create index if not exists expenses_user_day_idx on expenses(user_id, day);
 alter table expenses enable row level security;
 create policy "own expenses" on expenses for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Your own cover photo per life area (files live in the public "covers" storage bucket, one folder per user)
+alter table areas add column if not exists photo_url text;
+
+-- Spiritual Life: morning / evening sessions, spoken affirmations, journey stages and daily peace & purpose ratings
+create table if not exists spirit_logs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete cascade,
+  day date not null default current_date,
+  kind text not null check (kind in ('morning', 'evening', 'affirm', 'journey', 'reflect')),
+  minutes numeric check (minutes is null or minutes >= 0),
+  short boolean not null default false,
+  step int,                                                   -- journey stage number (keeps counting past 12)
+  note text,                                                  -- journey reflection
+  peace int check (peace is null or peace between 1 and 5),
+  purpose int check (purpose is null or purpose between 1 and 5),
+  created_at timestamptz default now(),
+  unique (user_id, day, kind)
+);
+create index if not exists spirit_logs_user_day_idx on spirit_logs(user_id, day);
+alter table spirit_logs enable row level security;
+create policy "own spirit logs" on spirit_logs for all using (user_id = auth.uid()) with check (user_id = auth.uid());
