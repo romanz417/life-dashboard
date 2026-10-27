@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230A0A0F'/%3E%3Cpath d='M16 5l9 5v12l-9 5-9-5V10z' fill='none' stroke='%23D4AF37' stroke-width='2'/%3E%3Cpath d='M12 17l4-4 4 4' fill='none' stroke='%23F3DE98' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -915,6 +915,80 @@
     .desk-now { align-items:flex-start; } .desk-now b { font-size:1.5rem; }
     .tdk small { font-size:.7rem; }
   }
+  /* ---- Trading office: clock wall, ticker, terminal panels ---- */
+  .trading { --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .office { position:relative; margin-bottom:18px; border-radius:26px; overflow:hidden; border:1px solid rgba(212,175,55,.34);
+    background:
+      radial-gradient(700px 260px at 50% -40px, rgba(243,222,152,.16), transparent 70%),
+      linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 100% 28px,
+      linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0 / 28px 100%,
+      linear-gradient(180deg, #15151E, #0B0B11);
+    box-shadow:0 30px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(243,222,152,.18); }
+  .of-bar { display:flex; align-items:center; gap:14px; padding:10px 18px; border-bottom:1px solid rgba(212,175,55,.22); background:rgba(0,0,0,.35);
+    font-family:var(--mono); font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .of-dots { display:flex; gap:6px; } .of-dots i { width:9px; height:9px; border-radius:50%; background:#3A3A46; }
+  .of-dots i:first-child { background:#C9A13A; }
+  .of-title { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--gold-hi); font-weight:700; }
+  .of-date { margin-left:auto; }
+  .of-live { white-space:nowrap; display:flex; align-items:center; gap:7px; padding:3px 10px; border-radius:99px; border:1px solid var(--line2); }
+  .of-live.on { color:#9BF0C4; border-color:rgba(63,191,138,.45); }
+  .led { flex:none; display:inline-block; width:8px; height:8px; border-radius:50%; background:#5A5A66; }
+  .of-live.on .led { background:#3FBF8A; box-shadow:0 0 0 3px rgba(63,191,138,.18), 0 0 10px #3FBF8A; animation:ledpulse 1.6s ease-in-out infinite; }
+  @keyframes ledpulse { 50% { opacity:.45; } }
+  .of-head { padding:24px 26px 6px; }
+  .of-head h3 { margin:8px 0 4px; font-family:var(--serif); font-size:2.3rem; font-weight:600; line-height:1.02; }
+  .of-head p { margin:0; color:var(--muted); font-size:.92rem; }
+  .clockwall { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; padding:22px 26px 24px; }
+  .clock { display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; padding:18px 12px 16px; border-radius:22px; text-align:center;
+    background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01)); border:1px solid var(--line2); }
+  .clock.home { border-color:rgba(212,175,55,.5); background:radial-gradient(180px 140px at 50% 0%, rgba(212,175,55,.16), transparent 75%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.01)); }
+  .dial { width:100%; max-width:150px; height:auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,.6)); }
+  .dial .tk-b { stroke:#E8CF7E; stroke-width:2.2; stroke-linecap:round; }
+  .dial .tk-s { stroke:rgba(255,255,255,.28); stroke-width:1; }
+  .dial .ck-num { font-family:var(--serif); font-size:13px; font-weight:700; fill:#F3DE98; }
+  .dial .ck-dn { font-family:var(--mono); font-size:6px; letter-spacing:.2em; fill:#8E8878; }
+  .dial .hd-h { stroke:#FFF6DC; stroke-width:4.4; stroke-linecap:round; }
+  .dial .hd-m { stroke:#F3DE98; stroke-width:2.8; stroke-linecap:round; }
+  .dial .hd-s { stroke:#FF8A80; stroke-width:1.2; stroke-linecap:round; } .dial .hd-sd { fill:#FF8A80; }
+  .ck-city { margin-top:4px; font-family:var(--serif); font-size:1.35rem; font-weight:700; line-height:1.1; color:#FFF6DC; }
+  .ck-city em { display:block; margin-top:3px; font-family:var(--sans); font-style:normal; font-size:.62rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
+  .ck-dig { font-family:var(--mono); font-size:1.15rem; font-weight:700; color:#FFF6DC; font-variant-numeric:tabular-nums; }
+  .ck-dig span { color:var(--muted); font-weight:500; } .ck-dig small { margin-left:8px; font-size:.66rem; color:var(--muted); letter-spacing:.1em; text-transform:uppercase; }
+  .ck-st { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:4px 8px; padding:6px 12px; border-radius:99px; background:rgba(255,255,255,.04); border:1px solid var(--line2); }
+  .ck-st span { font-size:.78rem; font-weight:700; color:#E4DCC6; }
+  .ck-st small { width:100%; font-family:var(--mono); font-size:.66rem; color:var(--muted); }
+  .clock.open .ck-st { border-color:rgba(63,191,138,.45); background:rgba(63,191,138,.08); } .clock.open .ck-st span { color:#9BF0C4; }
+  .clock.open .led { background:#3FBF8A; box-shadow:0 0 8px #3FBF8A; animation:ledpulse 1.6s ease-in-out infinite; }
+  .clock.pre .led, .clock.lunch .led { background:#FFC27A; box-shadow:0 0 8px #FFC27A; }
+  .clock.pre .ck-st span, .clock.lunch .ck-st span { color:#FFD9A6; }
+  .clock.closed .dial { opacity:.82; }
+  .ck-hours { font-size:.7rem; line-height:1.45; color:var(--muted); } .ck-hours span { display:block; color:#C9BFA6; }
+  .ticker { position:relative; overflow:hidden; border-top:1px solid rgba(212,175,55,.22); background:rgba(0,0,0,.45); }
+  .ticker::before, .ticker::after { content:""; position:absolute; top:0; bottom:0; width:40px; z-index:1; pointer-events:none; }
+  .ticker::before { left:0; background:linear-gradient(90deg, #0B0B11, transparent); } .ticker::after { right:0; background:linear-gradient(-90deg, #0B0B11, transparent); }
+  .tk-track { display:flex; width:max-content; animation:tick 60s linear infinite; }
+  .ticker:hover .tk-track { animation-play-state:paused; }
+  .tk-track span { display:flex; align-items:center; gap:10px; padding:11px 26px; white-space:nowrap; font-family:var(--mono); font-size:.74rem; color:#E4DCC6; border-right:1px solid rgba(255,255,255,.06); }
+  .tk-track b { color:var(--gold); font-weight:700; letter-spacing:.12em; }
+  @keyframes tick { to { transform:translateX(-50%); } }
+  .sched { gap:14px; padding:22px 26px; }
+  .sched-head { display:flex; justify-content:space-between; } .sched-head .sublbl { margin:0; }
+  .desk-now b { font-family:var(--mono); font-size:1.5rem; }
+  .trading .card { position:relative; overflow:hidden; }
+  .trading .card::before { content:""; position:absolute; left:0; right:0; top:0; height:2px; background:linear-gradient(90deg, transparent, rgba(212,175,55,.65), transparent); }
+  .trading .tdk b, .trading .trk b, .trading .trtab td, .trading .trlist .amt b, .trading .btlist .bt-top span { font-family:var(--mono); letter-spacing:-.02em; }
+  .trading .tdk b { font-size:1.35rem; } .trading .trk b { font-size:1.2rem; }
+  @media (max-width:1100px) { .clockwall { grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:640px) {
+    .of-bar { gap:10px; padding:9px 14px; font-size:.6rem; } .of-date { display:none; } .of-live { margin-left:auto; }
+    .of-head { padding:20px 18px 4px; } .of-head h3 { font-size:1.9rem; }
+    .clockwall { gap:10px; padding:16px 14px 18px; }
+    .clock { padding:14px 8px 12px; border-radius:18px; }
+    .dial { max-width:118px; } .ck-city { font-size:1.15rem; } .ck-dig { font-size:.98rem; }
+    .ck-hours { font-size:.64rem; }
+    .sched { padding:18px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .tk-track, .of-live.on .led, .clock.open .led { animation:none; } }
 </style>
 </head>
 <body>
@@ -2213,7 +2287,7 @@ function deskClock() {
   const seg = (from, to, cls, label) => to > from ? `<div class="tl-seg ${cls}" style="left:${pos(from)}%;width:${pos(to) - pos(from)}%" title="${label}: ${hm(from)}–${hm(to)}"><span>${label}</span></div>` : '';
   let ticks = ''; for (let h = 8; h <= 17; h++) ticks += `<i style="left:${pos(h * 60)}%"><small>${h}</small></i>`;
   const live = now.dow > 0 && now.dow < 6 && now.min >= A && now.min <= Z;
-  return `<div class="desk-now ${tone}"><b>${hm(now.min)}</b><span>${esc(text)}</span></div>
+  return `<div class="desk-now ${tone}" data-min="${now.min}"><b>${hm(now.min)}</b><span>${esc(text)}</span></div>
     <div class="tl" role="img" aria-label="Today's trading sessions in Uganda time: Hong Kong 50 box ${hm(t.hkBox)}, GER40 opens ${hm(t.ger)}, US data ${hm(t.us)}">
       ${seg(t.hkBox, t.hkBox + 60, 'box', 'HK50 box')}${seg(t.hkBox + 60, t.hkEnd, 'hk', 'HK50')}
       ${seg(t.ger, t.gerTrade, 'box', 'GER40 box')}${seg(t.gerTrade, t.gerEnd, 'ger', 'GER40 window')}
@@ -2312,15 +2386,129 @@ function trRecent() {
   if (sorted.length > 12) h += `<button class="small" type="button" data-act="tr-more" style="margin-top:12px">${state.trAll ? 'Show fewer' : `Show all ${Math.min(sorted.length, 400)}`}</button>`;
   return h;
 }
+// ---------- Trading office: world clocks (Uganda, Asia, London, New York) and the desk ticker ----------
+const CLOCKS = [
+  { tz: 'Africa/Kampala', city: 'Kampala', sub: 'Your desk', home: true, sess: [[540, 1020, 'Your trading hours']] },
+  { tz: 'Asia/Hong_Kong', city: 'Hong Kong', sub: 'Asia', sess: [[570, 720, 'Morning'], [780, 960, 'Afternoon']], lunch: [720, 780], pre: [540, 570] },
+  { tz: 'Europe/London', city: 'London', sub: 'Europe', sess: [[480, 990, 'Session']], pre: [420, 480] },
+  { tz: 'America/New_York', city: 'New York', sub: 'Wall Street', sess: [[570, 960, 'Session']], pre: [240, 570] }
+];
+function tzParts(tz, d = new Date()) {
+  const p = {};
+  new Intl.DateTimeFormat('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'short', hour12: false }).formatToParts(d).forEach(x => p[x.type] = x.value);
+  return { h: Number(p.hour) % 24, m: Number(p.minute), s: Number(p.second), wd: p.weekday };
+}
+const dur = x => { const h = Math.floor(x / 60), m = x % 60; return h ? `${h}h ${String(m).padStart(2, '0')}m` : `${m}m`; };
+function mktStatus(c, t) {
+  const n = t.h * 60 + t.m, wknd = t.wd === 'Sat' || t.wd === 'Sun', off = c.home ? 'Off desk' : 'Closed';
+  if (wknd) return ['closed', 'Weekend', c.home ? 'Back on Monday' : 'Opens Monday'];
+  const open = c.sess.find(([a, b]) => n >= a && n < b);
+  if (open) return ['open', c.home ? 'On desk' : 'Open', `${open[2] === 'Morning' ? 'Lunch' : 'Closes'} in ${dur(open[1] - n)}`];
+  if (c.lunch && n >= c.lunch[0] && n < c.lunch[1]) return ['lunch', 'Lunch break', `Reopens in ${dur(c.lunch[1] - n)}`];
+  if (c.pre && n >= c.pre[0] && n < c.pre[1]) return ['pre', 'Pre-market', `Opens in ${dur(c.sess[0][0] - n)}`];
+  const next = c.sess.find(([a]) => a > n);
+  if (next) return ['closed', off, `Opens in ${dur(next[0] - n)}`];
+  return ['closed', off, t.wd === 'Fri' ? 'Opens Monday' : 'Opens tomorrow'];
+}
+function clockHours(c) {
+  const loc = c.sess.length > 1 ? `${hm(c.sess[0][0])}–${hm(c.sess[0][1])} · ${hm(c.sess[1][0])}–${hm(c.sess[1][1])}` : `${hm(c.sess[0][0])}–${hm(c.sess[0][1])}`;
+  if (c.home) return `${loc} your hours`;
+  const s0 = c.sess[0][0], e0 = c.sess[c.sess.length - 1][1];
+  return `${loc} local <span>= ${hm(eatAt(c.tz, Math.floor(s0 / 60), s0 % 60))}–${hm(eatAt(c.tz, Math.floor(e0 / 60), e0 % 60))} EAT</span>`;
+}
+const handDeg = t => [(t.h % 12) * 30 + t.m * .5 + t.s / 120, t.m * 6 + t.s * .1, t.s * 6];
+function clockSVG(c, t, i) {
+  const [hd, md, sd] = handDeg(t), day = t.h >= 6 && t.h < 18;
+  let ticks = '';
+  for (let k = 0; k < 60; k++) { const big = k % 5 === 0; ticks += `<line x1="70" y1="${big ? 16 : 17.5}" x2="70" y2="${big ? 25 : 20.5}" class="${big ? 'tk-b' : 'tk-s'}" transform="rotate(${k * 6} 70 70)"/>`; }
+  const nums = [['12', 70, 40], ['3', 103, 74.5], ['6', 70, 109], ['9', 37, 74.5]].map(([n, x, y]) => `<text x="${x}" y="${y}" text-anchor="middle" class="ck-num">${n}</text>`).join('');
+  return `<svg class="dial" viewBox="0 0 140 140" aria-hidden="true">
+    <defs>
+      <linearGradient id="bz${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F7E7AE"/><stop offset=".45" stop-color="#C9A13A"/><stop offset=".7" stop-color="#8C6A18"/><stop offset="1" stop-color="#E8CF7E"/></linearGradient>
+      <radialGradient id="fc${i}" cx=".5" cy=".38" r=".7"><stop offset="0" stop-color="${day ? '#2A2A35' : '#1A1A24'}"/><stop offset="1" stop-color="${day ? '#121219' : '#09090E'}"/></radialGradient>
+    </defs>
+    <circle cx="70" cy="70" r="68" fill="url(#bz${i})"/>
+    <circle cx="70" cy="70" r="62.5" fill="#0B0B10"/>
+    <circle cx="70" cy="70" r="60" fill="url(#fc${i})"/>
+    ${ticks}${nums}
+    <text x="70" y="54" text-anchor="middle" class="ck-dn" data-dn>${day ? 'DAY' : 'NIGHT'}</text>
+    <g data-h transform="rotate(${hd.toFixed(1)} 70 70)"><line x1="70" y1="78" x2="70" y2="41" class="hd-h"/></g>
+    <g data-m transform="rotate(${md.toFixed(1)} 70 70)"><line x1="70" y1="80" x2="70" y2="27" class="hd-m"/></g>
+    <g data-s transform="rotate(${sd} 70 70)"><line x1="70" y1="84" x2="70" y2="22" class="hd-s"/><circle cx="70" cy="22" r="2.4" class="hd-sd"/></g>
+    <circle cx="70" cy="70" r="4.2" fill="#E8CF7E"/><circle cx="70" cy="70" r="1.6" fill="#0B0B10"/>
+  </svg>`;
+}
+const digi = t => `${String(t.h).padStart(2, '0')}:${String(t.m).padStart(2, '0')}<span>:${String(t.s).padStart(2, '0')}</span>`;
+function clockWall() {
+  return `<div class="clockwall">${CLOCKS.map((c, i) => {
+    const t = tzParts(c.tz), [cls, lbl, cd] = mktStatus(c, t);
+    return `<article class="clock ${c.home ? 'home ' : ''}${cls}" data-tz="${c.tz}" data-i="${i}" aria-label="${esc(c.city)} time">
+      ${clockSVG(c, t, i)}
+      <div class="ck-city">${esc(c.city)}<em>${esc(c.sub)}</em></div>
+      <div class="ck-dig" data-dig>${digi(t)}<small data-wd>${esc(t.wd)}</small></div>
+      <div class="ck-st"><b class="led"></b><span data-st>${esc(lbl)}</span><small data-cd>${esc(cd)}</small></div>
+      <div class="ck-hours">${clockHours(c)}</div>
+    </article>`; }).join('')}</div>`;
+}
+function deskTicker() {
+  const s = trSet(), t = deskTimes(), td = trToday(), live = trStats(state.trades.filter(x => x.mode === 'live'));
+  const items = [
+    ['GER40', `London box ${hm(t.ger)}–${hm(t.gerTrade)} EAT`], ['HK50', `Post-lunch box ${hm(t.hkBox)}–${hm(t.hkBox + 60)} EAT`],
+    ['US DATA', `${hm(t.us)} EAT`], ['RISK', `${trMoney(trBalance() * s.risk_pct / 100)} a trade`],
+    ['TODAY', `${td.n} of ${s.max_trades} trades`], ['EXPECTANCY', live.n ? fmtR(live.avg) : 'No live trades yet'],
+    ['RULE', 'No trades 30 min around high-impact news'], ['RULE', 'Flat before 17:00'], ['RULE', 'Trade the plan, not the feeling']
+  ].map(([k, v]) => `<span><b>${esc(k)}</b>${esc(v)}</span>`).join('');
+  return `<div class="ticker" aria-label="Desk notes"><div class="tk-track">${items}${items.replace(/<span>/g, '<span aria-hidden="true">')}</div></div>`;
+}
+function officeHead() {
+  const date = new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Kampala', weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' }).format(new Date());
+  const anyOpen = CLOCKS.slice(1).some(c => mktStatus(c, tzParts(c.tz))[0] === 'open');
+  return `<section class="office">
+    <div class="of-bar"><span class="of-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="of-title">Trading desk · Kampala</span>
+      <span class="of-date">${esc(date)}</span><span class="of-live ${anyOpen ? 'on' : ''}" data-live><b class="led"></b>${anyOpen ? 'Markets open' : 'Markets closed'}</span></div>
+    <div class="of-head"><div><div class="eyebrow">The office</div><h3>Trade the plan, not the feeling.</h3>
+      <p>GER40 is live. Hong Kong 50 stays on backtest and demo until it proves itself.</p></div></div>
+    ${clockWall()}
+    ${deskTicker()}
+  </section>`;
+}
+// keep the clocks ticking without redrawing the page (so forms keep what you typed)
+function trTick() {
+  const wall = document.querySelector('.clockwall'); if (!wall) return;
+  let anyOpen = false;
+  wall.querySelectorAll('.clock').forEach(el => {
+    const c = CLOCKS[Number(el.dataset.i)], t = tzParts(c.tz), [hd, md, sd] = handDeg(t), [cls, lbl, cd] = mktStatus(c, t);
+    el.querySelector('[data-h]').setAttribute('transform', `rotate(${hd.toFixed(1)} 70 70)`);
+    el.querySelector('[data-m]').setAttribute('transform', `rotate(${md.toFixed(1)} 70 70)`);
+    el.querySelector('[data-s]').setAttribute('transform', `rotate(${sd} 70 70)`);
+    el.querySelector('[data-dig]').innerHTML = `${digi(t)}<small data-wd>${esc(t.wd)}</small>`;
+    if (t.s === 0 || el.querySelector('[data-st]').textContent !== lbl) {
+      el.className = `clock ${c.home ? 'home ' : ''}${cls}`;
+      el.querySelector('[data-st]').textContent = lbl; el.querySelector('[data-cd]').textContent = cd;
+      el.querySelector('[data-dn]').textContent = t.h >= 6 && t.h < 18 ? 'DAY' : 'NIGHT';
+    }
+    if (!c.home && cls === 'open') anyOpen = true;
+  });
+  const lv = document.querySelector('[data-live]');
+  if (lv) { lv.classList.toggle('on', anyOpen); lv.lastChild.textContent = anyOpen ? 'Markets open' : 'Markets closed'; }
+  const now = eatNow(), dn = document.querySelector('.desk-now');
+  if (dn && dn.dataset.min !== String(now.min)) {
+    const t = deskTimes(), [tone, text] = deskStatus(t, now);
+    dn.dataset.min = now.min; dn.className = `desk-now ${tone}`;
+    dn.querySelector('b').textContent = hm(now.min); dn.querySelector('span').textContent = text;
+    const nd = document.querySelector('.tl-now'); if (nd) nd.style.left = `${Math.max(0, Math.min(100, (now.min - 480) / 540 * 100))}%`;
+  }
+}
+if (!window.__trTimer) window.__trTimer = setInterval(trTick, 1000);
 function tradingSection(a) {
   const s = trSet(), bal = trBalance(), risk = bal * s.risk_pct / 100, td = trToday();
   const live = trStats(state.trades.filter(t => t.mode === 'live'));
   const M = state.trMode, list = state.trades.filter(t => t.mode === M), st = trStats(list);
   const chk = new Set((state.tcheck && state.tcheck.items) || []), ready = TR_CHECKS.filter((_, i) => chk.has(i)).length;
   return `<section class="trading">
-    <section class="tracker desk">
-      <div class="tr-head"><div class="eyebrow">Trading desk</div><h3>Trade the plan, not the feeling.</h3>
-        <p>GER40 is live. Hong Kong 50 stays on backtest and demo until it proves itself.</p></div>
+    ${officeHead()}
+    <section class="tracker desk sched">
+      <div class="sched-head"><span class="sublbl">Today's schedule</span><span class="sublbl">Uganda time</span></div>
       ${deskClock()}
     </section>
     <div class="ex-kpis tdk">
