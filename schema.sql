@@ -187,3 +187,49 @@ create table if not exists spirit_items (
 create index if not exists spirit_items_user_idx on spirit_items(user_id, kind, day);
 alter table spirit_items enable row level security;
 create policy "own spirit items" on spirit_items for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Work & Career > Trading: journal (mode live / demo / backtest, result in R), desk settings and the daily pre-trade checklist
+create table if not exists trades (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete set null,
+  day date not null default current_date,
+  instrument text not null,
+  strategy text not null,
+  session text,
+  direction text check (direction is null or direction in ('buy', 'sell')),
+  mode text not null default 'live' check (mode in ('live', 'demo', 'backtest')),
+  r numeric not null,                                         -- result in R (multiples of the amount risked)
+  pnl numeric,                                                -- money result
+  followed boolean not null default true,                     -- followed every rule of the playbook
+  emotion text,
+  note text,
+  created_at timestamptz default now()
+);
+create index if not exists trades_user_day_idx on trades(user_id, day);
+alter table trades enable row level security;
+create policy "own trades" on trades for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+create table if not exists trading_settings (
+  user_id uuid primary key references auth.users(id) default auth.uid(),
+  start_balance numeric not null default 500 check (start_balance >= 0),
+  currency text not null default 'USD',
+  risk_pct numeric not null default 1 check (risk_pct > 0 and risk_pct <= 10),
+  max_trades int not null default 2 check (max_trades between 1 and 20),
+  max_losses int not null default 2 check (max_losses between 1 and 20),
+  playbook text,
+  updated_at timestamptz default now()
+);
+alter table trading_settings enable row level security;
+create policy "own trading settings" on trading_settings for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+create table if not exists trade_checks (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  day date not null default current_date,
+  items jsonb not null default '[]'::jsonb,                  -- indexes of the checklist items ticked that day
+  created_at timestamptz default now(),
+  unique (user_id, day)
+);
+alter table trade_checks enable row level security;
+create policy "own trade checks" on trade_checks for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));

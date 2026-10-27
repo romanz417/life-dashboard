@@ -838,6 +838,83 @@
   #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:var(--card2); color:var(--ink); border:1px solid var(--line); padding:10px 16px; border-radius:12px; display:none; max-width:90%; z-index:60; }
   .canvas-wrap { position:relative; height:240px; }
   [hidden] { display:none !important; }
+  /* ---- Work & Career: trading desk ---- */
+  .tracker.desk { background:radial-gradient(560px 320px at 100% 0%, rgba(91,141,239,.14), transparent 70%), radial-gradient(520px 300px at 0% 0%, rgba(212,175,55,.11), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); }
+  .desk-now { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:16px; border:1px solid var(--line2); background:rgba(255,255,255,.04); }
+  .desk-now b { flex:none; font-family:var(--serif); font-size:1.9rem; line-height:1; color:#FFF6DC; font-variant-numeric:tabular-nums; }
+  .desk-now span { color:#E4DCC6; font-size:.95rem; line-height:1.45; }
+  .desk-now::before { content:""; flex:none; width:10px; height:10px; border-radius:50%; background:var(--muted); }
+  .desk-now.go { border-color:rgba(63,191,138,.45); background:rgba(63,191,138,.08); } .desk-now.go::before { background:#3FBF8A; box-shadow:0 0 0 4px rgba(63,191,138,.2); }
+  .desk-now.wait::before { background:var(--gold); }
+  .desk-now.warn { border-color:rgba(240,138,75,.5); background:rgba(240,138,75,.08); } .desk-now.warn::before { background:#FFC27A; box-shadow:0 0 0 4px rgba(255,194,122,.2); }
+  .tl { position:relative; height:58px; margin:6px 0 22px; border-radius:14px; background:rgba(255,255,255,.035); border:1px solid var(--line2); }
+  .tl-seg { position:absolute; top:8px; bottom:8px; display:flex; align-items:center; padding:0 8px; border-radius:9px; overflow:hidden; font-size:.7rem; font-weight:700; letter-spacing:.04em; }
+  .tl-seg span { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .tl-seg.box { background:repeating-linear-gradient(135deg, rgba(212,175,55,.22) 0 6px, rgba(212,175,55,.08) 6px 12px); color:var(--gold-hi); }
+  .tl-seg.hk { background:rgba(224,112,142,.26); color:#FFD3DE; }
+  .tl-seg.ger { background:linear-gradient(90deg, rgba(63,191,138,.38), rgba(63,191,138,.18)); color:#C9F5DF; }
+  .tl-us { position:absolute; top:-4px; bottom:-4px; width:2px; margin-left:-1px; background:#FFC27A; font-style:normal; }
+  .tl-us span { position:absolute; top:-20px; right:4px; white-space:nowrap; font-size:.66rem; font-weight:700; color:#FFC27A; }
+  .tl-now { position:absolute; top:-6px; bottom:-6px; width:3px; margin-left:-1.5px; border-radius:3px; background:#FFF6DC; box-shadow:0 0 0 3px rgba(10,10,15,.85), 0 0 14px rgba(255,246,220,.6); }
+  .tl-ticks { position:absolute; left:0; right:0; bottom:-20px; height:16px; }
+  .tl-ticks i { position:absolute; top:0; width:1px; height:5px; background:rgba(255,255,255,.2); }
+  .tl-ticks small { position:absolute; top:5px; left:0; transform:translateX(-50%); font-size:.62rem; color:var(--muted); }
+  .tl-note { margin:0; color:var(--muted); font-size:.78rem; line-height:1.5; }
+  .tdk { margin-bottom:18px; }
+  .tdk small { color:var(--muted); font-size:.76rem; }
+  .tdk div.bad { border-color:rgba(255,138,128,.45); background:rgba(255,138,128,.07); }
+  b.pos, td.pos, .pos { color:#86E3B5; } b.neg, td.neg, .neg { color:#FF9B92; }
+  .stopday { color:#F3E7CF; font-size:.92rem; line-height:1.5; border-color:rgba(255,138,128,.45); background:rgba(255,138,128,.07); }
+  .stopday b { color:#FF9B92; }
+  .tr-cols { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,.9fr); gap:18px; align-items:start; }
+  .tr-cols .col { min-width:0; }
+  .trform .ex-row { align-items:start; }
+  .trform fieldset.catpick { gap:8px; }
+  .trk { grid-template-columns:repeat(3, minmax(0,1fr)); }
+  .trk b { font-size:1.45rem; }
+  .eq { display:block; width:100%; height:170px; margin-top:16px; }
+  .tr-lines { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .tr-lines li { position:relative; padding-left:18px; color:#E4DCC6; font-size:.9rem; line-height:1.5; }
+  .tr-lines li::before { content:""; position:absolute; left:0; top:.6em; width:7px; height:7px; border-radius:50%; background:var(--gold); }
+  .trtab-wrap { margin-top:16px; overflow-x:auto; }
+  .trtab { width:100%; border-collapse:collapse; font-size:.86rem; font-variant-numeric:tabular-nums; }
+  .trtab th, .trtab td { padding:10px 8px; border-top:1px solid var(--line2); text-align:right; white-space:nowrap; }
+  .trtab thead th { border-top:0; font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .trtab th:first-child { text-align:left; }
+  .trtab tbody th { font-weight:700; color:#FFF6DC; }
+  .trtab tbody th i { display:inline-block; width:9px; height:9px; margin-right:9px; border-radius:3px; vertical-align:middle; }
+  .trtab em { color:var(--muted); font-style:normal; font-weight:500; }
+  .trcheck .task label { line-height:1.4; }
+  .btlist { list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:16px; }
+  .btlist .bt-top { display:flex; justify-content:space-between; gap:10px; margin-bottom:8px; font-size:.9rem; }
+  .btlist .bt-top b { color:#FFF6DC; } .btlist .bt-top em { color:var(--muted); font-style:normal; font-weight:500; }
+  .btlist .bt-top span { color:var(--gold-hi); font-weight:700; font-variant-numeric:tabular-nums; }
+  .btlist .ti-bar { height:8px; border-radius:99px; background:rgba(255,255,255,.07); overflow:hidden; }
+  .btlist .ti-bar div { height:100%; border-radius:99px; background:var(--cc); }
+  .btlist small { display:block; margin-top:6px; color:var(--muted); font-size:.78rem; }
+  .trset summary { list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:space-between; }
+  .trset summary::-webkit-details-marker { display:none; }
+  .trset summary::after { content:"+"; font-size:1.4rem; color:var(--gold-hi); }
+  .trset[open] summary::after { content:"−"; }
+  #trplay { min-height:240px; font-size:.88rem; line-height:1.55; }
+  .trlist li { align-items:flex-start; }
+  .trlist li > i { margin-top:6px; }
+  .trlist li > span:first-of-type { min-width:0; line-height:1.45; }
+  .trlist .amt { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+  .trlist .amt small { color:var(--muted); font-weight:600; font-size:.74rem; }
+  .dir { font-size:.7rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:2px 7px; border-radius:6px; }
+  .dir.buy { color:#86E3B5; background:rgba(63,191,138,.14); } .dir.sell { color:#FF9B92; background:rgba(255,138,128,.13); }
+  .mtag { display:inline-block; margin-left:6px; padding:1px 8px; border-radius:99px; border:1px solid var(--line); color:var(--gold-hi); font-size:.66rem; font-weight:700; letter-spacing:.06em; }
+  .ftiles.t3 { grid-template-columns:minmax(0,1.4fr) repeat(2, minmax(0,1fr)); }
+  .ftiles b.desk-t { font-family:var(--sans); font-size:.98rem; font-weight:600; line-height:1.4; white-space:normal; color:#F3E7CF; }
+  @media (max-width:980px) { .tr-cols { grid-template-columns:1fr; } }
+  @media (max-width:820px) { .ftiles.t3 { grid-template-columns:1fr 1fr; } .ftiles.t3 a:first-child { grid-column:1 / -1; } }
+  @media (max-width:640px) {
+    .trk { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .tl-seg { padding:0 5px; font-size:.6rem; }
+    .desk-now { align-items:flex-start; } .desk-now b { font-size:1.5rem; }
+    .tdk small { font-size:.7rem; }
+  }
 </style>
 </head>
 <body>
@@ -968,7 +1045,8 @@ const DEFAULT_AREAS = [
 let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], targets: [], expenses: [],
   openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
   budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false,
-  spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null };
+  spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null,
+  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' } };
 let chart = null;
 
 function toast(msg) {
@@ -1139,6 +1217,9 @@ async function load() {
   state.plan = await soft(sb.from('plan_items').select('*').order('position'));
   state.spirit = await soft(sb.from('spirit_logs').select('*').order('day'));
   state.spiritItems = await soft(sb.from('spirit_items').select('*').order('created_at'));
+  state.trades = await soft(sb.from('trades').select('*').order('day').order('created_at'));
+  state.tset = (await soft(sb.from('trading_settings').select('*').limit(1)))[0] || null;
+  state.tcheck = (await soft(sb.from('trade_checks').select('*').eq('day', todayStr()).limit(1)))[0] || null;
 }
 // like run(), but an error leaves the app working with an empty list
 async function soft(promise) {
@@ -1479,9 +1560,10 @@ function groupCats(list) {
   const m = {}; list.forEach(e => { m[e.category] = (m[e.category] || 0) + Number(e.amount); });
   return Object.entries(m).map(([name, amt]) => ({ name, amt })).sort((x, y) => y.amt - x.amt);
 }
-function subtabs(a, sub) {
-  const t = [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial goals</span><span class="sm">Goals</span>']];
-  return `<nav class="subtabs" aria-label="Finances sections">${t.map(([k, l]) => `<a href="#area/${a.id}${k === 'overview' ? '' : '/' + k}" class="${sub === k ? 'on' : ''}"${sub === k ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
+function subtabs(a, sub, career) {
+  const t = career ? [['overview', 'Overview'], ['trading', 'Trading']]
+    : [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial goals</span><span class="sm">Goals</span>']];
+  return `<nav class="subtabs" aria-label="${career ? 'Work and career' : 'Finances'} sections">${t.map(([k, l]) => `<a href="#area/${a.id}${k === 'overview' ? '' : '/' + k}" class="${sub === k ? 'on' : ''}"${sub === k ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
 }
 function financeTiles(a) {
   const mk = monthKey(0), spent = state.expenses.filter(e => String(e.day).startsWith(mk));
@@ -1967,7 +2049,7 @@ function renderArea(id, animate, sub = 'overview') {
   const a = state.areas.find(x => String(x.id) === id);
   if (!a) { location.hash = '#home'; return; }
   const m = metaOf(a), st = areaStats(a), sc = scoreOf(a), rz = animate ? ' rise' : '';
-  const isMoney = m.icon === 'money', showOverview = !isMoney || sub === 'overview';
+  const isMoney = m.icon === 'money', isCareer = m.icon === 'career', showOverview = !(isMoney || isCareer) || sub === 'overview';
   const style = `--c:${m.color};--t:${m.color}30`;
   const have = new Set(st.ts.map(t => t.title.toLowerCase()));
   const sugg = m.habits.filter(h => !have.has(h.toLowerCase()));
@@ -2002,10 +2084,11 @@ function renderArea(id, animate, sub = 'overview') {
         </div>
       </div>
     </section>
-    ${isMoney ? subtabs(a, sub) : ''}
+    ${isMoney || isCareer ? subtabs(a, sub, isCareer) : ''}
     ${m.icon === 'spirit' ? spiritSection(a, rz) : ''}
     ${showOverview ? `
     ${isMoney ? financeTiles(a) + financeAlerts(a) + incomePlanCard(a) : ''}
+    ${isCareer ? tradingTeaser(a) : ''}
     ${goalsOf(a).length ? `<div class="goals${rz}" style="--d:.08s">${goalsOf(a).map(goalCard).join('')}</div>` : ''}
     ${addGoalForm(goalsOf(a).length > 0)}
     <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
@@ -2044,7 +2127,263 @@ function renderArea(id, animate, sub = 'overview') {
         </section>
         <button class="small danger del-area" type="button" data-act="delarea">Delete this area</button>
       </div>
-    </div>` : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
+    </div>` : sub === 'trading' && isCareer ? tradingSection(a) : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
+}
+// ---------- Work & Career: Trading desk (journal, daily limits, session clock in Uganda time) ----------
+const TR_DEF = { start_balance: 500, currency: 'USD', risk_pct: 1, max_trades: 2, max_losses: 2, playbook: null };
+const TR_INSTR = ['GER40', 'Hong Kong 50'];
+const TR_STRATS = ['Kim Box', 'Inside Bar', 'Tom Camp H4', 'EMA Fractals'];
+const TR_SESS = ['Hong Kong', 'London', 'New York'];
+const TR_EMO = ['Calm', 'Confident', 'Rushed', 'Fearful', 'Revenge', 'Bored'];
+const TR_MODES = [['live', 'Live'], ['demo', 'Demo'], ['backtest', 'Backtest']];
+const TR_COLORS = { 'Kim Box': '#E2B84A', 'Inside Bar': '#5B8DEF', 'Tom Camp H4': '#E0708E', 'EMA Fractals': '#3FBF8A' };
+const TR_TARGET = 100;   // backtested trades to collect before trusting a setup
+const TR_CHECKS = [
+  'Economic calendar checked (EUR and USD, high impact) and no-trade windows marked',
+  'Earnings checked for SAP, Siemens, Allianz and the carmakers',
+  'US futures, the Hong Kong session and EUR/USD checked',
+  'H4 bias marked (EMA 21/50) and the last Tom Camp H4 candle noted',
+  'Calm and rested. Not trading to win back a loss'
+];
+const TR_PLAYBOOK = `Instrument: GER40 live. Hong Kong 50 on backtest and demo only until it has 100 trades.
+Session: London box = the first 1H candle after Frankfurt opens (11:00 Uganda time in winter, 10:00 in summer).
+Bias: H4 and H1 EMA 21/50 must agree. Prefer trades in the direction of the last Tom Camp H4 candle.
+Entry: M5 close beyond the box, then a retest. Best trigger: an inside bar at the box edge.
+Stop: beyond the inside bar's mother candle, or the opposite box edge + 20 points.
+Targets: TP1 = 50% of the box height, TP2 = 100%. Trail the rest behind M5/M15 fractals.
+Risk: 1% per trade. Max 2 trades and 2 losses a day. Max 2% open at once.
+No new trades 30 minutes either side of high-impact news. Be flat before 17:00.`;
+const trSet = () => Object.assign({}, TR_DEF, state.tset || {});
+const trNum = v => { const n = parseFloat(String(v ?? '').replace(/[^0-9.\-]/g, '')); return isFinite(n) ? n : null; };
+const trSort = l => l.slice().sort((x, y) => String(x.day).localeCompare(String(y.day)) || String(x.created_at || '').localeCompare(String(y.created_at || '')));
+function trMoney(v, sign) {
+  const n = Number(v) || 0, c = String(trSet().currency || 'USD').toUpperCase();
+  let s; try { s = new Intl.NumberFormat(undefined, { style: 'currency', currency: c, maximumFractionDigits: 2 }).format(Math.abs(n)); } catch (_) { s = c + ' ' + Math.abs(n).toFixed(2); }
+  return (n < 0 ? '−' : sign && n > 0 ? '+' : '') + s;
+}
+const fmtR = v => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2).replace(/\.?0+$/, '') + 'R';
+const rClass = v => v > 0 ? 'pos' : v < 0 ? 'neg' : '';
+function trStats(list) {
+  const n = list.length, rs = list.map(t => Number(t.r) || 0), wins = rs.filter(r => r > 0).length, total = rs.reduce((s, r) => s + r, 0);
+  const fol = list.filter(t => t.followed), brk = list.filter(t => !t.followed);
+  const avg = l => l.length ? l.reduce((s, t) => s + (Number(t.r) || 0), 0) / l.length : 0;
+  return { n, wins, win: n ? Math.round(wins / n * 100) : 0, total, avg: n ? total / n : 0,
+    adh: n ? Math.round(fol.length / n * 100) : 0, folAvg: avg(fol), brkAvg: avg(brk), fol: fol.length, brk: brk.length,
+    pnl: list.reduce((s, t) => s + (Number(t.pnl) || 0), 0) };
+}
+function trBalance() {
+  const s = trSet();
+  return Number(s.start_balance) + state.trades.filter(t => t.mode === 'live').reduce((sum, t) => sum + (Number(t.pnl) || 0), 0);
+}
+function trToday() {
+  const s = trSet(), list = state.trades.filter(t => t.mode === 'live' && t.day === todayStr());
+  const losses = list.filter(t => Number(t.r) < 0).length;
+  return { list, losses, n: list.length, stop: list.length >= s.max_trades || losses >= s.max_losses };
+}
+
+// session times in Uganda time (UTC+3, no daylight saving); Frankfurt and New York change their clocks, so work them out each day
+const EAT = 180;
+function tzOff(tz, d) {
+  const a = new Date(d.toLocaleString('en-US', { timeZone: tz })), b = new Date(d.toLocaleString('en-US', { timeZone: 'UTC' }));
+  return Math.round((a - b) / 60000);
+}
+const eatAt = (tz, h, m) => (((h * 60 + m - tzOff(tz, new Date()) + EAT) % 1440) + 1440) % 1440;
+function eatNow() { const d = new Date(); return { min: (d.getUTCHours() * 60 + d.getUTCMinutes() + EAT) % 1440, dow: new Date(d.getTime() + EAT * 60000).getUTCDay() }; }
+const hm = m => `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`;
+function deskTimes() {
+  const ger = eatAt('Europe/Berlin', 9, 0), us = eatAt('America/New_York', 8, 30);
+  return { hkBox: 480, hkEnd: Math.min(660, ger), ger, gerTrade: ger + 60, us, gerEnd: Math.min(us - 15, 1020), finish: 1020 };
+}
+function deskStatus(t, now) {
+  const n = now.min;
+  if (now.dow === 0 || now.dow === 6) return ['closed', 'Weekend. The markets are closed, so review the week and plan Monday.'];
+  if (n < t.hkBox) return ['wait', `Pre-market. Do your checklist and mark the H4 bias before ${hm(t.hkBox)}.`];
+  if (n < t.hkBox + 60) return ['wait', `The Hong Kong 50 box is forming (${hm(t.hkBox)}–${hm(t.hkBox + 60)}). Mark its high and low.`];
+  if (n < t.hkEnd) return ['go', `Hong Kong 50 window until ${hm(t.hkEnd)}. Backtest or demo only, at most 1 trade.`];
+  if (n < t.ger) return ['wait', `GER40 opens at ${hm(t.ger)}. Finish your checklist first.`];
+  if (n < t.gerTrade) return ['wait', `The GER40 box is forming. No trades until ${hm(t.gerTrade)}.`];
+  if (n >= t.us - 15 && n < t.us + 15) return ['warn', `US data at ${hm(t.us)}. Stay flat or move your stop to breakeven.`];
+  if (n < t.gerEnd) return ['go', `GER40 window is open until ${hm(t.gerEnd)}.`];
+  if (n < t.finish) return ['wait', 'Manage open trades and fill in your journal. Finish by 17:00.'];
+  return ['closed', 'The desk is closed for today. Review your trades and rest.'];
+}
+function deskClock() {
+  const t = deskTimes(), now = eatNow(), [tone, text] = deskStatus(t, now), A = 480, Z = 1020, W = Z - A;
+  const pos = m => Math.max(0, Math.min(100, (m - A) / W * 100));
+  const seg = (from, to, cls, label) => to > from ? `<div class="tl-seg ${cls}" style="left:${pos(from)}%;width:${pos(to) - pos(from)}%" title="${label}: ${hm(from)}–${hm(to)}"><span>${label}</span></div>` : '';
+  let ticks = ''; for (let h = 8; h <= 17; h++) ticks += `<i style="left:${pos(h * 60)}%"><small>${h}</small></i>`;
+  const live = now.dow > 0 && now.dow < 6 && now.min >= A && now.min <= Z;
+  return `<div class="desk-now ${tone}"><b>${hm(now.min)}</b><span>${esc(text)}</span></div>
+    <div class="tl" role="img" aria-label="Today's trading sessions in Uganda time: Hong Kong 50 box ${hm(t.hkBox)}, GER40 opens ${hm(t.ger)}, US data ${hm(t.us)}">
+      ${seg(t.hkBox, t.hkBox + 60, 'box', 'HK50 box')}${seg(t.hkBox + 60, t.hkEnd, 'hk', 'HK50')}
+      ${seg(t.ger, t.gerTrade, 'box', 'GER40 box')}${seg(t.gerTrade, t.gerEnd, 'ger', 'GER40 window')}
+      ${t.us > A && t.us < Z ? `<em class="tl-us" style="left:${pos(t.us)}%"><span>US data ${hm(t.us)}</span></em>` : ''}
+      ${live ? `<em class="tl-now" style="left:${pos(now.min)}%"></em>` : ''}
+      <div class="tl-ticks">${ticks}</div>
+    </div>
+    <p class="tl-note">Uganda time. GER40 opens at ${hm(t.ger)} today (Frankfurt 09:00), and US data comes out at ${hm(t.us)}. These move by an hour when Europe or the US change their clocks.</p>`;
+}
+function eqCurve(list) {
+  const pts = [0]; trSort(list).forEach(t => pts.push(pts[pts.length - 1] + (Number(t.r) || 0)));
+  if (pts.length < 3) return '<p class="tr-empty" style="margin-top:12px">Your equity curve (total R over time) appears after two trades.</p>';
+  const W = 600, H = 170, P = 10, lo = Math.min(0, ...pts), hi = Math.max(0, ...pts), span = hi - lo || 1;
+  const x = i => P + i / (pts.length - 1) * (W - 2 * P), y = v => P + (hi - v) / span * (H - 2 * P);
+  const line = pts.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+  const last = pts[pts.length - 1];
+  return `<svg class="eq" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="Equity curve: ${fmtR(last)} after ${pts.length - 1} trades">
+    <defs><linearGradient id="eqf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D4AF37" stop-opacity=".32"/><stop offset="1" stop-color="#D4AF37" stop-opacity="0"/></linearGradient></defs>
+    <line x1="${P}" x2="${W - P}" y1="${y(0).toFixed(1)}" y2="${y(0).toFixed(1)}" stroke="rgba(255,255,255,.18)" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/>
+    <polygon points="${x(0).toFixed(1)},${y(0).toFixed(1)} ${line} ${x(pts.length - 1).toFixed(1)},${y(0).toFixed(1)}" fill="url(#eqf)"/>
+    <polyline points="${line}" fill="none" stroke="#F3DE98" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  </svg><div class="gbar-legend"><span>First trade</span><span>Now: <b class="${rClass(last)}">${fmtR(last)}</b></span></div>`;
+}
+function trLines(list) {
+  const s = trStats(list), out = [];
+  if (s.fol && s.brk) out.push(`When you follow your rules you average <b class="${rClass(s.folAvg)}">${fmtR(s.folAvg)}</b>. When you break them: <b class="${rClass(s.brkAvg)}">${fmtR(s.brkAvg)}</b>.`);
+  const emo = {}; list.forEach(t => { if (t.emotion) (emo[t.emotion] = emo[t.emotion] || []).push(Number(t.r) || 0); });
+  const worst = Object.entries(emo).filter(([, v]) => v.length >= 2).map(([k, v]) => [k, v.reduce((a, b) => a + b, 0) / v.length]).sort((a, b) => a[1] - b[1])[0];
+  if (worst && worst[1] < 0) out.push(`Trades taken while feeling <b>${esc(worst[0].toLowerCase())}</b> average <b class="neg">${fmtR(worst[1])}</b>. Treat that feeling as a stop sign.`);
+  const ses = {}; list.forEach(t => { if (t.session) (ses[t.session] = ses[t.session] || []).push(Number(t.r) || 0); });
+  const best = Object.entries(ses).filter(([, v]) => v.length >= 3).map(([k, v]) => [k, v.reduce((a, b) => a + b, 0) / v.length]).sort((a, b) => b[1] - a[1]);
+  if (best.length > 1) out.push(`Your best session so far is <b>${esc(best[0][0])}</b> at <b class="${rClass(best[0][1])}">${fmtR(best[0][1])}</b> a trade.`);
+  if (s.n && s.n < 30) out.push(`Only ${s.n} trade${s.n > 1 ? 's' : ''} so far. Results usually settle after 30 to 50, so judge the rules, not the money, for now.`);
+  return out.length ? `<ul class="tr-lines">${out.map(l => `<li>${l}</li>`).join('')}</ul>` : '';
+}
+function trBreakdown(list) {
+  const g = {}; list.forEach(t => { const k = `${t.instrument}|${t.strategy}`; (g[k] = g[k] || []).push(t); });
+  const rows = Object.entries(g).map(([k, l]) => ({ k, s: trStats(l) })).sort((a, b) => b.s.n - a.s.n);
+  if (!rows.length) return '';
+  return `<div class="trtab-wrap"><table class="trtab"><thead><tr><th scope="col">Setup</th><th scope="col">Trades</th><th scope="col">Win rate</th><th scope="col">Avg R</th><th scope="col">Total R</th></tr></thead><tbody>
+    ${rows.map(({ k, s }) => { const [ins, st] = k.split('|'); return `<tr><th scope="row"><i style="background:${TR_COLORS[st] || '#9A9484'}"></i>${esc(ins)} <em>· ${esc(st)}</em></th><td>${s.n}</td><td>${s.win}%</td><td class="${rClass(s.avg)}">${fmtR(s.avg)}</td><td class="${rClass(s.total)}">${fmtR(s.total)}</td></tr>`; }).join('')}
+  </tbody></table></div>`;
+}
+function backtestCard() {
+  const bt = state.trades.filter(t => t.mode === 'backtest'), g = {};
+  ['Hong Kong 50|Kim Box', 'GER40|Kim Box'].forEach(k => g[k] = []);
+  bt.forEach(t => { const k = `${t.instrument}|${t.strategy}`; (g[k] = g[k] || []).push(t); });
+  const rows = Object.entries(g).map(([k, l]) => ({ k, s: trStats(l) })).sort((a, b) => b.s.n - a.s.n);
+  return `<section class="card"><span class="card-title">Backtest progress</span>
+    <p class="card-sub">Log each backtested trade with the mode set to Backtest. A setup earns real money only after ${TR_TARGET} trades with a positive average R.</p>
+    <ul class="btlist">${rows.map(({ k, s }) => { const [ins, st] = k.split('|'), pct = Math.min(100, Math.round(s.n / TR_TARGET * 100)), ready = s.n >= TR_TARGET && s.avg > 0;
+      return `<li style="--cc:${TR_COLORS[st] || '#9A9484'}"><div class="bt-top"><b>${esc(ins)} <em>· ${esc(st)}</em></b><span>${s.n} / ${TR_TARGET}</span></div>
+        <div class="ti-bar"><div style="width:${pct}%"></div></div>
+        <small>${s.n ? `${s.win}% win rate · ${fmtR(s.avg)} average${ready ? ' · <b class="pos">Ready to go live</b>' : ''}` : 'No backtested trades yet'}</small></li>`; }).join('')}</ul></section>`;
+}
+function trLogForm() {
+  const s = trSet(), L = state.trLast, today = todayStr(), risk = trBalance() * s.risk_pct / 100;
+  const pick = (name, opts, cur, cls = '') => opts.map(([v, l, c]) => `<label style="--cc:${c || 'var(--gold)'}"${cls ? ` class="${cls}"` : ''}><input type="radio" name="${name}" value="${esc(v)}"${v === cur ? ' checked' : ''}><span>${esc(l)}</span></label>`).join('');
+  return `<form class="card exform trform" data-act="tr-log">
+    <span class="card-title">Log a trade</span>
+    <p class="card-sub">Log every trade, win or loss, as soon as it closes. Results are in R: a full stop-out is −1R, hitting a target twice your risk is +2R.</p>
+    <fieldset class="catpick"><legend class="sublbl">Mode</legend>${pick('mode', TR_MODES.map(([k, l]) => [k, l]), L.mode)}</fieldset>
+    <fieldset class="catpick"><legend class="sublbl">Instrument</legend>${pick('instrument', TR_INSTR.map(i => [i, i]), L.instrument)}</fieldset>
+    <fieldset class="catpick"><legend class="sublbl">Strategy</legend>${pick('strategy', TR_STRATS.map(st => [st, st, TR_COLORS[st]]), L.strategy)}</fieldset>
+    <div class="ex-row">
+      <fieldset class="catpick"><legend class="sublbl">Session</legend>${pick('session', TR_SESS.map(x => [x, x]), L.session)}</fieldset>
+      <fieldset class="catpick"><legend class="sublbl">Direction</legend>${pick('direction', [['buy', 'Buy', '#3FBF8A'], ['sell', 'Sell', '#FF8A80']], '')}</fieldset>
+    </div>
+    <div class="ex-row">
+      <label><span class="sublbl">Result in R</span><input name="r" type="text" inputmode="decimal" placeholder="e.g. 2 or -1" required autocomplete="off"></label>
+      <label><span class="sublbl">Profit or loss (optional)</span><input name="pnl" type="text" inputmode="decimal" placeholder="${L.mode === 'live' ? `Blank = R × ${trMoney(risk)}` : 'e.g. -5'}" autocomplete="off"></label>
+    </div>
+    <div class="ex-row">
+      <fieldset class="catpick"><legend class="sublbl">Followed every rule?</legend>${pick('followed', [['yes', 'Yes', '#3FBF8A'], ['no', 'No', '#FF8A80']], 'yes')}</fieldset>
+      <label><span class="sublbl">Date</span><input name="day" type="date" value="${today}" max="${today}"></label>
+    </div>
+    <fieldset class="catpick"><legend class="sublbl">How did you feel before entering?</legend>${pick('emotion', TR_EMO.map(x => [x, x]), '')}</fieldset>
+    <label><span class="sublbl">Note (optional)</span><input name="note" type="text" placeholder="e.g. Retest of the box high, inside bar trigger" autocomplete="off"></label>
+    <button class="primary ex-save" type="submit">Save trade</button>
+  </form>`;
+}
+function trRecent() {
+  const sorted = trSort(state.trades).reverse(), rec = sorted.slice(0, state.trAll ? 400 : 12);
+  if (!rec.length) return '<p class="tr-empty" style="margin-top:12px">Your trades will appear here, grouped by day.</p>';
+  let h = '<ul class="elist exlist trlist">', d = '';
+  rec.forEach(t => {
+    if (t.day !== d) { d = t.day; h += `<li class="dayhead">${esc(fmtDay(t.day))}</li>`; }
+    const r = Number(t.r) || 0;
+    h += `<li><i style="background:${TR_COLORS[t.strategy] || '#9A9484'}"></i>
+      <span>${t.direction ? `<b class="dir ${t.direction}">${t.direction === 'buy' ? 'Buy' : 'Sell'}</b> ` : ''}${esc(t.instrument)} <em>· ${esc(t.strategy)}${t.session ? ' · ' + esc(t.session) : ''}${t.emotion ? ' · ' + esc(t.emotion) : ''}${t.followed ? '' : ' · <span class="neg">rule broken</span>'}${t.note ? ' · ' + esc(t.note) : ''}</em>
+      ${t.mode !== 'live' ? `<span class="mtag">${t.mode === 'demo' ? 'Demo' : 'Backtest'}</span>` : ''}</span>
+      <span class="amt"><b class="${rClass(r)}">${fmtR(r)}</b>${t.pnl !== null && t.pnl !== undefined ? `<small>${trMoney(t.pnl, true)}</small>` : ''}</span>
+      <button class="small danger" type="button" data-act="tr-del" data-id="${t.id}" aria-label="Delete this trade">&times;</button></li>`;
+  });
+  h += '</ul>';
+  if (sorted.length > 12) h += `<button class="small" type="button" data-act="tr-more" style="margin-top:12px">${state.trAll ? 'Show fewer' : `Show all ${Math.min(sorted.length, 400)}`}</button>`;
+  return h;
+}
+function tradingSection(a) {
+  const s = trSet(), bal = trBalance(), risk = bal * s.risk_pct / 100, td = trToday();
+  const live = trStats(state.trades.filter(t => t.mode === 'live'));
+  const M = state.trMode, list = state.trades.filter(t => t.mode === M), st = trStats(list);
+  const chk = new Set((state.tcheck && state.tcheck.items) || []), ready = TR_CHECKS.filter((_, i) => chk.has(i)).length;
+  return `<section class="trading">
+    <section class="tracker desk">
+      <div class="tr-head"><div class="eyebrow">Trading desk</div><h3>Trade the plan, not the feeling.</h3>
+        <p>GER40 is live. Hong Kong 50 stays on backtest and demo until it proves itself.</p></div>
+      ${deskClock()}
+    </section>
+    <div class="ex-kpis tdk">
+      <div><span>Balance</span><b>${trMoney(bal)}</b><small>Started at ${trMoney(s.start_balance)}</small></div>
+      <div><span>Risk per trade</span><b>${trMoney(risk)}</b><small>${s.risk_pct}% of your balance</small></div>
+      <div class="${td.stop ? 'bad' : ''}"><span>Today</span><b>${td.n} of ${s.max_trades}</b><small>${td.losses} loss${td.losses === 1 ? '' : 'es'} · limit ${s.max_losses}</small></div>
+      <div><span>Live expectancy</span><b class="${rClass(live.avg)}">${live.n ? fmtR(live.avg) : '–'}</b><small>${live.n ? `${live.win}% win rate · ${live.n} trade${live.n > 1 ? 's' : ''}` : 'Log your first live trade'}</small></div>
+    </div>
+    ${td.stop ? `<div class="alerts stopday" role="status"><b>Done for today.</b> You have reached your daily limit (${td.n >= s.max_trades ? `${s.max_trades} trades` : `${s.max_losses} losses`}). Close the charts. Tomorrow is a new day.</div>` : ''}
+    <div class="tr-cols">
+      <div class="col">
+        ${trLogForm()}
+        <section class="card">
+          <div class="row" style="justify-content:space-between;flex-wrap:wrap;gap:12px"><span class="card-title">Performance</span>
+            <div class="seg" role="group" aria-label="Which trades">${TR_MODES.map(([k, l]) => `<button type="button" class="${M === k ? 'on' : ''}" data-act="tr-mode" data-m="${k}" aria-pressed="${M === k}">${l}</button>`).join('')}</div></div>
+          ${st.n ? `<div class="kpis trk">
+              <div><b>${st.n}</b><span>Trades</span></div>
+              <div><b>${st.win}%</b><span>Win rate</span></div>
+              <div><b class="${rClass(st.avg)}">${fmtR(st.avg)}</b><span>Avg R a trade</span></div>
+              <div><b class="${rClass(st.total)}">${fmtR(st.total)}</b><span>Total R</span></div>
+              <div><b>${st.adh}%</b><span>Rules followed</span></div>
+              <div><b class="${rClass(st.pnl)}">${M === 'backtest' ? '–' : trMoney(st.pnl, true)}</b><span>Profit or loss</span></div>
+            </div>
+            ${eqCurve(list)}${trLines(list)}${trBreakdown(list)}`
+          : `<p class="tr-empty" style="margin-top:12px">No ${M === 'live' ? 'live' : M} trades logged yet. Your win rate, average R and equity curve will appear here.</p>`}
+        </section>
+      </div>
+      <div class="col">
+        <section class="card trcheck">
+          <span class="card-title">Before you trade</span>
+          <p class="card-sub">${ready === TR_CHECKS.length ? 'All set. Trade your plan.' : `${ready} of ${TR_CHECKS.length} done. Tick each one before the first trade of the day.`}</p>
+          <div class="gbar" style="margin:10px 0 6px"><div style="width:${Math.round(ready / TR_CHECKS.length * 100)}%"></div></div>
+          ${TR_CHECKS.map((c, i) => `<div class="task ${chk.has(i) ? 'done' : ''}"><input type="checkbox" id="trc-${i}" data-act="tr-chk" data-i="${i}" ${chk.has(i) ? 'checked' : ''}><span><label for="trc-${i}">${esc(c)}</label></span></div>`).join('')}
+        </section>
+        <section class="card">
+          <label class="card-title" for="trplay">Playbook</label>
+          <p class="card-sub">Your rules in your own words. Saved when you click away.</p>
+          <textarea id="trplay" data-act="tr-playbook" rows="12">${esc(s.playbook ?? TR_PLAYBOOK)}</textarea>
+        </section>
+        ${backtestCard()}
+        <details class="card trset">
+          <summary><span class="card-title">Account and limits</span></summary>
+          <form class="gform" data-act="tr-set" style="margin-top:14px">
+            <label><span class="sublbl">Starting balance</span><input name="start_balance" type="text" inputmode="decimal" value="${esc(s.start_balance)}" required autocomplete="off"></label>
+            <label><span class="sublbl">Currency</span><input name="currency" type="text" maxlength="3" value="${esc(s.currency)}" autocomplete="off"></label>
+            <label><span class="sublbl">Risk per trade (%)</span><input name="risk_pct" type="text" inputmode="decimal" value="${esc(s.risk_pct)}" autocomplete="off"></label>
+            <label><span class="sublbl">Max trades a day</span><input name="max_trades" type="text" inputmode="numeric" value="${esc(s.max_trades)}" autocomplete="off"></label>
+            <label><span class="sublbl">Max losses a day</span><input name="max_losses" type="text" inputmode="numeric" value="${esc(s.max_losses)}" autocomplete="off"></label>
+            <button class="primary full" type="submit">Save</button>
+          </form>
+        </details>
+      </div>
+    </div>
+    <section class="card"><span class="card-title">Trade journal</span>${trRecent()}</section>
+  </section>`;
+}
+function tradingTeaser(a) {
+  const td = trToday(), live = trStats(state.trades.filter(t => t.mode === 'live')), [, text] = deskStatus(deskTimes(), eatNow()), now = eatNow();
+  return `<div class="ftiles t3">
+    <a href="#area/${a.id}/trading"><span class="sublbl">Trading desk · ${hm(now.min)}</span><b class="desk-t">${esc(text)}</b><small>Open the trading desk &rarr;</small></a>
+    <a href="#area/${a.id}/trading"><span class="sublbl">Trading balance</span><b>${trMoney(trBalance())}</b><small>${td.n} trade${td.n === 1 ? '' : 's'} today${td.stop ? ' · done for today' : ''} &rarr;</small></a>
+    <a href="#area/${a.id}/trading"><span class="sublbl">Live expectancy</span><b class="${rClass(live.avg)}">${live.n ? fmtR(live.avg) : '–'}</b><small>${live.n ? `${live.win}% win rate over ${live.n} trades` : 'Log your first trade'} &rarr;</small></a>
+  </div>`;
 }
 // ---------- Spiritual Life: 60 days with Florence Scovel Shinn (teachings summarised in our own words) ----------
 const PROGRAM_START = '2026-10-27', PROGRAM_DAYS = 60;
@@ -2662,6 +3001,22 @@ $('#view-area').addEventListener('submit', async e => {
       const row = await run(sb.from('expenses').insert({ area_id: a.id, amount, category, note: String(f.get('note') || '').trim() || null, day: f.get('day') || todayStr() }).select().single());
       state.expenses.push(row); state.lastCat = category; toast(budgetNote(category) || 'Expense added');
       render(); const i = document.querySelector('.exform input[name=amount]'); if (i) i.focus(); return;
+    } else if (act === 'tr-log') {
+      const r = trNum(f.get('r')); if (r === null) return toast('Enter the result in R, e.g. 2 or -1');
+      const mode = String(f.get('mode') || 'live'), instrument = String(f.get('instrument') || 'GER40'), strategy = String(f.get('strategy') || 'Kim Box');
+      const pIn = trNum(f.get('pnl')), riskAmt = trBalance() * trSet().risk_pct / 100;
+      const rec = { area_id: a.id, mode, instrument, strategy, session: f.get('session') || null, direction: f.get('direction') || null, r,
+        pnl: pIn !== null ? pIn : mode === 'live' ? Math.round(r * riskAmt * 100) / 100 : null,
+        followed: f.get('followed') !== 'no', emotion: f.get('emotion') || null, note: String(f.get('note') || '').trim() || null, day: f.get('day') || todayStr() };
+      const row = await run(sb.from('trades').insert(rec).select().single());
+      state.trades.push(row); state.trLast = { mode, instrument, strategy, session: rec.session || 'London' }; state.trMode = mode;
+      const td = trToday(); toast(mode === 'live' && td.stop ? 'Trade saved. That is your limit for today.' : r > 0 ? `Trade saved: ${fmtR(r)}` : 'Trade saved. Losses are part of the plan.');
+    } else if (act === 'tr-set') {
+      const rec = { start_balance: Math.max(0, trNum(f.get('start_balance')) ?? 500), currency: (String(f.get('currency') || 'USD').trim().toUpperCase() || 'USD').slice(0, 3),
+        risk_pct: Math.min(10, Math.max(0.1, trNum(f.get('risk_pct')) || 1)), max_trades: Math.min(20, Math.max(1, Math.round(trNum(f.get('max_trades')) || 2))),
+        max_losses: Math.min(20, Math.max(1, Math.round(trNum(f.get('max_losses')) || 2))), updated_at: new Date().toISOString() };
+      const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
+      state.tset = await run(sb.from('trading_settings').upsert({ user_id: uid, playbook: trSet().playbook, ...rec }).select().single()); toast('Saved');
     } else if (act === 'addgoal') {
       const title = String(f.get('title') || '').trim(), target = num(f.get('target'));
       if (!title || !target) return toast('Add a goal name and a monthly target');
@@ -2676,6 +3031,13 @@ $('#view-area').addEventListener('click', async e => {
   const a = currentArea(); if (!a) return;
   const act = el.dataset.act;
   try {
+    if (act === 'tr-mode') { state.trMode = el.dataset.m; render(); return; }
+    if (act === 'tr-more') { state.trAll = !state.trAll; render(); return; }
+    if (act === 'tr-del') {
+      if (!confirm('Delete this trade?')) return;
+      await run(sb.from('trades').delete().eq('id', el.dataset.id));
+      state.trades = state.trades.filter(x => x.id !== el.dataset.id); render(); return;
+    }
     if (act === 'logopen') {
       state.openLog = state.openLog === el.dataset.goal ? null : el.dataset.goal; render();
       const i = document.querySelector(`.goal[data-goal="${el.dataset.goal}"] input[name=amount]`); if (i) i.focus();
@@ -2800,6 +3162,21 @@ $('#view-area').addEventListener('change', async e => {
     if (k === 'read') d.read = on; else { const i = k === 't0' ? 0 : 1; d.t = (d.t || []).filter(x => x !== i); if (on) d.t.push(i); }
     try { await progSave(n, { data: d }, a.id); if (dayDone(n)) toast(`Day ${n} complete. Well done.`); } catch (_) {}
     return render();
+  }
+  if (e.target.dataset.act === 'tr-chk' || e.target.dataset.act === 'tr-playbook') {
+    try {
+      const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
+      if (e.target.dataset.act === 'tr-chk') {
+        const i = Number(e.target.dataset.i), items = new Set((state.tcheck && state.tcheck.items) || []);
+        if (e.target.checked) items.add(i); else items.delete(i);
+        state.tcheck = await run(sb.from('trade_checks').upsert({ user_id: uid, day: todayStr(), items: [...items].sort() }, { onConflict: 'user_id,day' }).select().single());
+        if (items.size === TR_CHECKS.length) toast('Checklist done. Trade your plan.');
+        return render();
+      }
+      state.tset = await run(sb.from('trading_settings').upsert({ ...trSet(), user_id: uid, playbook: e.target.value, updated_at: new Date().toISOString() }).select().single());
+      toast('Playbook saved');
+    } catch (_) {}
+    return;
   }
   if (e.target.dataset.act === 'sp-follow') {
     const h = state.spiritItems.find(x => x.id === e.target.dataset.id); if (!h) return;
