@@ -250,3 +250,26 @@ alter table market_briefs enable row level security;
 create policy "signed-in users read briefs" on market_briefs for select to authenticated using (true);
 -- forex pairs (and anything else) each person wants covered in the brief
 alter table trading_settings add column if not exists watch text[] not null default '{EUR/USD,GBP/USD,USD/JPY}';
+
+-- Trading: mistake tags and chart screenshots on each trade (screenshots live in the "covers" bucket under <user id>/trades/)
+alter table trades add column if not exists mistakes text[] not null default '{}';
+alter table trades add column if not exists shots text[] not null default '{}';
+-- Trading: drawdown limits (in R) and the losing-streak rule (halve risk after N losses in a row)
+alter table trading_settings add column if not exists weekly_loss_r numeric not null default 4 check (weekly_loss_r > 0);
+alter table trading_settings add column if not exists monthly_loss_r numeric not null default 8 check (monthly_loss_r > 0);
+alter table trading_settings add column if not exists halve_after int not null default 3 check (halve_after between 2 and 10);
+-- Trading: weekly review (one per week, week starts Monday)
+create table if not exists trade_reviews (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  week_start date not null,
+  went_well text,
+  to_improve text,
+  rule text,
+  discipline int check (discipline is null or discipline between 1 and 10),
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
+  unique (user_id, week_start)
+);
+alter table trade_reviews enable row level security;
+create policy "own trade reviews" on trade_reviews for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
