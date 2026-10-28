@@ -989,6 +989,66 @@
     .sched { padding:18px 16px; }
   }
   @media (prefers-reduced-motion: reduce) { .tk-track, .of-live.on .led, .clock.open .led { animation:none; } }
+  /* ---- Trading > News desk ---- */
+  .newsdesk { position:relative; display:flex; flex-direction:column; gap:18px; margin-bottom:18px; padding:26px; border-radius:26px; border:1px solid var(--line);
+    background:radial-gradient(600px 280px at 100% 0%, rgba(167,139,250,.12), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .nd-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .nd-head h3 { margin:8px 0 4px; font-family:var(--serif); font-size:2.2rem; font-weight:600; line-height:1.02; }
+  .nd-head p { margin:0; color:var(--muted); font-size:.9rem; }
+  .nd-side { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .nd-side select { width:auto; min-height:40px; }
+  .risk { display:inline-flex; align-items:center; gap:8px; min-height:36px; padding:0 14px; border-radius:99px; border:1px solid var(--line2); font-size:.78rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; }
+  .risk i { width:8px; height:8px; border-radius:50%; background:var(--muted); }
+  .risk.high { color:#FF9B92; border-color:rgba(255,138,128,.5); background:rgba(255,138,128,.08); } .risk.high i { background:#FF8A80; box-shadow:0 0 8px #FF8A80; }
+  .risk.medium { color:#FFD9A6; border-color:rgba(255,194,122,.45); background:rgba(255,194,122,.07); } .risk.medium i { background:#FFC27A; }
+  .risk.low { color:#9BF0C4; border-color:rgba(63,191,138,.45); background:rgba(63,191,138,.07); } .risk.low i { background:#3FBF8A; }
+  .nd-old { margin:0; padding:10px 14px; border-radius:12px; background:rgba(255,194,122,.07); border:1px solid rgba(255,194,122,.3); color:#FFD9A6; font-size:.86rem; }
+  .nd-sum { margin:0; font-size:1.02rem; line-height:1.6; color:#F3E7CF; }
+  .qnote { padding:16px 18px; border-radius:16px; border:1px solid rgba(212,175,55,.42); background:linear-gradient(135deg, rgba(212,175,55,.12), rgba(212,175,55,.03)); }
+  .qnote .sublbl { color:var(--gold); } .qnote p { margin:0; line-height:1.6; color:#FFF6DC; }
+  .nd-ev ul { list-style:none; margin:0; padding:0; border-radius:14px; border:1px solid var(--line2); overflow:hidden; }
+  .nd-ev li { display:grid; grid-template-columns:58px 12px minmax(0,1fr) auto; align-items:center; gap:10px; padding:10px 14px; border-top:1px solid var(--line2); font-size:.88rem; background:rgba(255,255,255,.02); }
+  .nd-ev li:first-child { border-top:0; }
+  .nd-ev li > b { font-family:var(--mono); color:#FFF6DC; font-variant-numeric:tabular-nums; }
+  .nd-ev .dot { width:9px; height:9px; border-radius:50%; background:var(--muted); }
+  .nd-ev li.high .dot { background:#FF8A80; box-shadow:0 0 8px #FF8A80; } .nd-ev li.medium .dot { background:#FFC27A; } .nd-ev li.low .dot { background:#8FA3B8; }
+  .nd-ev .evn em { font-style:normal; font-family:var(--mono); font-size:.74rem; font-weight:700; color:var(--gold); }
+  .nd-ev .aff { display:flex; gap:4px; flex-wrap:wrap; justify-content:flex-end; }
+  .nd-ev .aff i { font-style:normal; padding:2px 8px; border-radius:99px; background:rgba(255,255,255,.06); font-size:.68rem; font-weight:700; color:#E4DCC6; white-space:nowrap; }
+  .ngrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:14px; }
+  .ncard { display:flex; flex-direction:column; gap:12px; min-width:0; padding:18px; border-radius:20px; border:1px solid var(--line2); background:rgba(255,255,255,.03); border-top:3px solid var(--muted); }
+  .ncard.up { border-top-color:#3FBF8A; } .ncard.down { border-top-color:#FF8A80; } .ncard.wait { border-top-color:#FFC27A; }
+  .ncard header { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .ncard h4 { margin:0; font-family:var(--mono); font-size:1.05rem; font-weight:700; color:#FFF6DC; }
+  .bias { display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:99px; font-size:.72rem; font-weight:800; letter-spacing:.04em; background:rgba(255,255,255,.06); color:#E4DCC6; }
+  .bias i { width:0; height:0; border-left:5px solid transparent; border-right:5px solid transparent; }
+  .bias.up { color:#9BF0C4; background:rgba(63,191,138,.12); } .bias.up i { border-bottom:7px solid #3FBF8A; }
+  .bias.down { color:#FF9B92; background:rgba(255,138,128,.12); } .bias.down i { border-top:7px solid #FF8A80; }
+  .bias.wait { color:#FFD9A6; background:rgba(255,194,122,.1); } .bias.wait i { width:7px; height:7px; border:0; border-radius:2px; background:#FFC27A; }
+  .bias.flat i { width:8px; height:2px; border:0; background:#A8A294; }
+  .conf { margin-left:auto; color:var(--muted); font-size:.72rem; }
+  .nlist { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .nlist li { position:relative; padding-left:14px; font-size:.86rem; line-height:1.45; color:#E4DCC6; }
+  .nlist li::before { content:""; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--gold); }
+  .nlist a { color:#F3E7CF; text-decoration:none; border-bottom:1px solid rgba(243,222,152,.25); } .nlist a:hover { color:var(--gold-hi); border-color:var(--gold-hi); }
+  .nlist small { display:block; margin-top:2px; color:var(--muted); font-size:.72rem; }
+  .nblock .sublbl { margin-bottom:4px; } .nblock p { margin:0; font-size:.88rem; line-height:1.55; color:#E4DCC6; }
+  .nblock.act { padding:12px 14px; border-radius:14px; background:rgba(212,175,55,.08); border:1px solid rgba(212,175,55,.32); } .nblock.act .sublbl { color:var(--gold); } .nblock.act p { color:#FFF6DC; }
+  .nlev { display:flex; align-items:baseline; gap:10px; } .nlev .sublbl { margin:0; flex:none; }
+  .nlev code { font-family:var(--mono); font-size:.78rem; color:#C9BFA6; white-space:normal; }
+  .nwatch summary { cursor:pointer; color:var(--gold-hi); font-weight:700; font-size:.88rem; }
+  .wchips { margin:12px 0; }
+  .wchip { display:inline-flex; align-items:center; gap:6px; min-height:34px; padding:0 6px 0 14px; border-radius:99px; border:1px solid var(--line2); background:rgba(255,255,255,.04); font-family:var(--mono); font-size:.8rem; color:#F3E7CF; }
+  .wchip.core { padding-right:14px; border-color:rgba(212,175,55,.4); color:var(--gold-hi); }
+  .wchip button { padding:0 8px; border:0; background:none; color:var(--muted); font-size:1rem; }
+  .nwatch .addrow select { width:auto; min-width:0; flex:1; } .nwatch .addrow input { flex:1; }
+  .nd-foot { margin:0; color:var(--muted); font-size:.74rem; line-height:1.5; }
+  @media (max-width:640px) {
+    .newsdesk { padding:20px 16px; } .nd-head h3 { font-size:1.8rem; }
+    .ngrid { grid-template-columns:1fr; }
+    .nd-ev li { grid-template-columns:48px 10px minmax(0,1fr); } .nd-ev .aff { grid-column:3; justify-content:flex-start; }
+    .nwatch .addrow { flex-wrap:wrap; }
+  }
 </style>
 </head>
 <body>
@@ -1120,7 +1180,7 @@ let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], target
   openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
   budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false,
   spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null,
-  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' } };
+  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null };
 let chart = null;
 
 function toast(msg) {
@@ -1293,6 +1353,7 @@ async function load() {
   state.spiritItems = await soft(sb.from('spirit_items').select('*').order('created_at'));
   state.trades = await soft(sb.from('trades').select('*').order('day').order('created_at'));
   state.tset = (await soft(sb.from('trading_settings').select('*').limit(1)))[0] || null;
+  state.briefs = await soft(sb.from('market_briefs').select('*').order('day', { ascending: false }).order('created_at', { ascending: false }).limit(14));
   state.tcheck = (await soft(sb.from('trade_checks').select('*').eq('day', todayStr()).limit(1)))[0] || null;
 }
 // like run(), but an error leaves the app working with an empty list
@@ -2204,7 +2265,7 @@ function renderArea(id, animate, sub = 'overview') {
     </div>` : sub === 'trading' && isCareer ? tradingSection(a) : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
 }
 // ---------- Work & Career: Trading desk (journal, daily limits, session clock in Uganda time) ----------
-const TR_DEF = { start_balance: 500, currency: 'USD', risk_pct: 1, max_trades: 2, max_losses: 2, playbook: null };
+const TR_DEF = { start_balance: 500, currency: 'USD', risk_pct: 1, max_trades: 2, max_losses: 2, playbook: null, watch: ['EUR/USD', 'GBP/USD', 'USD/JPY'] };
 const TR_INSTR = ['GER40', 'Hong Kong 50'];
 const TR_STRATS = ['Kim Box', 'Inside Bar', 'Tom Camp H4', 'EMA Fractals'];
 const TR_SESS = ['Hong Kong', 'London', 'New York'];
@@ -2500,6 +2561,63 @@ function trTick() {
   }
 }
 if (!window.__trTimer) window.__trTimer = setInterval(trTick, 1000);
+// ---------- Trading > News desk: the daily market brief (researched and written each weekday morning) ----------
+const CORE_ASSETS = ['GER40', 'HK50', 'BTC', 'Gold'];
+const FX_CHOICES = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'AUD/USD', 'USD/CHF', 'USD/CAD', 'NZD/USD', 'EUR/GBP', 'EUR/JPY', 'GBP/JPY', 'USD/CNH'];
+const BIAS = { bullish: ['Bullish', 'up'], bearish: ['Bearish', 'down'], neutral: ['Neutral', 'flat'], wait: ['Stand aside', 'wait'] };
+const safeUrl = u => /^https?:\/\//i.test(String(u || '')) ? String(u) : null;
+const briefOf = () => { const l = state.briefs || []; return l.find(b => b.day === state.briefDay) || l[0] || null; };
+function assetOrder(list) {
+  const want = [...CORE_ASSETS, ...(trSet().watch || [])].map(x => x.toUpperCase());
+  const rank = a => { const i = want.indexOf(String(a.asset || '').toUpperCase()); return i < 0 ? 99 : i; };
+  return list.slice().sort((x, y) => rank(x) - rank(y));
+}
+function newsCard(a) {
+  const [bl, bc] = BIAS[String(a.bias || '').toLowerCase()] || ['No view', 'flat'];
+  const news = (a.news || []).slice(0, 4).map(n => { const u = safeUrl(n.url);
+    return `<li>${u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>` : esc(n.title)}${n.source ? `<small>${esc(n.source)}</small>` : ''}</li>`; }).join('');
+  return `<article class="ncard ${bc}">
+    <header><h4>${esc(a.asset)}</h4><span class="bias ${bc}"><i></i>${esc(bl)}</span>${a.confidence ? `<small class="conf">${esc(a.confidence)} confidence</small>` : ''}</header>
+    ${news ? `<ul class="nlist">${news}</ul>` : '<p class="tr-empty">No major headlines for this one today.</p>'}
+    ${a.impact ? `<div class="nblock"><span class="sublbl">How it moves the market</span><p>${esc(a.impact)}</p></div>` : ''}
+    ${a.action ? `<div class="nblock act"><span class="sublbl">Best decision</span><p>${esc(a.action)}</p></div>` : ''}
+    ${a.levels ? `<div class="nlev"><span class="sublbl">Levels</span><code>${esc(a.levels)}</code></div>` : ''}
+  </article>`;
+}
+function newsDesk() {
+  const b = briefOf(), list = state.briefs || [], w = trSet().watch || [];
+  const watchEd = `<details class="nwatch"><summary>Assets covered · ${[...CORE_ASSETS, ...w].length}</summary>
+    <div class="chips wchips">${CORE_ASSETS.map(x => `<span class="wchip core">${esc(x)}</span>`).join('')}
+      ${w.map(x => `<span class="wchip">${esc(x)}<button type="button" class="small" data-act="nw-del" data-p="${esc(x)}" aria-label="Stop covering ${esc(x)}">&times;</button></span>`).join('')}</div>
+    <form class="addrow" data-act="nw-add"><select name="pair" aria-label="Forex pair to add"><option value="">Add a forex pair…</option>${FX_CHOICES.filter(x => !w.includes(x)).map(x => `<option>${esc(x)}</option>`).join('')}</select>
+      <input name="custom" type="text" placeholder="or type one, e.g. XAG/USD" aria-label="Other pair or asset" autocomplete="off"><button class="primary" type="submit">Add</button></form>
+    <p class="card-sub">The next morning brief covers these. Changes apply from the next brief.</p></details>`;
+  if (!b) return `<section class="newsdesk"><div class="nd-head"><div><div class="eyebrow">News desk</div><h3>Morning brief</h3>
+      <p>Every weekday before 08:00 Uganda time, the news for your assets is researched and summarised here, with what it means and what to do.</p></div></div>
+      <p class="tr-empty">No brief yet. The first one arrives on the next weekday morning.</p>${watchEd}</section>`;
+  const d = b.data || {}, risk = String(d.risk || '').toLowerCase();
+  const made = b.created_at ? new Intl.DateTimeFormat('en-GB', { timeZone: 'Africa/Kampala', hour: '2-digit', minute: '2-digit' }).format(new Date(b.created_at)) : '';
+  const ev = (d.events || []).slice().sort((x, y) => String(x.time).localeCompare(String(y.time)));
+  return `<section class="newsdesk">
+    <div class="nd-head">
+      <div><div class="eyebrow">News desk</div><h3>Morning brief</h3>
+        <p>${esc(fmtDay(b.day))} · ${made ? `written ${made} EAT` : ''}</p></div>
+      <div class="nd-side">
+        ${risk ? `<span class="risk ${esc(risk)}"><i></i>${esc(risk.charAt(0).toUpperCase() + risk.slice(1))}-risk day</span>` : ''}
+        ${list.length > 1 ? `<select data-act="nd-day" aria-label="Choose a day">${list.map(x => `<option value="${esc(x.day)}"${x.day === b.day ? ' selected' : ''}>${esc(fmtDay(x.day))}</option>`).join('')}</select>` : ''}
+      </div>
+    </div>
+    ${b.day !== todayStr() ? `<p class="nd-old">This brief is from ${esc(fmtDate(b.day))}. Today's arrives before 08:00 on weekdays.</p>` : ''}
+    ${d.summary ? `<p class="nd-sum">${esc(d.summary)}</p>` : ''}
+    ${d.quant_note ? `<div class="qnote"><span class="sublbl">Quant take</span><p>${esc(d.quant_note)}</p></div>` : ''}
+    ${ev.length ? `<div class="nd-ev"><span class="sublbl">Today's events · Uganda time</span><ul>${ev.map(e => `<li class="${esc(String(e.impact || '').toLowerCase())}">
+        <b>${esc(e.time || '–')}</b><span class="dot"></span><span class="evn">${e.ccy ? `<em>${esc(e.ccy)}</em> ` : ''}${esc(e.event)}</span>
+        <span class="aff">${(e.affects || []).map(x => `<i>${esc(x)}</i>`).join('')}</span></li>`).join('')}</ul></div>` : ''}
+    <div class="ngrid">${assetOrder(d.assets || []).map(newsCard).join('')}</div>
+    ${watchEd}
+    <p class="nd-foot">Researched from public news sources and written as analysis, not financial advice. Prices move after the brief is written, so confirm levels on your chart before acting.</p>
+  </section>`;
+}
 function tradingSection(a) {
   const s = trSet(), bal = trBalance(), risk = bal * s.risk_pct / 100, td = trToday();
   const live = trStats(state.trades.filter(t => t.mode === 'live'));
@@ -2511,6 +2629,7 @@ function tradingSection(a) {
       <div class="sched-head"><span class="sublbl">Today's schedule</span><span class="sublbl">Uganda time</span></div>
       ${deskClock()}
     </section>
+    ${newsDesk()}
     <div class="ex-kpis tdk">
       <div><span>Balance</span><b>${trMoney(bal)}</b><small>Started at ${trMoney(s.start_balance)}</small></div>
       <div><span>Risk per trade</span><b>${trMoney(risk)}</b><small>${s.risk_pct}% of your balance</small></div>
@@ -3199,6 +3318,14 @@ $('#view-area').addEventListener('submit', async e => {
       const row = await run(sb.from('trades').insert(rec).select().single());
       state.trades.push(row); state.trLast = { mode, instrument, strategy, session: rec.session || 'London' }; state.trMode = mode;
       const td = trToday(); toast(mode === 'live' && td.stop ? 'Trade saved. That is your limit for today.' : r > 0 ? `Trade saved: ${fmtR(r)}` : 'Trade saved. Losses are part of the plan.');
+    } else if (act === 'nw-add') {
+      const pair = (String(f.get('custom') || '').trim() || String(f.get('pair') || '')).toUpperCase().replace(/\s+/g, '').slice(0, 12);
+      if (!pair) return toast('Pick or type a pair');
+      const w = trSet().watch || [];
+      if (w.includes(pair) || CORE_ASSETS.map(x => x.toUpperCase()).includes(pair)) return toast('Already covered');
+      const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
+      state.tset = await run(sb.from('trading_settings').upsert({ ...trSet(), user_id: uid, watch: [...w, pair], updated_at: new Date().toISOString() }).select().single());
+      toast(`${pair} added. It appears from the next brief.`);
     } else if (act === 'tr-set') {
       const rec = { start_balance: Math.max(0, trNum(f.get('start_balance')) ?? 500), currency: (String(f.get('currency') || 'USD').trim().toUpperCase() || 'USD').slice(0, 3),
         risk_pct: Math.min(10, Math.max(0.1, trNum(f.get('risk_pct')) || 1)), max_trades: Math.min(20, Math.max(1, Math.round(trNum(f.get('max_trades')) || 2))),
@@ -3220,6 +3347,11 @@ $('#view-area').addEventListener('click', async e => {
   const act = el.dataset.act;
   try {
     if (act === 'tr-mode') { state.trMode = el.dataset.m; render(); return; }
+    if (act === 'nw-del') {
+      const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
+      state.tset = await run(sb.from('trading_settings').upsert({ ...trSet(), user_id: uid, watch: (trSet().watch || []).filter(x => x !== el.dataset.p), updated_at: new Date().toISOString() }).select().single());
+      render(); const d = document.querySelector('.nwatch'); if (d) d.open = true; return;
+    }
     if (act === 'tr-more') { state.trAll = !state.trAll; render(); return; }
     if (act === 'tr-del') {
       if (!confirm('Delete this trade?')) return;
@@ -3351,6 +3483,7 @@ $('#view-area').addEventListener('change', async e => {
     try { await progSave(n, { data: d }, a.id); if (dayDone(n)) toast(`Day ${n} complete. Well done.`); } catch (_) {}
     return render();
   }
+  if (e.target.dataset.act === 'nd-day') { state.briefDay = e.target.value; return render(); }
   if (e.target.dataset.act === 'tr-chk' || e.target.dataset.act === 'tr-playbook') {
     try {
       const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');

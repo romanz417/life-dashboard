@@ -233,3 +233,20 @@ create table if not exists trade_checks (
 );
 alter table trade_checks enable row level security;
 create policy "own trade checks" on trade_checks for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+-- Trading > News desk: one market brief per day, written by the scheduled research task, readable by signed-in users.
+-- data = { summary, risk ('low'|'medium'|'high'), events:[{time (EAT), ccy, event, impact, affects:[]}],
+--          assets:[{asset, bias ('bullish'|'bearish'|'neutral'|'wait'), confidence, news:[{title, source, url}], impact, action, levels}],
+--          quant_note, watch:[] }
+create table if not exists market_briefs (
+  id uuid primary key default gen_random_uuid(),
+  day date not null,
+  slot text not null default 'morning',
+  data jsonb not null,
+  created_at timestamptz default now(),
+  unique (day, slot)
+);
+alter table market_briefs enable row level security;
+create policy "signed-in users read briefs" on market_briefs for select to authenticated using (true);
+-- forex pairs (and anything else) each person wants covered in the brief
+alter table trading_settings add column if not exists watch text[] not null default '{EUR/USD,GBP/USD,USD/JPY}';
