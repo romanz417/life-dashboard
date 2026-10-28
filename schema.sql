@@ -273,3 +273,30 @@ create table if not exists trade_reviews (
 );
 alter table trade_reviews enable row level security;
 create policy "own trade reviews" on trade_reviews for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+-- Trading > Daily motivation: shared library of short videos from trading legends (seeded and maintained by Claude), and each person's watch log
+create table if not exists trade_videos (
+  id uuid primary key default gen_random_uuid(),
+  video_id text not null unique,          -- YouTube id; every entry checked as embeddable
+  person text not null,
+  title text not null,
+  topic text not null check (topic in ('Psychology', 'Discipline', 'Risk', 'Wisdom')),
+  seconds int not null,
+  channel text,
+  note text,                              -- "watch for" prompt
+  active boolean not null default true,
+  created_at timestamptz default now()
+);
+alter table trade_videos enable row level security;
+create policy "signed-in users read videos" on trade_videos for select to authenticated using (true);
+create table if not exists video_watch (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  video_id text not null,
+  day date not null default current_date,
+  takeaway text,
+  created_at timestamptz default now(),
+  unique (user_id, video_id)
+);
+alter table video_watch enable row level security;
+create policy "own video watch log" on video_watch for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));

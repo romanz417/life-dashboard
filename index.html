@@ -1114,6 +1114,43 @@
   .rvhist li { flex-wrap:wrap; } .rvhist em { color:var(--muted); }
   @media (max-width:820px) { .rv-two { grid-template-columns:1fr; } .rvk { grid-template-columns:repeat(2, minmax(0,1fr)); } }
   @media (max-width:640px) { .rv-head { padding:20px 16px; } .rv-head h3 { font-size:1.8rem; } .mlist li { grid-template-columns:minmax(90px,1fr) minmax(40px,1fr) auto; } .mlist small { display:none; } }
+  /* ---- Trading > Daily motivation ---- */
+  .motiv { display:flex; flex-direction:column; gap:18px; margin-bottom:18px; padding:26px; border-radius:26px; border:1px solid var(--line);
+    background:radial-gradient(600px 300px at 0% 0%, rgba(240,138,75,.13), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015)), var(--card); box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .mv-head { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; flex-wrap:wrap; }
+  .mv-head h3 { margin:8px 0 4px; font-family:var(--serif); font-size:2.2rem; font-weight:600; line-height:1.02; } .mv-head p { margin:0; color:var(--muted); font-size:.9rem; }
+  .mv-stats { display:flex; gap:10px; } .mv-stats div { display:flex; flex-direction:column; gap:4px; min-width:92px; padding:10px 14px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid var(--line2); }
+  .mv-stats b { font-family:var(--mono); font-size:1.4rem; color:var(--gold-hi); } .mv-stats b small { font-size:.8rem; color:var(--muted); }
+  .mv-stats span { font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+  .mv-main { display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:22px; align-items:start; }
+  .player { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; border:1px solid rgba(212,175,55,.35); box-shadow:0 20px 50px rgba(0,0,0,.55); }
+  .player iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .ply { position:absolute; inset:0; width:100%; height:100%; padding:0; border:0; border-radius:0; background:#000; cursor:pointer; }
+  .ply img { width:100%; height:100%; object-fit:cover; opacity:.82; transition:opacity .2s, transform .4s; }
+  .ply:hover img { opacity:1; transform:scale(1.02); }
+  .pbtn { position:absolute; left:50%; top:50%; width:74px; height:74px; margin:-37px 0 0 -37px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:var(--goldgrad); color:#17130A; box-shadow:0 10px 30px rgba(0,0,0,.6), 0 0 0 8px rgba(243,222,152,.18); padding-left:4px; }
+  .dur { position:absolute; right:10px; bottom:10px; padding:2px 8px; border-radius:6px; background:rgba(0,0,0,.78); color:#fff; font-family:var(--mono); font-size:.74rem; font-weight:700; }
+  .mv-info { display:flex; flex-direction:column; gap:12px; min-width:0; }
+  .mv-info h4 { margin:0; font-family:var(--serif); font-size:1.65rem; font-weight:700; line-height:1.15; color:#FFF6DC; }
+  .mv-info .who { margin:0; color:#E4DCC6; font-size:.9rem; font-weight:600; } .mv-info .who em { color:var(--muted); font-style:normal; font-weight:500; }
+  .vtopic { align-self:flex-start; padding:3px 10px; border-radius:99px; font-size:.66rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,.07); color:#E4DCC6; }
+  .vtopic.psychology { background:rgba(167,139,250,.16); color:#D6C9FF; } .vtopic.discipline { background:rgba(91,141,239,.16); color:#BFD3FF; }
+  .vtopic.risk { background:rgba(255,138,128,.14); color:#FFB3AB; } .vtopic.wisdom { background:rgba(212,175,55,.16); color:var(--gold-hi); }
+  .mv-form { margin-top:0; } .mv-done { padding:12px 14px; border-radius:14px; border:1px solid rgba(63,191,138,.4); background:rgba(63,191,138,.07); }
+  .mv-done .sublbl { color:#86E3B5; margin-bottom:4px; } .mv-done p { margin:0; color:#E8F7EF; font-size:.9rem; }
+  .mv-acts { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .mv-yt { display:inline-flex; align-items:center; padding:5px 12px; border-radius:12px; border:1px solid var(--line2); color:var(--muted); text-decoration:none; font-size:.85rem; } .mv-yt:hover { color:var(--gold-hi); }
+  .mv-lib summary { cursor:pointer; color:var(--gold-hi); font-weight:700; font-size:.9rem; margin-bottom:12px; }
+  .mv-lib .seg { width:max-content; max-width:100%; overflow-x:auto; margin-bottom:14px; }
+  .vgrid { display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:14px; }
+  .vcard { display:flex; flex-direction:column; gap:6px; padding:0 0 10px; border-radius:14px; border:1px solid var(--line2); background:rgba(255,255,255,.03); text-align:left; overflow:hidden; }
+  .vcard:hover, .vcard.cur { border-color:rgba(243,222,152,.55); }
+  .vcard b { padding:0 10px; font-size:.84rem; line-height:1.35; color:#F3E7CF; } .vcard small { padding:0 10px; color:var(--muted); font-size:.72rem; }
+  .vth { position:relative; display:block; aspect-ratio:16/9; background:#000; } .vth img { width:100%; height:100%; object-fit:cover; display:block; }
+  .vth .dur { right:6px; bottom:6px; font-size:.66rem; }
+  .vseen { position:absolute; left:6px; top:6px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:#3FBF8A; color:#06130C; font-weight:900; font-size:.8rem; }
+  @media (max-width:900px) { .mv-main { grid-template-columns:1fr; } }
+  @media (max-width:640px) { .motiv { padding:20px 16px; } .mv-head h3 { font-size:1.8rem; } .vgrid { grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; } .pbtn { width:60px; height:60px; margin:-30px 0 0 -30px; } }
 </style>
 </head>
 <body>
@@ -1245,7 +1282,7 @@ let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], target
   openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
   budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false,
   spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null,
-  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null, fx: null, reviews: [], revWeek: null };
+  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null, fx: null, reviews: [], revWeek: null, videos: [], vwatch: [], vPick: null, vTopic: 'All' };
 let chart = null;
 
 function toast(msg) {
@@ -1419,6 +1456,8 @@ async function load() {
   state.trades = await soft(sb.from('trades').select('*').order('day').order('created_at'));
   state.tset = (await soft(sb.from('trading_settings').select('*').limit(1)))[0] || null;
   state.briefs = await soft(sb.from('market_briefs').select('*').order('day', { ascending: false }).order('created_at', { ascending: false }).limit(14));
+  state.videos = await soft(sb.from('trade_videos').select('*').eq('active', true).order('created_at').order('video_id'));
+  state.vwatch = await soft(sb.from('video_watch').select('*').order('day', { ascending: false }));
   state.reviews = await soft(sb.from('trade_reviews').select('*').order('week_start', { ascending: false }).limit(60));
   state.tcheck = (await soft(sb.from('trade_checks').select('*').eq('day', todayStr()).limit(1)))[0] || null;
   loadFx().then(() => { if (route().sub === 'trading') { const st = document.querySelector('.specs .card-sub'); calcUpdate(); if (st && state.fx && state.fx.live) st.textContent = st.textContent.replace('are estimates; live rates could not be loaded', `are live (${state.fx.date || 'today'})`); } });
@@ -2848,6 +2887,7 @@ function tradingSection(a) {
       ${deskClock()}
     </section>
     ${newsDesk()}
+    ${motivation()}
     <div class="ex-kpis tdk">
       <div><span>Balance</span><b>${trMoney(bal)}</b><small>Started at ${trMoney(s.start_balance)}</small></div>
       <div class="${g.halved ? 'warn' : ''}"><span>Risk per trade</span><b>${trMoney(risk)}</b><small>${+g.riskPct.toFixed(2)}% of your balance${g.halved ? ' · halved' : ''}</small></div>
@@ -2959,6 +2999,61 @@ function reviewSection(a) {
     </form>
     ${hist.length ? `<section class="card"><span class="card-title">Past reviews</span><ul class="elist rvhist">${hist.map(r => `<li><span class="when">${esc(fmtW(r.week_start))}</span><span>${r.rule ? esc(r.rule) : '<em>No rule set</em>'}</span><span class="amt">${r.discipline ? r.discipline + '/10' : ''}</span><button class="small" type="button" data-act="rv-week" data-w="${r.week_start}">Open</button></li>`).join('')}</ul></section>` : ''}
   </section>`;
+}
+// ---------- Trading > Daily motivation: one short video from a trading legend each day, played inside the page ----------
+const VTOPICS = ['All', 'Psychology', 'Discipline', 'Risk', 'Wisdom'];
+const vidMin = v => `${Math.floor(v.seconds / 60)}:${String(v.seconds % 60).padStart(2, '0')}`;
+const watchedSet = () => new Set((state.vwatch || []).map(w => w.video_id));
+function videoOfDay() {
+  const list = (state.videos || []).filter(v => v.active !== false); if (!list.length) return null;
+  if (state.vPick) { const p = list.find(v => v.video_id === state.vPick); if (p) return p; }
+  const today = (state.vwatch || []).find(w => w.day === todayStr()), tv = today && list.find(v => v.video_id === today.video_id); if (tv) return tv;   // keep today's video once watched
+  const seen = watchedSet(), fresh = list.filter(v => !seen.has(v.video_id)), pool = fresh.length ? fresh : list;
+  const d = new Date(todayStr() + 'T00:00:00'), n = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000) + d.getFullYear() * 7;
+  return pool[n % pool.length];
+}
+function vStreak() {
+  const days = new Set((state.vwatch || []).map(w => w.day)); let s = 0, i = days.has(todayStr()) ? 0 : 1;
+  while (days.has(daysAgo(i))) { s++; i++; } return s;
+}
+const ytThumb = id => `https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`;
+function motivation() {
+  const v = videoOfDay(); if (!v) return '';
+  const seen = watchedSet(), mine = (state.vwatch || []).find(w => w.video_id === v.video_id), T = state.vTopic || 'All';
+  const lib = (state.videos || []).filter(x => T === 'All' || x.topic === T);
+  const done = (state.vwatch || []).length, total = (state.videos || []).length;
+  return `<section class="motiv">
+    <div class="mv-head"><div><div class="eyebrow">Daily motivation</div><h3>${state.vPick ? 'Now playing' : 'Today’s lesson from a legend'}</h3>
+      <p>Ten minutes before the open. Watch one, write one thing you will apply today.</p></div>
+      <div class="mv-stats"><div><b>${vStreak()}</b><span>Day streak</span></div><div><b>${done}<small>/${total}</small></b><span>Watched</span></div></div></div>
+    <div class="mv-main">
+      <div class="player" data-yt="${esc(v.video_id)}">
+        <button type="button" class="ply" data-act="mv-play" data-id="${esc(v.video_id)}" aria-label="Play ${esc(v.title)} by ${esc(v.person)}">
+          <img src="${ytThumb(v.video_id)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="pbtn" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+          <span class="dur">${vidMin(v)}</span></button>
+      </div>
+      <div class="mv-info">
+        <span class="vtopic ${esc(v.topic.toLowerCase())}">${esc(v.topic)}</span>
+        <h4>${esc(v.title)}</h4>
+        <p class="who">${esc(v.person)}${v.channel ? ` <em>· ${esc(v.channel)}</em>` : ''} · ${vidMin(v)} min</p>
+        ${v.note ? `<div class="nblock act"><span class="sublbl">Watch for</span><p>${esc(v.note)}</p></div>` : ''}
+        ${mine ? `<div class="mv-done"><span class="sublbl">Watched ${esc(fmtDay(mine.day))}</span><p>${mine.takeaway ? '“' + esc(mine.takeaway) + '”' : 'No takeaway written.'}</p></div>`
+          : `<form class="addrow mv-form" data-act="mv-watch" data-id="${esc(v.video_id)}"><input name="takeaway" type="text" placeholder="One thing I will apply today…" aria-label="Your takeaway" autocomplete="off"><button class="primary" type="submit">Watched</button></form>`}
+        <div class="mv-acts"><button type="button" class="small" data-act="mv-next">Another video</button>${state.vPick ? '<button type="button" class="small" data-act="mv-today">Back to today’s pick</button>' : ''}
+          <a class="small mv-yt" href="https://www.youtube.com/watch?v=${encodeURIComponent(v.video_id)}" target="_blank" rel="noopener noreferrer">Open on YouTube</a></div>
+      </div>
+    </div>
+    <details class="mv-lib"><summary>Video library · ${total} from ${new Set((state.videos || []).map(x => x.person)).size} legends</summary>
+      <div class="seg" role="group" aria-label="Topic">${VTOPICS.map(t => `<button type="button" class="${T === t ? 'on' : ''}" data-act="mv-topic" data-t="${t}" aria-pressed="${T === t}">${t}</button>`).join('')}</div>
+      <div class="vgrid">${lib.map(x => `<button type="button" class="vcard${x.video_id === v.video_id ? ' cur' : ''}" data-act="mv-pick" data-id="${esc(x.video_id)}">
+          <span class="vth"><img src="${ytThumb(x.video_id)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"><span class="dur">${vidMin(x)}</span>${seen.has(x.video_id) ? '<span class="vseen" aria-label="Watched">&#10003;</span>' : ''}</span>
+          <b>${esc(x.title)}</b><small>${esc(x.person)} · ${esc(x.topic)}</small></button>`).join('')}</div>
+    </details>
+  </section>`;
+}
+function playVideo(id) {
+  const box = document.querySelector(`.player[data-yt="${CSS.escape(id)}"]`); if (!box) return;
+  box.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Trading video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
 }
 function tradingTeaser(a) {
   const td = trToday(), live = trStats(state.trades.filter(t => t.mode === 'live')), [, text] = deskStatus(deskTimes(), eatNow()), now = eatNow();
@@ -3602,6 +3697,11 @@ $('#view-area').addEventListener('submit', async e => {
       const td = trToday(), g = trRiskState();
       toast(mode === 'live' && (g.weekLock || g.monthLock) ? 'Trade saved. You have hit your loss limit, so live trading is paused.' : mode === 'live' && td.stop ? 'Trade saved. That is your limit for today.'
         : g.halved && mode === 'live' && r < 0 ? `Trade saved. ${trSet().halve_after} losses in a row, so your risk is now halved.` : mistakes.length ? 'Trade saved. Mistakes tagged; the lesson is in the data.' : r > 0 ? `Trade saved: ${fmtR(r)}` : 'Trade saved. Losses are part of the plan.');
+    } else if (act === 'mv-watch') {
+      const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
+      const row = await run(sb.from('video_watch').upsert({ user_id: uid, video_id: e.target.dataset.id, day: todayStr(), takeaway: String(f.get('takeaway') || '').trim() || null }, { onConflict: 'user_id,video_id' }).select().single());
+      state.vwatch = [row, ...state.vwatch.filter(w => w.video_id !== row.video_id)];
+      toast(vStreak() > 1 ? `Watched. ${vStreak()}-day streak.` : 'Watched. Now go apply it.');
     } else if (act === 'rv-save') {
       const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
       const rec = { user_id: uid, week_start: e.target.dataset.w, went_well: String(f.get('went_well') || '').trim() || null, to_improve: String(f.get('to_improve') || '').trim() || null,
@@ -3642,6 +3742,16 @@ $('#view-area').addEventListener('click', async e => {
   const act = el.dataset.act;
   try {
     if (act === 'tr-mode') { state.trMode = el.dataset.m; render(); return; }
+    if (act === 'mv-play') { playVideo(el.dataset.id); return; }
+    if (act === 'mv-topic') { state.vTopic = el.dataset.t; render(); const d = document.querySelector('.mv-lib'); if (d) d.open = true; return; }
+    if (act === 'mv-today') { state.vPick = null; render(); return; }
+    if (act === 'mv-next' || act === 'mv-pick') {
+      if (act === 'mv-pick') state.vPick = el.dataset.id;
+      else { const cur = videoOfDay(), seen = watchedSet(), list = state.videos.filter(v => v.video_id !== (cur && cur.video_id)), fresh = list.filter(v => !seen.has(v.video_id)), pool = fresh.length ? fresh : list;
+        if (pool.length) state.vPick = pool[Math.floor(Math.random() * pool.length)].video_id; }
+      render(); const m = document.querySelector('.motiv'); if (m) scrollTo({ top: m.getBoundingClientRect().top + scrollY - 70, behavior: 'smooth' });
+      if (act === 'mv-pick') playVideo(state.vPick); return;
+    }
     if (act === 'rv-week') { state.revWeek = el.dataset.w; render(); scrollTo({ top: document.querySelector('.review').getBoundingClientRect().top + scrollY - 70 }); return; }
     if (act === 'nw-del') {
       const { data: u } = await sb.auth.getUser(), uid = u && u.user && u.user.id; if (!uid) return toast('Please sign in again, then retry');
