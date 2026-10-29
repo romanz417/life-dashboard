@@ -951,6 +951,8 @@
   .jtip { padding:18px 20px; border-radius:18px; border:1px solid var(--line); background:linear-gradient(135deg, rgba(243,222,152,.08), rgba(156,122,28,.03)); }
   .jtip p { margin:8px 0 0; color:var(--tx3); font-family:var(--serif); font-size:1.15rem; line-height:1.45; font-style:italic; }
   .jfinds { display:flex; flex-direction:column; gap:14px; padding:20px; border-radius:22px; border:1px solid rgba(212,175,55,.45); background:radial-gradient(500px 240px at 0% 0%, rgba(243,222,152,.13), transparent 70%), rgba(212,175,55,.04); }
+  .jfinds.study { border-color:rgba(91,141,239,.45); background:radial-gradient(500px 240px at 0% 0%, rgba(91,141,239,.14), transparent 70%), rgba(91,141,239,.04); }
+  .jfinds.grant { border-color:rgba(63,191,138,.45); background:radial-gradient(500px 240px at 0% 0%, rgba(63,191,138,.14), transparent 70%), rgba(63,191,138,.04); }
   .jf-head h4 { margin:6px 0 4px; font-family:var(--serif); font-size:1.6rem; font-weight:600; color:var(--tx1); }
   .jf-head p { margin:0; color:var(--muted); font-size:.88rem; }
   .jfound { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-hi); }
@@ -2479,8 +2481,13 @@ const JOB_CLOSED = { accepted: 'Got the job', rejected: 'Not this time', withdra
 const JOB_NEXT = { spotted: ['applying', 'Start preparing'], applying: ['applied', 'Mark applied'], applied: ['interview', 'Got an interview'], interview: ['offer', 'Got an offer'], offer: ['accepted', 'Accept the job'] };
 const JOB_COLORS = { spotted: '#8FA3B8', applying: '#5B8DEF', applied: '#A78BFA', interview: '#E2B84A', offer: '#3FBF8A' };
 const JOB_PERIODS = [['month', 'Month'], ['year', 'Year'], ['hour', 'Hour'], ['project', 'Project']];
-const JOB_UGX = { UGX: 1, USD: 3650, EUR: 4150, GBP: 4850, AED: 995, SAR: 975, QAR: 1000, KES: 28.3, TZS: 1.4, RWF: 2.55, ZAR: 205, CAD: 2650, AUD: 2400 };   // approximate UGX per unit, for comparing pay only
+const JOB_UGX = { UGX: 1, USD: 3650, EUR: 4150, GBP: 4850, AED: 995, SAR: 975, QAR: 1000, KES: 28.3, TZS: 1.4, RWF: 2.55, ZAR: 205, CAD: 2650, AUD: 2400, NZD: 2200, JPY: 24, CHF: 4550, NOK: 340, SEK: 345, DKK: 555, ISK: 27, PLN: 930, RON: 820, BYN: 1120, GEL: 1350, AZN: 2150, KZT: 7.2, UZS: 0.29, KGS: 42, TJS: 340, NPR: 27, MUR: 80, FJD: 1620, OMR: 9480, BHD: 9680, KWD: 11900 };   // approximate UGX per unit, for comparing pay only
 const JOB_INCOME_GOAL = 4000000;
+const JOB_KINDS = [
+  ['job', 'Coach&rsquo;s finds', n => `${n} opportunit${n === 1 ? 'y' : 'ies'} picked for you`, 'Found on the web each morning to match your strengths and the life you want. Start preparing the ones you like; tap &ldquo;Not for me&rdquo; to clear the rest.'],
+  ['study', 'Grow &middot; fully funded', n => `${n} fellowship${n === 1 ? '' : 's'} &amp; course${n === 1 ? '' : 's'} for you`, 'Scholarships, fellowships and short courses that Ugandans can apply for, online or in the country, with costs covered.'],
+  ['grant', 'Money moves', n => `${n} grant${n === 1 ? '' : 's'}, prize${n === 1 ? '' : 's'} &amp; paid gig${n === 1 ? '' : 's'}`, 'Grants, competitions and paid freelance or online collaborations that can add income alongside your main work.']
+];
 const JOB_REG = {
   ug: { eyebrow: 'Uganda · East Africa', title: 'Opportunities in Uganda & East Africa', ccy: 'UGX', locPh: 'e.g. Kampala, Gulu or Nairobi, Kenya',
     desc: 'Every job, contract or tender in Uganda, plus East African roles open to Ugandans, from first spotted to signed.',
@@ -2525,7 +2532,8 @@ function jobForm(r, j) {
   const R = JOB_REG[r], v = k => j && j[k] != null ? esc(j[k]) : '', ccy = String(j ? j.currency : R.ccy).toUpperCase();
   const stages = [...JOB_OPEN, ...Object.entries(JOB_CLOSED)];
   return `<form class="gform" data-act="${j ? 'job-save' : 'job-add'}" data-region="${r}"${j ? ` data-id="${j.id}"` : ''}>
-    <label class="full"><span class="sublbl">Job title</span><input name="title" type="text" placeholder="${r === 'ug' ? 'e.g. Finance Officer' : 'e.g. Remote Data Analyst'}" value="${v('title')}" required autocomplete="off"></label>
+    <label class="full"><span class="sublbl">Type</span><select name="kind">${[['job', 'Job or contract'], ['study', 'Study, fellowship or course'], ['grant', 'Grant, prize or paid gig']].map(([k, l]) => `<option value="${k}"${(j ? j.kind || 'job' : 'job') === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+    <label class="full"><span class="sublbl">Title</span><input name="title" type="text" placeholder="${r === 'ug' ? 'e.g. Finance Officer' : 'e.g. Remote Data Analyst'}" value="${v('title')}" required autocomplete="off"></label>
     <label><span class="sublbl">Company or organisation</span><input name="org" type="text" placeholder="e.g. ${r === 'ug' ? 'MTN Uganda' : 'Acme Ltd'}" value="${v('org')}" autocomplete="off"></label>
     <label><span class="sublbl">${r === 'ug' ? 'Town' : 'Country or city'}</span><input name="location" type="text" placeholder="${R.locPh}" value="${v('location')}" autocomplete="off"></label>
     <label><span class="sublbl">Work type</span><select name="work_mode">${[['', 'Not sure'], ['onsite', 'On-site'], ['hybrid', 'Hybrid'], ['remote', 'Remote']].map(([k, l]) => `<option value="${k}"${(j ? j.work_mode || '' : r === 'foreign' ? 'remote' : 'onsite') === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
@@ -2549,7 +2557,7 @@ function jobCard(j) {
   const fu = j.follow_up && ['applied', 'interview', 'offer'].includes(j.stage) ? (daysTo(j.follow_up) <= 0 ? `<span class="jdl soon">Follow up ${daysTo(j.follow_up) === 0 ? 'today' : 'now'}</span>` : `<span>Follow up ${shortDate(j.follow_up)}</span>`) : '';
   return `<article class="titem job" style="--c:${JOB_COLORS[j.stage] || '#D4AF37'}">
     <div class="ti-top"><span class="av">${esc(initials(j.org || j.title))}</span><div style="min-width:0"><h4>${esc(j.title)}</h4><small>${where || 'Add the company and location'}</small></div><span class="jstage">${esc(stage)}</span></div>
-    ${j.auto ? `<div class="jfound"><span>&#10022; Found by your coach</span>${j.match_score ? `<span class="jstars" aria-label="Match ${j.match_score} of 5">${'&#9733;'.repeat(j.match_score)}<i>${'&#9733;'.repeat(5 - j.match_score)}</i></span>` : ''}</div>` : ''}
+    ${j.auto ? `<div class="jfound"><span>&#10022; ${(j.kind || 'job') === 'study' ? 'Study &middot; fully funded' : (j.kind || 'job') === 'grant' ? 'Grant or paid gig' : 'Found by your coach'}</span>${j.match_score ? `<span class="jstars" aria-label="Match ${j.match_score} of 5">${'&#9733;'.repeat(j.match_score)}<i>${'&#9733;'.repeat(5 - j.match_score)}</i></span>` : ''}</div>` : ''}
     ${pay ? `<div class="ti-amt"><b>${pay.main}</b><span>${esc(pay.per)}${pay.ugx ? ' · ' + pay.ugx : ''}</span></div>` : ''}
     ${m && m >= JOB_INCOME_GOAL ? '<span class="jgoal">Clears your UGX 4M a month goal</span>' : ''}
     <div class="jsteps" aria-label="Stage ${esc(stage)}">${steps}</div>
@@ -2597,7 +2605,7 @@ function jobsSection(a, r) {
       ${JOB_OPEN.map(([k, l]) => `<button type="button" class="${f === k ? 'on' : ''}" style="--c:${JOB_COLORS[k]}" data-act="job-filter" data-f="${k}" aria-pressed="${f === k}"><b>${open.filter(j => j.stage === k).length}</b><span>${l}</span></button>`).join('')}
     </nav>
     ${alerts.length ? `<div class="alerts jalerts"><span class="sublbl">Needs attention</span><ul>${alerts.map(x => `<li class="${x.bad ? 'bad' : x.info ? 'info' : ''}"><a href="#" data-act="job-edit" data-id="${x.id}">${x.t}</a></li>`).join('')}</ul></div>` : ''}
-    ${finds.length && (f === 'all' || f === 'spotted') ? `<div class="jfinds"><div class="jf-head"><span class="eyebrow">Coach&rsquo;s finds</span><h4>${finds.length} opportunit${finds.length === 1 ? 'y' : 'ies'} picked for you</h4><p>Found on the web each morning to match your strengths and the life you want. Start preparing the ones you like; tap &ldquo;Not for me&rdquo; to clear the rest.</p></div><div class="tr-grid">${finds.map(jobCard).join('')}</div></div>` : ''}
+    ${finds.length && (f === 'all' || f === 'spotted') ? JOB_KINDS.map(([k, eb, h, p]) => { const fk = finds.filter(j => (j.kind || 'job') === k); return fk.length ? `<div class="jfinds ${k}"><div class="jf-head"><span class="eyebrow">${eb}</span><h4>${h(fk.length)}</h4><p>${p}</p></div><div class="tr-grid">${fk.map(jobCard).join('')}</div></div>` : ''; }).join('') : ''}
     ${shown.length ? `<div class="tr-grid">${shown.map(jobCard).join('')}</div>` : finds.length && (f === 'all' || f === 'spotted') ? '' : `<p class="tr-empty">${open.length ? 'Nothing at this stage right now.' : r === 'ug' ? 'No opportunities yet. Add the first job you have seen in Uganda; you can apply later.' : 'No opportunities yet. Add the first remote or overseas job that excites you.'}</p>`}
     <details class="tr-add"${all.length ? '' : ' open'}><summary>+ Add an opportunity</summary>${jobForm(r)}</details>
     ${closed.length ? `<details class="won jclosed"><summary class="sublbl">Results &middot; ${won} won of ${closed.length} closed</summary><ul>${closed.map(j => `<li class="${j.stage === 'accepted' ? '' : 'lost'}">
@@ -2617,7 +2625,7 @@ function jobsTeaser(a) {
 }
 function jobRec(f, j) {
   const t = v => String(v || '').trim() || null, pay = trNum(f.get('pay'));
-  const rec = { title: String(f.get('title') || '').trim(), org: t(f.get('org')), location: t(f.get('location')), work_mode: t(f.get('work_mode')), source: t(f.get('source')),
+  const rec = { kind: String(f.get('kind') || 'job'), title: String(f.get('title') || '').trim(), org: t(f.get('org')), location: t(f.get('location')), work_mode: t(f.get('work_mode')), source: t(f.get('source')),
     link: t(f.get('link')), pay: pay && pay > 0 ? pay : null, currency: String(f.get('currency') || 'UGX'), pay_period: String(f.get('pay_period') || 'month'),
     deadline: t(f.get('deadline')), stage: String(f.get('stage') || 'spotted'), applied_on: t(f.get('applied_on')), follow_up: t(f.get('follow_up')), note: t(f.get('note')), updated_at: new Date().toISOString() };
   if (['applied', 'interview', 'offer'].includes(rec.stage) && !rec.applied_on) rec.applied_on = (j && j.applied_on) || todayStr();

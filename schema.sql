@@ -334,3 +334,6 @@ alter table jobs add column if not exists tags text[] not null default '{}';
 alter table jobs add column if not exists auto boolean not null default false;
 alter table jobs add column if not exists dismissed boolean not null default false;
 create unique index if not exists jobs_user_link_uq on jobs(user_id, link) where link is not null;
+-- Jobs: what kind of opportunity (job / study, fellowship or course / grant, prize or paid gig)
+alter table jobs add column if not exists kind text not null default 'job';
+alter table jobs add constraint jobs_kind_check check (kind in ('job', 'study', 'grant'));
