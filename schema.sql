@@ -327,3 +327,10 @@ create table if not exists jobs (
 create index if not exists jobs_user_region_idx on jobs(user_id, region, stage);
 alter table jobs enable row level security;
 create policy "own jobs" on jobs for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+-- Jobs: daily "Coach's finds" written by the scheduled job scout (auto = true), with a fit summary, 1–5 match score and tags
+alter table jobs add column if not exists fit text;
+alter table jobs add column if not exists match_score int check (match_score is null or match_score between 1 and 5);
+alter table jobs add column if not exists tags text[] not null default '{}';
+alter table jobs add column if not exists auto boolean not null default false;
+alter table jobs add column if not exists dismissed boolean not null default false;
+create unique index if not exists jobs_user_link_uq on jobs(user_id, link) where link is not null;

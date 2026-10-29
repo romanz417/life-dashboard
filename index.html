@@ -950,6 +950,17 @@
   .jclosed li.lost .wtick { background:rgba(var(--fg),.08); color:var(--muted); font-size:1.1rem; }
   .jtip { padding:18px 20px; border-radius:18px; border:1px solid var(--line); background:linear-gradient(135deg, rgba(243,222,152,.08), rgba(156,122,28,.03)); }
   .jtip p { margin:8px 0 0; color:var(--tx3); font-family:var(--serif); font-size:1.15rem; line-height:1.45; font-style:italic; }
+  .jfinds { display:flex; flex-direction:column; gap:14px; padding:20px; border-radius:22px; border:1px solid rgba(212,175,55,.45); background:radial-gradient(500px 240px at 0% 0%, rgba(243,222,152,.13), transparent 70%), rgba(212,175,55,.04); }
+  .jf-head h4 { margin:6px 0 4px; font-family:var(--serif); font-size:1.6rem; font-weight:600; color:var(--tx1); }
+  .jf-head p { margin:0; color:var(--muted); font-size:.88rem; }
+  .jfound { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-hi); }
+  .jstars { color:var(--gold); font-size:.9rem; letter-spacing:.05em; }
+  .jstars i { font-style:normal; color:rgba(var(--fg),.15); }
+  .jfit { padding:12px 14px; border-radius:14px; background:rgba(212,175,55,.07); border-left:3px solid var(--gold); }
+  .jfit .sublbl { margin-bottom:4px; color:var(--gold); }
+  .jfit p { margin:0; color:var(--tx3); font-size:.86rem; line-height:1.5; }
+  .jtags { display:flex; flex-wrap:wrap; gap:6px; }
+  .jtags span { padding:4px 10px; border-radius:99px; border:1px solid var(--line); font-size:.7rem; font-weight:600; color:var(--gold-hi); background:rgba(var(--fg),.03); }
   .ftiles.t2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
   @media (max-width:820px) { .jpipe { grid-template-columns:repeat(3, minmax(0,1fr)); } }
   @media (max-width:560px) { .ftiles.t2 { grid-template-columns:1fr 1fr; } .jweek { flex-wrap:wrap; } .jwbar { flex-basis:100%; order:3; } .jpipe button b { font-size:1.3rem; } }
@@ -2480,7 +2491,7 @@ const JOB_REG = {
     sources: ['LinkedIn', 'Upwork', 'Remote OK', 'We Work Remotely', 'Indeed', 'Referral', 'Company website', 'Other'],
     tip: 'A remote role paid in dollars can clear your UGX 4M a month goal on its own. Check time zones, how you will be paid in Uganda, and visa or sponsorship before you apply. Never pay a fee to get a job.' }
 };
-const jobsOf = r => (state.jobs || []).filter(j => j.region === r);
+const jobsOf = r => (state.jobs || []).filter(j => j.region === r && !j.dismissed);
 const daysTo = d => Math.round((new Date(String(d).slice(0, 10) + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 864e5);
 const shortDate = d => new Date(String(d).slice(0, 10) + 'T00:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
 function jobMonthlyUGX(j) {
@@ -2538,16 +2549,20 @@ function jobCard(j) {
   const fu = j.follow_up && ['applied', 'interview', 'offer'].includes(j.stage) ? (daysTo(j.follow_up) <= 0 ? `<span class="jdl soon">Follow up ${daysTo(j.follow_up) === 0 ? 'today' : 'now'}</span>` : `<span>Follow up ${shortDate(j.follow_up)}</span>`) : '';
   return `<article class="titem job" style="--c:${JOB_COLORS[j.stage] || '#D4AF37'}">
     <div class="ti-top"><span class="av">${esc(initials(j.org || j.title))}</span><div style="min-width:0"><h4>${esc(j.title)}</h4><small>${where || 'Add the company and location'}</small></div><span class="jstage">${esc(stage)}</span></div>
+    ${j.auto ? `<div class="jfound"><span>&#10022; Found by your coach</span>${j.match_score ? `<span class="jstars" aria-label="Match ${j.match_score} of 5">${'&#9733;'.repeat(j.match_score)}<i>${'&#9733;'.repeat(5 - j.match_score)}</i></span>` : ''}</div>` : ''}
     ${pay ? `<div class="ti-amt"><b>${pay.main}</b><span>${esc(pay.per)}${pay.ugx ? ' · ' + pay.ugx : ''}</span></div>` : ''}
     ${m && m >= JOB_INCOME_GOAL ? '<span class="jgoal">Clears your UGX 4M a month goal</span>' : ''}
     <div class="jsteps" aria-label="Stage ${esc(stage)}">${steps}</div>
     <div class="ti-meta jmeta">${dl ? `<span class="jdl ${dl.cls}">${esc(dl.txt)}</span>` : j.applied_on ? `<span>Applied ${shortDate(j.applied_on)}</span>` : `<span>Added ${shortDate(j.created_at)}</span>`}${fu}${j.source ? `<span>${esc(j.source)}</span>` : ''}</div>
+    ${j.fit ? `<div class="jfit"><span class="sublbl">Why it fits you</span><p>${esc(j.fit)}</p></div>` : ''}
+    ${(j.tags || []).length ? `<div class="jtags">${j.tags.map(t => `<span>${esc(t)}</span>`).join('')}</div>` : ''}
     ${j.note ? `<p class="tr-empty" style="font-size:.82rem">${esc(j.note)}</p>` : ''}
     ${state.jobEdit === j.id ? jobForm(j.region, j) : ''}
     <div class="ti-actions">
       ${nx ? `<button class="primary small" type="button" data-act="job-next" data-id="${j.id}">${nx[1]} &rarr;</button>` : ''}
       ${j.link ? `<a class="small btnlink" href="${esc(j.link)}" target="_blank" rel="noopener noreferrer">Advert</a>` : ''}
       <button class="small" type="button" data-act="job-edit" data-id="${j.id}">${state.jobEdit === j.id ? 'Cancel' : 'Edit'}</button>
+      ${j.auto && j.stage === 'spotted' ? `<button class="small" type="button" data-act="job-dismiss" data-id="${j.id}">Not for me</button>` : ''}
       ${['interview', 'offer', 'applied'].includes(j.stage) ? `<button class="small" type="button" data-act="job-close" data-s="rejected" data-id="${j.id}">Not this time</button>` : ''}
     </div></article>`;
 }
@@ -2561,7 +2576,8 @@ function jobsSection(a, r) {
   const wkS = wkStart(todayStr()), appliedW = all.filter(j => j.applied_on && String(j.applied_on).slice(0, 10) >= wkS).length;
   const nextDl = open.map(j => ({ j, d: jobDeadline(j) })).filter(x => x.d && x.d.n >= 0).sort((x, y) => x.d.n - y.d.n)[0];
   const order = Object.fromEntries(JOB_OPEN.map(([k], i) => [k, i]));
-  const shown = open.filter(j => f === 'all' || j.stage === f).sort((x, y) => {
+  const finds = open.filter(j => j.auto && j.stage === 'spotted').sort((x, y) => (Number(y.match_score) || 0) - (Number(x.match_score) || 0) || String(y.created_at).localeCompare(String(x.created_at)));
+  const shown = open.filter(j => (f === 'all' || j.stage === f) && !(j.auto && j.stage === 'spotted')).sort((x, y) => {
     const dx = jobDeadline(x), dy = jobDeadline(y);
     return (order[y.stage] - order[x.stage]) || ((dx ? dx.n : 999) - (dy ? dy.n : 999)) || String(y.created_at).localeCompare(String(x.created_at));
   });
@@ -2581,7 +2597,8 @@ function jobsSection(a, r) {
       ${JOB_OPEN.map(([k, l]) => `<button type="button" class="${f === k ? 'on' : ''}" style="--c:${JOB_COLORS[k]}" data-act="job-filter" data-f="${k}" aria-pressed="${f === k}"><b>${open.filter(j => j.stage === k).length}</b><span>${l}</span></button>`).join('')}
     </nav>
     ${alerts.length ? `<div class="alerts jalerts"><span class="sublbl">Needs attention</span><ul>${alerts.map(x => `<li class="${x.bad ? 'bad' : x.info ? 'info' : ''}"><a href="#" data-act="job-edit" data-id="${x.id}">${x.t}</a></li>`).join('')}</ul></div>` : ''}
-    ${shown.length ? `<div class="tr-grid">${shown.map(jobCard).join('')}</div>` : `<p class="tr-empty">${open.length ? 'Nothing at this stage right now.' : r === 'ug' ? 'No opportunities yet. Add the first job you have seen in Uganda; you can apply later.' : 'No opportunities yet. Add the first remote or overseas job that excites you.'}</p>`}
+    ${finds.length && (f === 'all' || f === 'spotted') ? `<div class="jfinds"><div class="jf-head"><span class="eyebrow">Coach&rsquo;s finds</span><h4>${finds.length} opportunit${finds.length === 1 ? 'y' : 'ies'} picked for you</h4><p>Found on the web each morning to match your strengths and the life you want. Start preparing the ones you like; tap &ldquo;Not for me&rdquo; to clear the rest.</p></div><div class="tr-grid">${finds.map(jobCard).join('')}</div></div>` : ''}
+    ${shown.length ? `<div class="tr-grid">${shown.map(jobCard).join('')}</div>` : finds.length && (f === 'all' || f === 'spotted') ? '' : `<p class="tr-empty">${open.length ? 'Nothing at this stage right now.' : r === 'ug' ? 'No opportunities yet. Add the first job you have seen in Uganda; you can apply later.' : 'No opportunities yet. Add the first remote or overseas job that excites you.'}</p>`}
     <details class="tr-add"${all.length ? '' : ' open'}><summary>+ Add an opportunity</summary>${jobForm(r)}</details>
     ${closed.length ? `<details class="won jclosed"><summary class="sublbl">Results &middot; ${won} won of ${closed.length} closed</summary><ul>${closed.map(j => `<li class="${j.stage === 'accepted' ? '' : 'lost'}">
         <span class="wtick">${j.stage === 'accepted' ? tickSvg : '&times;'}</span>
@@ -3991,6 +4008,10 @@ $('#view-area').addEventListener('click', async e => {
       if (state.jobEdit) state.jobFilter = { ...state.jobFilter, [route().sub]: 'all' };
       render(); if (state.jobEdit) { const fm = document.querySelector(`form[data-act="job-save"][data-id="${el.dataset.id}"]`); if (fm) fm.closest('.titem').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       return;
+    }
+    if (act === 'job-dismiss') {
+      const j = state.jobs.find(x => x.id === el.dataset.id); if (!j) return;
+      await run(sb.from('jobs').update({ dismissed: true, updated_at: new Date().toISOString() }).eq('id', j.id)); j.dismissed = true; render(); toast('Cleared. Your coach will keep looking.'); return;
     }
     if (['job-next', 'job-close', 'job-reopen', 'job-del'].includes(act)) {
       const j = state.jobs.find(x => x.id === el.dataset.id); if (!j) return;
