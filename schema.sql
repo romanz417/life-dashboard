@@ -300,3 +300,30 @@ create table if not exists video_watch (
 );
 alter table video_watch enable row level security;
 create policy "own video watch log" on video_watch for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+-- Work & Career > UG and Foreign: job opportunity pipelines (region 'ug' or 'foreign')
+create table if not exists jobs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete set null,
+  region text not null check (region in ('ug', 'foreign')),
+  title text not null,
+  org text,
+  location text,
+  work_mode text check (work_mode is null or work_mode in ('onsite', 'hybrid', 'remote')),
+  link text,
+  source text,
+  pay numeric check (pay is null or pay >= 0),
+  currency text not null default 'UGX',
+  pay_period text not null default 'month' check (pay_period in ('month', 'year', 'hour', 'project')),
+  deadline date,
+  stage text not null default 'spotted' check (stage in ('spotted', 'applying', 'applied', 'interview', 'offer', 'accepted', 'rejected', 'withdrawn')),
+  applied_on date,
+  follow_up date,
+  note text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+create index if not exists jobs_user_region_idx on jobs(user_id, region, stage);
+alter table jobs enable row level security;
+create policy "own jobs" on jobs for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));

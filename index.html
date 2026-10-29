@@ -912,6 +912,47 @@
   .ftiles b.desk-t { font-family:var(--sans); font-size:.98rem; font-weight:600; line-height:1.4; white-space:normal; color:var(--tx2); }
   @media (max-width:980px) { .tr-cols { grid-template-columns:1fr; } }
   @media (max-width:820px) { .ftiles.t3 { grid-template-columns:1fr 1fr; } .ftiles.t3 a:first-child { grid-column:1 / -1; } }
+  /* ---- Work & Career: UG and Foreign opportunity pipelines ---- */
+  .tracker.jobs.ug { background:radial-gradient(560px 320px at 0% 0%, rgba(212,175,55,.14), transparent 70%), radial-gradient(420px 260px at 100% 0%, rgba(214,40,40,.08), transparent 70%), linear-gradient(180deg, rgba(var(--fg),.05), rgba(var(--fg),.015)), var(--card); }
+  .tracker.jobs.foreign { background:radial-gradient(560px 320px at 100% 0%, rgba(91,141,239,.15), transparent 70%), radial-gradient(520px 300px at 0% 0%, rgba(212,175,55,.11), transparent 70%), linear-gradient(180deg, rgba(var(--fg),.05), rgba(var(--fg),.015)), var(--card); }
+  .jweek { display:flex; align-items:center; gap:16px; padding:14px 18px; border-radius:16px; border:1px solid var(--line2); background:rgba(var(--fg),.03); }
+  .jweek .sublbl { margin:0 0 2px; }
+  .jweek b { font-family:var(--serif); font-size:1.25rem; color:var(--tx1); white-space:nowrap; }
+  .jwbar { flex:1; height:8px; border-radius:99px; background:rgba(var(--fg),.08); overflow:hidden; }
+  .jwbar > div { height:100%; border-radius:99px; background:var(--goldgrad); }
+  .jpipe { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:8px; }
+  .jpipe button { --c:var(--gold); position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:2px; min-width:0; padding:12px 14px 12px 16px; border-radius:16px; border:1px solid var(--line2); background:rgba(var(--fg),.03); color:inherit; text-align:left; overflow:hidden; }
+  .jpipe button::before { content:""; position:absolute; left:0; top:12px; bottom:12px; width:3px; border-radius:0 3px 3px 0; background:var(--c); }
+  .jpipe button b { font-family:var(--serif); font-size:1.6rem; line-height:1; color:var(--tx1); }
+  .jpipe button span { font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+  .jpipe button:hover { border-color:rgba(243,222,152,.45); }
+  .jpipe button.on { border-color:rgba(212,175,55,.6); background:rgba(212,175,55,.1); }
+  .jpipe button.on b { color:var(--gold-hi); }
+  .jalerts { margin:0; }
+  .jalerts .sublbl { margin-bottom:6px; }
+  .titem.job { border-top:3px solid var(--c); }
+  .jstage { flex:none; margin-left:auto; padding:5px 10px; border-radius:99px; font-size:.58rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--c); border:1px solid var(--c); background:rgba(var(--fg),.03); }
+  .titem.job .ti-amt b { font-size:1.6rem; }
+  .jgoal { align-self:flex-start; padding:5px 10px; border-radius:99px; font-size:.62rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#17130A; background:var(--goldgrad); }
+  .jsteps { display:grid; grid-template-columns:repeat(5, 1fr); gap:4px; }
+  .jsteps i { height:5px; border-radius:99px; background:rgba(var(--fg),.09); }
+  .jsteps i.on { background:var(--c); }
+  .jmeta { flex-wrap:wrap; justify-content:flex-start; column-gap:14px; row-gap:4px; }
+  .jdl.soon { color:var(--warn-tx); font-weight:700; }
+  .jdl.late { color:var(--neg-tx); font-weight:700; }
+  .jpay { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .jpay select { min-width:0; }
+  .btnlink { display:inline-flex; align-items:center; min-height:38px; padding:0 14px; border-radius:99px; border:1px solid var(--line); color:var(--gold-hi); text-decoration:none; font-size:.8rem; font-weight:700; }
+  .btnlink:hover { background:rgba(212,175,55,.12); }
+  .jclosed summary { cursor:pointer; list-style:none; margin-bottom:12px; }
+  .jclosed summary::-webkit-details-marker { display:none; }
+  .jclosed li.lost { border-color:var(--line2); background:rgba(var(--fg),.03); }
+  .jclosed li.lost .wtick { background:rgba(var(--fg),.08); color:var(--muted); font-size:1.1rem; }
+  .jtip { padding:18px 20px; border-radius:18px; border:1px solid var(--line); background:linear-gradient(135deg, rgba(243,222,152,.08), rgba(156,122,28,.03)); }
+  .jtip p { margin:8px 0 0; color:var(--tx3); font-family:var(--serif); font-size:1.15rem; line-height:1.45; font-style:italic; }
+  .ftiles.t2 { grid-template-columns:repeat(2, minmax(0,1fr)); }
+  @media (max-width:820px) { .jpipe { grid-template-columns:repeat(3, minmax(0,1fr)); } }
+  @media (max-width:560px) { .ftiles.t2 { grid-template-columns:1fr 1fr; } .jweek { flex-wrap:wrap; } .jwbar { flex-basis:100%; order:3; } .jpipe button b { font-size:1.3rem; } }
   @media (max-width:640px) {
     .trk { grid-template-columns:repeat(2, minmax(0,1fr)); }
     .tl-seg { padding:0 5px; font-size:.6rem; }
@@ -1318,7 +1359,8 @@ let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], target
   openLog: null, openPay: null, openHist: null, editTarget: null, expPeriod: 'month', lastCat: '', range: 30,
   budgets: [], plan: [], editBudget: false, editPlan: false, planDraft: [], splitFor: null, debtOrder: 'interest', emEdit: false,
   spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null,
-  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null, fx: null, reviews: [], revWeek: null, videos: [], vwatch: [], vPick: null, vTopic: 'All' };
+  trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null, fx: null, reviews: [], revWeek: null, videos: [], vwatch: [], vPick: null, vTopic: 'All',
+  jobs: [], jobsReady: true, jobFilter: {}, jobEdit: null };
 let chart = null;
 
 function toast(msg) {
@@ -1502,6 +1544,7 @@ async function load() {
   state.plan = await soft(sb.from('plan_items').select('*').order('position'));
   state.spirit = await soft(sb.from('spirit_logs').select('*').order('day'));
   state.spiritItems = await soft(sb.from('spirit_items').select('*').order('created_at'));
+  { const jr = await sb.from('jobs').select('*').order('created_at').then(x => x, () => ({ error: true })); state.jobsReady = !jr.error; state.jobs = jr.data || []; }
   state.trades = await soft(sb.from('trades').select('*').order('day').order('created_at'));
   state.tset = (await soft(sb.from('trading_settings').select('*').limit(1)))[0] || null;
   state.briefs = await soft(sb.from('market_briefs').select('*').order('day', { ascending: false }).order('created_at', { ascending: false }).limit(14));
@@ -1851,7 +1894,7 @@ function groupCats(list) {
   return Object.entries(m).map(([name, amt]) => ({ name, amt })).sort((x, y) => y.amt - x.amt);
 }
 function subtabs(a, sub, career) {
-  const t = career ? [['overview', 'Overview'], ['trading', 'Trading'], ['review', '<span class="lg">Weekly review</span><span class="sm">Review</span>']]
+  const t = career ? [['overview', 'Overview'], ['ug', 'UG'], ['foreign', 'Foreign'], ['trading', 'Trading'], ['review', '<span class="lg">Weekly review</span><span class="sm">Review</span>']]
     : [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial goals</span><span class="sm">Goals</span>']];
   return `<nav class="subtabs" aria-label="${career ? 'Work and career' : 'Finances'} sections">${t.map(([k, l]) => `<a href="#area/${a.id}${k === 'overview' ? '' : '/' + k}" class="${sub === k ? 'on' : ''}"${sub === k ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
 }
@@ -2378,7 +2421,7 @@ function renderArea(id, animate, sub = 'overview') {
     ${m.icon === 'spirit' ? spiritSection(a, rz) : ''}
     ${showOverview ? `
     ${isMoney ? financeTiles(a) + financeAlerts(a) + incomePlanCard(a) : ''}
-    ${isCareer ? tradingTeaser(a) : ''}
+    ${isCareer ? tradingTeaser(a) + jobsTeaser(a) : ''}
     ${goalsOf(a).length ? `<div class="goals${rz}" style="--d:.08s">${goalsOf(a).map(goalCard).join('')}</div>` : ''}
     ${addGoalForm(goalsOf(a).length > 0)}
     <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
@@ -2417,7 +2460,152 @@ function renderArea(id, animate, sub = 'overview') {
         </section>
         <button class="small danger del-area" type="button" data-act="delarea">Delete this area</button>
       </div>
-    </div>` : sub === 'trading' && isCareer ? tradingSection(a) : sub === 'review' && isCareer ? reviewSection(a) : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
+    </div>` : (sub === 'ug' || sub === 'foreign') && isCareer ? jobsSection(a, sub) : sub === 'trading' && isCareer ? tradingSection(a) : sub === 'review' && isCareer ? reviewSection(a) : sub === 'expenses' ? expensesSection(a) : sub === 'debts' ? trackerSection(a, 'debt') : emergencySection(a) + trackerSection(a, 'fund')}`;
+}
+// ---------- Work & Career > UG and FOREIGN: job opportunity pipelines ----------
+const JOB_OPEN = [['spotted', 'Spotted'], ['applying', 'Preparing'], ['applied', 'Applied'], ['interview', 'Interview'], ['offer', 'Offer']];
+const JOB_CLOSED = { accepted: 'Got the job', rejected: 'Not this time', withdrawn: 'Withdrew' };
+const JOB_NEXT = { spotted: ['applying', 'Start preparing'], applying: ['applied', 'Mark applied'], applied: ['interview', 'Got an interview'], interview: ['offer', 'Got an offer'], offer: ['accepted', 'Accept the job'] };
+const JOB_COLORS = { spotted: '#8FA3B8', applying: '#5B8DEF', applied: '#A78BFA', interview: '#E2B84A', offer: '#3FBF8A' };
+const JOB_PERIODS = [['month', 'Month'], ['year', 'Year'], ['hour', 'Hour'], ['project', 'Project']];
+const JOB_UGX = { UGX: 1, USD: 3650, EUR: 4150, GBP: 4850, AED: 995, SAR: 975, QAR: 1000, KES: 28.3, TZS: 1.4, RWF: 2.55, ZAR: 205, CAD: 2650, AUD: 2400 };   // approximate UGX per unit, for comparing pay only
+const JOB_INCOME_GOAL = 4000000;
+const JOB_REG = {
+  ug: { eyebrow: 'Uganda', title: 'Opportunities in Uganda', ccy: 'UGX', locPh: 'e.g. Kampala, Entebbe',
+    desc: 'Every local job, contract or tender you are going for, from first spotted to signed.',
+    sources: ['BrighterMonday', 'Fuzu', 'LinkedIn', 'New Vision / Daily Monitor', 'Referral', 'Company website', 'Walk-in', 'Other'],
+    tip: 'Aim for 3 strong applications a week. Rewrite the top of your CV for each job, and call or visit after you apply. In Kampala, a referral beats a cold application.' },
+  foreign: { eyebrow: 'Abroad & remote', title: 'Foreign opportunities', ccy: 'USD', locPh: 'e.g. Dubai, UAE or Worldwide',
+    desc: 'Jobs abroad and remote roles paid in foreign currency, from first spotted to signed.',
+    sources: ['LinkedIn', 'Upwork', 'Remote OK', 'We Work Remotely', 'Indeed', 'Referral', 'Company website', 'Other'],
+    tip: 'A remote role paid in dollars can clear your UGX 4M a month goal on its own. Check time zones, how you will be paid in Uganda, and visa or sponsorship before you apply. Never pay a fee to get a job.' }
+};
+const jobsOf = r => (state.jobs || []).filter(j => j.region === r);
+const daysTo = d => Math.round((new Date(String(d).slice(0, 10) + 'T00:00:00') - new Date(todayStr() + 'T00:00:00')) / 864e5);
+const shortDate = d => new Date(String(d).slice(0, 10) + 'T00:00:00').toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+function jobMonthlyUGX(j) {
+  const p = Number(j.pay), rate = JOB_UGX[String(j.currency || 'UGX').toUpperCase()];
+  if (!p || !rate) return null;
+  const per = { month: 1, year: 1 / 12, hour: 160, project: null }[j.pay_period || 'month'];
+  return per === null ? null : p * rate * per;
+}
+function jobPay(j) {
+  if (!Number(j.pay)) return null;
+  const c = String(j.currency || 'UGX').toUpperCase(), per = { month: 'a month', year: 'a year', hour: 'an hour', project: 'for the project' }[j.pay_period || 'month'];
+  const ug = c !== 'UGX' ? jobMonthlyUGX(j) : null;
+  return { main: `${esc(c)} ${money(j.pay)}`, per, ugx: ug ? `≈ UGX ${short(ug)} a month` : '' };
+}
+function jobDeadline(j) {
+  if (!j.deadline || !['spotted', 'applying'].includes(j.stage)) return null;
+  const n = daysTo(j.deadline);
+  return { n, cls: n < 0 ? 'late' : n <= 3 ? 'soon' : '', txt: n < 0 ? `Deadline passed ${shortDate(j.deadline)}` : n === 0 ? 'Deadline is today' : n === 1 ? 'Deadline tomorrow' : `Deadline ${shortDate(j.deadline)} · ${n} days left` };
+}
+function jobAlerts(list) {
+  const out = [];
+  list.filter(j => JOB_NEXT[j.stage]).forEach(j => {
+    const dl = jobDeadline(j);
+    if (dl && dl.n >= 0 && dl.n <= 7) out.push({ bad: dl.n <= 2, id: j.id, t: `${esc(j.title)}${j.org ? ' at ' + esc(j.org) : ''}: ${dl.n === 0 ? 'deadline is today' : dl.n === 1 ? 'deadline is tomorrow' : `deadline in ${dl.n} days`}` });
+    if (j.follow_up && daysTo(j.follow_up) <= 0 && ['applied', 'interview', 'offer'].includes(j.stage)) out.push({ id: j.id, t: `Follow up on ${esc(j.title)}${j.org ? ' at ' + esc(j.org) : ''}${daysTo(j.follow_up) < 0 ? ` (due ${shortDate(j.follow_up)})` : ' today'}` });
+    else if (!j.follow_up && j.stage === 'applied' && j.applied_on && daysTo(j.applied_on) <= -10) out.push({ info: true, id: j.id, t: `No reply from ${esc(j.org || j.title)} after ${-daysTo(j.applied_on)} days. Time for a polite follow-up.` });
+  });
+  return out.slice(0, 6);
+}
+function jobForm(r, j) {
+  const R = JOB_REG[r], v = k => j && j[k] != null ? esc(j[k]) : '', ccy = String(j ? j.currency : R.ccy).toUpperCase();
+  const stages = [...JOB_OPEN, ...Object.entries(JOB_CLOSED)];
+  return `<form class="gform" data-act="${j ? 'job-save' : 'job-add'}" data-region="${r}"${j ? ` data-id="${j.id}"` : ''}>
+    <label class="full"><span class="sublbl">Job title</span><input name="title" type="text" placeholder="${r === 'ug' ? 'e.g. Finance Officer' : 'e.g. Remote Data Analyst'}" value="${v('title')}" required autocomplete="off"></label>
+    <label><span class="sublbl">Company or organisation</span><input name="org" type="text" placeholder="e.g. ${r === 'ug' ? 'MTN Uganda' : 'Acme Ltd'}" value="${v('org')}" autocomplete="off"></label>
+    <label><span class="sublbl">${r === 'ug' ? 'Town' : 'Country or city'}</span><input name="location" type="text" placeholder="${R.locPh}" value="${v('location')}" autocomplete="off"></label>
+    <label><span class="sublbl">Work type</span><select name="work_mode">${[['', 'Not sure'], ['onsite', 'On-site'], ['hybrid', 'Hybrid'], ['remote', 'Remote']].map(([k, l]) => `<option value="${k}"${(j ? j.work_mode || '' : r === 'foreign' ? 'remote' : 'onsite') === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+    <label><span class="sublbl">Where you found it</span><select name="source"><option value="">Choose</option>${R.sources.map(s => `<option${j && j.source === s ? ' selected' : ''}>${esc(s)}</option>`).join('')}</select></label>
+    <label><span class="sublbl">Pay (optional)</span><input name="pay" type="text" inputmode="decimal" placeholder="${r === 'ug' ? 'e.g. 2,500,000' : 'e.g. 1,500'}" value="${j && Number(j.pay) ? money(j.pay) : ''}" autocomplete="off"></label>
+    <label><span class="sublbl">Currency and period</span><span class="jpay"><select name="currency" aria-label="Currency">${Object.keys(JOB_UGX).map(c => `<option${c === ccy ? ' selected' : ''}>${c}</option>`).join('')}</select><select name="pay_period" aria-label="Pay period">${JOB_PERIODS.map(([k, l]) => `<option value="${k}"${(j ? j.pay_period : 'month') === k ? ' selected' : ''}>${l}</option>`).join('')}</select></span></label>
+    <label><span class="sublbl">Application deadline</span><input name="deadline" type="date" value="${j && j.deadline ? String(j.deadline).slice(0, 10) : ''}"></label>
+    <label><span class="sublbl">Stage</span><select name="stage">${stages.map(([k, l]) => `<option value="${k}"${(j ? j.stage : 'spotted') === k ? ' selected' : ''}>${l}</option>`).join('')}</select></label>
+    <label><span class="sublbl">Applied on</span><input name="applied_on" type="date" max="${todayStr()}" value="${j && j.applied_on ? String(j.applied_on).slice(0, 10) : ''}"></label>
+    <label><span class="sublbl">Follow up on</span><input name="follow_up" type="date" value="${j && j.follow_up ? String(j.follow_up).slice(0, 10) : ''}"></label>
+    <label class="full"><span class="sublbl">Link to the advert (optional)</span><input name="link" type="url" placeholder="https://" value="${v('link')}" autocomplete="off"></label>
+    <label class="full"><span class="sublbl">Notes (optional)</span><input name="note" type="text" placeholder="Contact person, documents needed, interview date…" value="${v('note')}" autocomplete="off"></label>
+    <button class="primary full" type="submit">${j ? 'Save changes' : 'Add opportunity'}</button>
+    ${j ? `<button class="linkbtn full" type="button" data-act="job-del" data-id="${j.id}">Remove this opportunity</button>` : ''}
+  </form>`;
+}
+function jobCard(j) {
+  const nx = JOB_NEXT[j.stage], pay = jobPay(j), dl = jobDeadline(j), m = jobMonthlyUGX(j), stage = (JOB_OPEN.find(s => s[0] === j.stage) || [])[1];
+  const where = [j.org, j.location, { onsite: 'On-site', hybrid: 'Hybrid', remote: 'Remote' }[j.work_mode]].filter(Boolean).map(esc).join(' · ');
+  const steps = JOB_OPEN.map(([k], i) => `<i class="${JOB_OPEN.findIndex(s => s[0] === j.stage) >= i ? 'on' : ''}"></i>`).join('');
+  const fu = j.follow_up && ['applied', 'interview', 'offer'].includes(j.stage) ? (daysTo(j.follow_up) <= 0 ? `<span class="jdl soon">Follow up ${daysTo(j.follow_up) === 0 ? 'today' : 'now'}</span>` : `<span>Follow up ${shortDate(j.follow_up)}</span>`) : '';
+  return `<article class="titem job" style="--c:${JOB_COLORS[j.stage] || '#D4AF37'}">
+    <div class="ti-top"><span class="av">${esc(initials(j.org || j.title))}</span><div style="min-width:0"><h4>${esc(j.title)}</h4><small>${where || 'Add the company and location'}</small></div><span class="jstage">${esc(stage)}</span></div>
+    ${pay ? `<div class="ti-amt"><b>${pay.main}</b><span>${esc(pay.per)}${pay.ugx ? ' · ' + pay.ugx : ''}</span></div>` : ''}
+    ${m && m >= JOB_INCOME_GOAL ? '<span class="jgoal">Clears your UGX 4M a month goal</span>' : ''}
+    <div class="jsteps" aria-label="Stage ${esc(stage)}">${steps}</div>
+    <div class="ti-meta jmeta">${dl ? `<span class="jdl ${dl.cls}">${esc(dl.txt)}</span>` : j.applied_on ? `<span>Applied ${shortDate(j.applied_on)}</span>` : `<span>Added ${shortDate(j.created_at)}</span>`}${fu}${j.source ? `<span>${esc(j.source)}</span>` : ''}</div>
+    ${j.note ? `<p class="tr-empty" style="font-size:.82rem">${esc(j.note)}</p>` : ''}
+    ${state.jobEdit === j.id ? jobForm(j.region, j) : ''}
+    <div class="ti-actions">
+      ${nx ? `<button class="primary small" type="button" data-act="job-next" data-id="${j.id}">${nx[1]} &rarr;</button>` : ''}
+      ${j.link ? `<a class="small btnlink" href="${esc(j.link)}" target="_blank" rel="noopener noreferrer">Advert</a>` : ''}
+      <button class="small" type="button" data-act="job-edit" data-id="${j.id}">${state.jobEdit === j.id ? 'Cancel' : 'Edit'}</button>
+      ${['interview', 'offer', 'applied'].includes(j.stage) ? `<button class="small" type="button" data-act="job-close" data-s="rejected" data-id="${j.id}">Not this time</button>` : ''}
+    </div></article>`;
+}
+function jobsSection(a, r) {
+  const R = JOB_REG[r];
+  if (!state.jobsReady) return `<section class="tracker jobs"><div class="tr-head"><div class="eyebrow">${R.eyebrow}</div><h3>${R.title}</h3>
+    <p>One quick setup step is needed: run the jobs table SQL in Supabase (SQL Editor), then refresh this page.</p></div></section>`;
+  const all = jobsOf(r), open = all.filter(j => JOB_NEXT[j.stage]), closed = all.filter(j => !JOB_NEXT[j.stage]).sort((x, y) => String(y.updated_at).localeCompare(String(x.updated_at)));
+  const f = (state.jobFilter || {})[r] || 'all', mk = todayStr().slice(0, 7);
+  const appliedM = all.filter(j => j.applied_on && String(j.applied_on).startsWith(mk)).length;
+  const wkS = wkStart(todayStr()), appliedW = all.filter(j => j.applied_on && String(j.applied_on).slice(0, 10) >= wkS).length;
+  const nextDl = open.map(j => ({ j, d: jobDeadline(j) })).filter(x => x.d && x.d.n >= 0).sort((x, y) => x.d.n - y.d.n)[0];
+  const order = Object.fromEntries(JOB_OPEN.map(([k], i) => [k, i]));
+  const shown = open.filter(j => f === 'all' || j.stage === f).sort((x, y) => {
+    const dx = jobDeadline(x), dy = jobDeadline(y);
+    return (order[y.stage] - order[x.stage]) || ((dx ? dx.n : 999) - (dy ? dy.n : 999)) || String(y.created_at).localeCompare(String(x.created_at));
+  });
+  const alerts = jobAlerts(open), won = closed.filter(j => j.stage === 'accepted').length;
+  const tickSvg = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  return `<section class="tracker jobs ${r}">
+    <div class="tr-head"><div class="eyebrow">${R.eyebrow}</div><h3>${R.title}</h3><p>${R.desc}</p></div>
+    <div class="tr-sum">
+      <div><b>${open.length}</b><span>In progress</span></div>
+      <div><b>${appliedM}</b><span>Applied this month</span></div>
+      <div><b>${open.filter(j => j.stage === 'interview' || j.stage === 'offer').length}</b><span>Interviews &amp; offers</span></div>
+      <div class="hl"><b>${nextDl ? (nextDl.d.n === 0 ? 'Today' : shortDate(nextDl.j.deadline)) : '–'}</b><span>${nextDl ? 'Next deadline' : 'No deadlines coming'}</span></div>
+    </div>
+    <div class="jweek"><div><span class="sublbl">This week</span><b>${appliedW} of 3 applications</b></div><div class="jwbar" role="img" aria-label="${appliedW} of 3 applications this week"><div style="width:${Math.min(100, appliedW / 3 * 100)}%"></div></div>${appliedW >= 3 ? '<span class="pill reached">Target hit</span>' : ''}</div>
+    <nav class="jpipe" aria-label="Filter by stage">
+      <button type="button" class="${f === 'all' ? 'on' : ''}" data-act="job-filter" data-f="all" aria-pressed="${f === 'all'}"><b>${open.length}</b><span>All open</span></button>
+      ${JOB_OPEN.map(([k, l]) => `<button type="button" class="${f === k ? 'on' : ''}" style="--c:${JOB_COLORS[k]}" data-act="job-filter" data-f="${k}" aria-pressed="${f === k}"><b>${open.filter(j => j.stage === k).length}</b><span>${l}</span></button>`).join('')}
+    </nav>
+    ${alerts.length ? `<div class="alerts jalerts"><span class="sublbl">Needs attention</span><ul>${alerts.map(x => `<li class="${x.bad ? 'bad' : x.info ? 'info' : ''}"><a href="#" data-act="job-edit" data-id="${x.id}">${x.t}</a></li>`).join('')}</ul></div>` : ''}
+    ${shown.length ? `<div class="tr-grid">${shown.map(jobCard).join('')}</div>` : `<p class="tr-empty">${open.length ? 'Nothing at this stage right now.' : r === 'ug' ? 'No opportunities yet. Add the first job you have seen in Uganda; you can apply later.' : 'No opportunities yet. Add the first remote or overseas job that excites you.'}</p>`}
+    <details class="tr-add"${all.length ? '' : ' open'}><summary>+ Add an opportunity</summary>${jobForm(r)}</details>
+    ${closed.length ? `<details class="won jclosed"><summary class="sublbl">Results &middot; ${won} won of ${closed.length} closed</summary><ul>${closed.map(j => `<li class="${j.stage === 'accepted' ? '' : 'lost'}">
+        <span class="wtick">${j.stage === 'accepted' ? tickSvg : '&times;'}</span>
+        <div><b>${esc(j.title)}</b><small>${esc(JOB_CLOSED[j.stage])}${j.org ? ' &middot; ' + esc(j.org) : ''} &middot; ${shortDate(j.updated_at || j.created_at)}</small></div>
+        <button class="small" type="button" data-act="job-reopen" data-id="${j.id}" aria-label="Reopen ${esc(j.title)}">Reopen</button></li>`).join('')}</ul></details>` : ''}
+    <div class="jtip"><span class="eyebrow">Coach&rsquo;s note</span><p>${esc(R.tip)}</p></div>
+  </section>`;
+}
+function jobsTeaser(a) {
+  if (!state.jobsReady) return '';
+  return `<div class="ftiles t2">${['ug', 'foreign'].map(r => {
+    const open = jobsOf(r).filter(j => JOB_NEXT[j.stage]), iv = open.filter(j => j.stage === 'interview' || j.stage === 'offer').length;
+    const al = jobAlerts(open).length;
+    return `<a href="#area/${a.id}/${r}"><span class="sublbl">${r === 'ug' ? 'UG opportunities' : 'Foreign opportunities'}</span><b>${open.length} open</b><small>${al ? `${al} need${al === 1 ? 's' : ''} attention` : iv ? `${iv} at interview or offer` : open.length ? 'All on track' : 'Add your first one'} &rarr;</small></a>`;
+  }).join('')}</div>`;
+}
+function jobRec(f, j) {
+  const t = v => String(v || '').trim() || null, pay = trNum(f.get('pay'));
+  const rec = { title: String(f.get('title') || '').trim(), org: t(f.get('org')), location: t(f.get('location')), work_mode: t(f.get('work_mode')), source: t(f.get('source')),
+    link: t(f.get('link')), pay: pay && pay > 0 ? pay : null, currency: String(f.get('currency') || 'UGX'), pay_period: String(f.get('pay_period') || 'month'),
+    deadline: t(f.get('deadline')), stage: String(f.get('stage') || 'spotted'), applied_on: t(f.get('applied_on')), follow_up: t(f.get('follow_up')), note: t(f.get('note')), updated_at: new Date().toISOString() };
+  if (['applied', 'interview', 'offer'].includes(rec.stage) && !rec.applied_on) rec.applied_on = (j && j.applied_on) || todayStr();
+  if (rec.stage === 'applied' && !rec.follow_up && (!j || j.stage !== 'applied')) rec.follow_up = addDays(rec.applied_on, 7);
+  return rec;
 }
 // ---------- Work & Career: Trading desk (journal, daily limits, session clock in Uganda time) ----------
 const TR_DEF = { start_balance: 500, currency: 'USD', risk_pct: 1, max_trades: 2, max_losses: 2, playbook: null, watch: ['EUR/USD', 'GBP/USD', 'USD/JPY'], weekly_loss_r: 4, monthly_loss_r: 8, halve_after: 3 };
@@ -3728,6 +3916,12 @@ $('#view-area').addEventListener('submit', async e => {
       const row = await run(sb.from('expenses').insert({ area_id: a.id, amount, category, note: String(f.get('note') || '').trim() || null, day: f.get('day') || todayStr() }).select().single());
       state.expenses.push(row); state.lastCat = category; toast(budgetNote(category) || 'Expense added');
       render(); const i = document.querySelector('.exform input[name=amount]'); if (i) i.focus(); return;
+    } else if (act === 'job-add' || act === 'job-save') {
+      const j = act === 'job-save' ? state.jobs.find(x => x.id === e.target.dataset.id) : null, rec = jobRec(f, j);
+      if (!rec.title) return toast('Add the job title');
+      if (j) { await run(sb.from('jobs').update(rec).eq('id', j.id)); Object.assign(j, rec); state.jobEdit = null; toast('Saved'); }
+      else { const row = await run(sb.from('jobs').insert({ ...rec, area_id: a.id, region: e.target.dataset.region }).select().single()); state.jobs.push(row); toast(rec.stage === 'applied' ? 'Added. A follow-up reminder is set for 7 days from now.' : 'Opportunity added'); }
+      render(); return;
     } else if (act === 'tr-log') {
       const r = trNum(f.get('r')); if (r === null) return toast('Enter the result in R, e.g. 2 or -1');
       const mode = String(f.get('mode') || 'live'), instrument = String(f.get('instrument') || 'GER40'), strategy = String(f.get('strategy') || 'Kim Box');
@@ -3791,6 +3985,26 @@ $('#view-area').addEventListener('click', async e => {
   const act = el.dataset.act;
   try {
     if (act === 'tr-mode') { state.trMode = el.dataset.m; render(); return; }
+    if (act === 'job-filter') { state.jobFilter = { ...state.jobFilter, [route().sub]: el.dataset.f }; render(); return; }
+    if (act === 'job-edit') {
+      e.preventDefault(); state.jobEdit = state.jobEdit === el.dataset.id ? null : el.dataset.id;
+      if (state.jobEdit) state.jobFilter = { ...state.jobFilter, [route().sub]: 'all' };
+      render(); if (state.jobEdit) { const fm = document.querySelector(`form[data-act="job-save"][data-id="${el.dataset.id}"]`); if (fm) fm.closest('.titem').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      return;
+    }
+    if (['job-next', 'job-close', 'job-reopen', 'job-del'].includes(act)) {
+      const j = state.jobs.find(x => x.id === el.dataset.id); if (!j) return;
+      if (act === 'job-del') {
+        if (!confirm(`Remove "${j.title}"?`)) return;
+        await run(sb.from('jobs').delete().eq('id', j.id)); state.jobs = state.jobs.filter(x => x.id !== j.id); state.jobEdit = null; render(); toast('Removed'); return;
+      }
+      const stage = act === 'job-next' ? JOB_NEXT[j.stage][0] : act === 'job-close' ? el.dataset.s : (j.applied_on ? 'applied' : 'spotted');
+      const patch = { stage, updated_at: new Date().toISOString() };
+      if (stage === 'applied' && !j.applied_on) { patch.applied_on = todayStr(); patch.follow_up = addDays(todayStr(), 7); }
+      await run(sb.from('jobs').update(patch).eq('id', j.id)); Object.assign(j, patch); render();
+      toast(stage === 'applied' ? 'Marked applied. Follow-up reminder set for 7 days from now.' : stage === 'interview' ? 'Interview! Research the company and prepare 3 stories that show your results.' : stage === 'offer' ? 'An offer. Well done. Compare it against your UGX 4M a month goal before you say yes.' : stage === 'accepted' ? 'Congratulations on the new job!' : stage === 'rejected' ? 'Logged. Every no brings you closer to the yes.' : 'Moved on');
+      return;
+    }
     if (act === 'mv-play') { playVideo(el.dataset.id); return; }
     if (act === 'mv-topic') { state.vTopic = el.dataset.t; render(); const d = document.querySelector('.mv-lib'); if (d) d.open = true; return; }
     if (act === 'mv-today') { state.vPick = null; render(); return; }
