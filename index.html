@@ -1894,7 +1894,7 @@ function groupCats(list) {
   return Object.entries(m).map(([name, amt]) => ({ name, amt })).sort((x, y) => y.amt - x.amt);
 }
 function subtabs(a, sub, career) {
-  const t = career ? [['overview', 'Overview'], ['ug', 'UG'], ['foreign', 'Foreign'], ['trading', 'Trading'], ['review', '<span class="lg">Weekly review</span><span class="sm">Review</span>']]
+  const t = career ? [['overview', 'Overview'], ['trading', 'Trading'], ['ug', 'UG'], ['foreign', 'Foreign'], ['review', '<span class="lg">Weekly review</span><span class="sm">Review</span>']]
     : [['overview', 'Overview'], ['expenses', 'Expenses'], ['debts', 'Debts'], ['goals', '<span class="lg">Financial goals</span><span class="sm">Goals</span>']];
   return `<nav class="subtabs" aria-label="${career ? 'Work and career' : 'Finances'} sections">${t.map(([k, l]) => `<a href="#area/${a.id}${k === 'overview' ? '' : '/' + k}" class="${sub === k ? 'on' : ''}"${sub === k ? ' aria-current="page"' : ''}>${l}</a>`).join('')}</nav>`;
 }
