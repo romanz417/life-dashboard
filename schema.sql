@@ -337,3 +337,31 @@ create unique index if not exists jobs_user_link_uq on jobs(user_id, link) where
 -- Jobs: what kind of opportunity (job / study, fellowship or course / grant, prize or paid gig)
 alter table jobs add column if not exists kind text not null default 'job';
 alter table jobs add constraint jobs_kind_check check (kind in ('job', 'study', 'grant'));
+
+-- Events life area: ICT and ART event feeds (filled daily by the events scout, or added by hand)
+create table if not exists events (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid default auth.uid() references auth.users(id) on delete cascade,
+  area_id uuid references areas(id) on delete cascade,
+  track text not null check (track in ('ict', 'art')),
+  category text not null default 'Other',
+  title text not null,
+  organizer text, venue text, town text,
+  format text check (format is null or format in ('in-person', 'online', 'hybrid')),
+  starts_on date, ends_on date, time_text text,
+  cost text, is_free boolean,
+  link text, register_link text, register_by date, register_steps text,
+  summary text, why text,
+  tags text[] not null default '{}',
+  source text,
+  status text not null default 'new' check (status in ('new', 'interested', 'going', 'attended', 'missed')),
+  auto boolean not null default false,
+  dismissed boolean not null default false,
+  note text,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+create index if not exists events_user_track_idx on events(user_id, track, starts_on);
+create unique index if not exists events_user_link_uq on events(user_id, link) where link is not null;
+alter table events enable row level security;
+create policy "own events" on events for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
