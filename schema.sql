@@ -385,3 +385,21 @@ create unique index if not exists tech_picks_user_url_idx on tech_picks(user_id,
 create index if not exists tech_picks_user_kind_idx on tech_picks(user_id, kind, created_at desc);
 alter table tech_picks enable row level security;
 create policy "own tech picks" on tech_picks for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Technology 3-month goal: daily tasks solved with tech (goal: 6 solved, 5+ hours a week saved, by 13 Feb 2027)
+create table if not exists tech_fixes (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete cascade,
+  title text not null,
+  cost_min int,                  -- minutes a week the task takes now
+  status text not null default 'idea' check (status in ('idea', 'trying', 'working')),
+  solution text,                 -- tool, repo link or automation
+  saved_min int,                 -- minutes a week saved once working
+  working_on date,
+  position int default 0,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+alter table tech_fixes enable row level security;
+create policy "own tech fixes" on tech_fixes for all using (user_id = auth.uid()) with check (user_id = auth.uid());

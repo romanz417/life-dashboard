@@ -295,6 +295,7 @@
   .ftiles a:hover { border-color:rgba(243,222,152,.5); transform:translateY(-2px); }
   .ftiles b { font-family:var(--serif); font-size:1.8rem; line-height:1.05; color:var(--tx1); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .ftiles small { color:var(--muted); font-size:.8rem; }
+  .ftiles a { min-width:0; } .ftiles small { overflow-wrap:anywhere; }
   .ftiles .sublbl { margin:0; }
 
   /* ---- Debt tracker & financial goals ---- */
@@ -1020,6 +1021,30 @@
   .tp-ch { margin:-4px 0 0; font-size:.78rem; color:var(--muted); }
   .tp-rp { display:flex; align-items:center; gap:8px; margin:0; font-size:.82rem; color:var(--muted); }
   .tp-rp a { color:var(--gold-hi); }
+  .tracker.tfix { background:radial-gradient(600px 320px at 0% 0%, rgba(212,175,55,.16), transparent 70%), radial-gradient(520px 300px at 100% 100%, rgba(53,184,201,.12), transparent 70%), linear-gradient(180deg, rgba(var(--fg),.05), rgba(var(--fg),.015)), var(--card); }
+  .fx-bar { position:relative; height:12px; border-radius:99px; background:rgba(var(--fg),.07); overflow:hidden; }
+  .fx-bar > div { height:100%; border-radius:99px; background:var(--goldgrad); box-shadow:0 0 18px rgba(212,175,55,.5); transition:width .6s ease; }
+  .fx-bar i { position:absolute; top:0; bottom:0; width:2px; background:var(--card); }
+  .fx-list { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px; }
+  .fx { display:flex; flex-direction:column; gap:12px; padding:16px; border-radius:18px; border:1px solid var(--line2); background:rgba(var(--fg),.03); }
+  .fx.trying { border-color:rgba(53,184,201,.45); }
+  .fx.working { border-color:rgba(212,175,55,.6); background:rgba(212,175,55,.07); }
+  .fx-h { display:flex; align-items:flex-start; gap:10px; }
+  .fx-t { flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+  .fx-t b { font-family:var(--serif); font-size:1.3rem; font-weight:700; line-height:1.15; color:var(--tx1); }
+  .fx-t small { font-size:.78rem; color:var(--muted); }
+  .fx-h .danger { padding:2px 10px; }
+  .fx-seg { display:grid; grid-template-columns:repeat(3, 1fr); gap:4px; padding:4px; border-radius:99px; background:rgba(var(--fg),.04); border:1px solid var(--line2); }
+  .fx-seg button { min-height:34px; padding:0 8px; border:0; border-radius:99px; background:none; color:var(--muted); font-size:.76rem; font-weight:700; }
+  .fx-seg button.on.idea { background:rgba(var(--fg),.1); color:var(--tx1); }
+  .fx-seg button.on.trying { background:rgba(53,184,201,.2); color:#7FDCE8; }
+  .fx-seg button.on.working { background:var(--goldgrad); color:#17130A; }
+  .fx-in { display:flex; flex-direction:column; gap:8px; }
+  .fx-in input[type=text] { width:100%; }
+  .fx-saved { display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--muted); }
+  .fx-saved input { width:84px; min-height:36px; padding:0 10px; border-radius:10px; border:1px solid var(--line2); background:rgba(var(--fg),.05); color:var(--tx1); font:inherit; font-size:.9rem; }
+  .fx-add { display:grid; grid-template-columns:minmax(0,1fr) 190px auto; gap:10px; }
+  @media (max-width:820px) { .fx-list { grid-template-columns:1fr; } .fx-add { grid-template-columns:1fr; } }
   .tp-form { display:grid; grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1.6fr) auto; gap:10px; margin-top:12px; }
   @media (max-width:820px) { .tplist { grid-template-columns:1fr; } .tp-form { grid-template-columns:1fr; } }
   .evmonth { display:flex; align-items:center; gap:14px; margin-bottom:-6px; }
@@ -1485,7 +1510,7 @@ let state = { areas: [], tasks: [], checkins: [], goals: [], entries: [], target
   spirit: [], spiritItems: [], affOff: 0, spAll: false, spHAll: false, spDay: null,
   trades: [], tset: null, tcheck: null, trMode: 'live', trAll: false, trLast: { mode: 'live', instrument: 'GER40', strategy: 'Kim Box', session: 'London' }, briefs: [], briefDay: null, fx: null, reviews: [], revWeek: null, videos: [], vwatch: [], vPick: null, vTopic: 'All',
   jobs: [], jobsReady: true, jobFilter: {}, jobEdit: null,
-  events: [], eventsReady: true, evFilter: {}, evEdit: null, tech: [], techReady: true, techFilter: {}, techPlay: null };
+  events: [], eventsReady: true, evFilter: {}, evEdit: null, tech: [], techReady: true, techFilter: {}, techPlay: null, fixes: [], fixesReady: true };
 let chart = null;
 
 function toast(msg) {
@@ -1670,6 +1695,7 @@ async function load() {
   state.spirit = await soft(sb.from('spirit_logs').select('*').order('day'));
   state.spiritItems = await soft(sb.from('spirit_items').select('*').order('created_at'));
   { const jr = await sb.from('jobs').select('*').order('created_at').then(x => x, () => ({ error: true })); state.jobsReady = !jr.error; state.jobs = jr.data || []; }
+  { const fr = await sb.from('tech_fixes').select('*').order('created_at').then(x => x, () => ({ error: true })); state.fixesReady = !fr.error; state.fixes = fr.data || []; }
   { const tr = await sb.from('tech_picks').select('*').order('created_at', { ascending: false }).then(x => x, () => ({ error: true })); state.techReady = !tr.error; state.tech = tr.data || []; }
   { const er = await sb.from('events').select('*').order('starts_on').then(x => x, () => ({ error: true })); state.eventsReady = !er.error; state.events = er.data || []; }
   state.trades = await soft(sb.from('trades').select('*').order('day').order('created_at'));
@@ -2585,7 +2611,7 @@ function renderArea(id, animate, sub = 'overview') {
     ${isMoney ? financeTiles(a) + financeAlerts(a) + incomePlanCard(a) : ''}
     ${isCareer ? tradingTeaser(a) + jobsTeaser(a) : ''}
     ${isEvents ? eventsTeaser(a) : ''}
-    ${isTech ? techTeaser(a) : ''}
+    ${isTech ? techTeaser(a) + fixesCard(a) : ''}
     ${goalsOf(a).length ? `<div class="goals${rz}" style="--d:.08s">${goalsOf(a).map(goalCard).join('')}</div>` : ''}
     ${addGoalForm(goalsOf(a).length > 0)}
     <div class="agrid${rz}" style="${style};--d:.12s" data-area="${a.id}">
@@ -2719,6 +2745,45 @@ function techSection(a, k) {
         <input type="text" name="note" placeholder="Why you saved it (optional)" aria-label="Note">
         <button class="primary" type="submit">Add</button></form></details>
     <div class="jtip"><span class="eyebrow">Coach&rsquo;s note</span><p>${esc(R.tip)}</p></div>
+  </section>`;
+}
+// Technology > 3-month goal: daily tasks solved with tech
+const TECH_GOAL = { by: '2027-02-13', fixes: 6, hours: 5 };
+const FIX_SUGG = ['Format reports & documents', 'Sort WhatsApp business follow-ups', 'Edit & cull photos', 'Post to social media', 'Log trades & screenshots', 'Back up files & photos', 'Draft emails & proposals', 'Track expenses from receipts'];
+const FIX_COST = [[30, '30 min'], [60, '1 hour'], [120, '2 hours'], [180, '3 hours'], [300, '5+ hours']];
+const fixesOf = () => (state.fixes || []).slice().sort((x, y) => (x.position || 0) - (y.position || 0) || String(x.created_at).localeCompare(String(y.created_at)));
+const hrs = m => { const h = (Number(m) || 0) / 60; return h >= 10 ? Math.round(h) + '' : (Math.round(h * 10) / 10) + ''; };
+function fixesCard(a) {
+  if (!state.fixesReady) return '';
+  const fx = fixesOf(), working = fx.filter(f => f.status === 'working'), saved = working.reduce((t, f) => t + (Number(f.saved_min) || 0), 0);
+  const cost = fx.filter(f => f.status !== 'working').reduce((t, f) => t + (Number(f.cost_min) || 0), 0);
+  const left = Math.max(0, daysTo(TECH_GOAL.by)), pct = Math.min(100, Math.round(working.length / TECH_GOAL.fixes * 100));
+  const have = new Set(fx.map(f => f.title.toLowerCase())), sugg = FIX_SUGG.filter(s => !have.has(s.toLowerCase()));
+  const seg = f => `<div class="fx-seg" role="group" aria-label="Status of ${esc(f.title)}">${[['idea', 'Idea'], ['trying', 'Trying'], ['working', '&#10003; Working']].map(([k, l]) =>
+    `<button type="button" class="${f.status === k ? 'on ' + k : ''}" data-act="fix-status" data-s="${k}" data-id="${f.id}" aria-pressed="${f.status === k}">${l}</button>`).join('')}</div>`;
+  return `<section class="tracker tfix">
+    <div class="tr-head"><div class="eyebrow">Your 3-month goal &middot; by ${esc(niceDate(TECH_GOAL.by))}</div>
+      <h3>${TECH_GOAL.fixes} daily tasks, solved with tech</h3>
+      <p>Pick the everyday jobs that eat your time. Solve one every two weeks with a tool, repo or automation, and win back at least ${TECH_GOAL.hours} hours a week.</p></div>
+    <div class="tr-sum">
+      <div class="hl"><b>${working.length} / ${TECH_GOAL.fixes}</b><span>Tasks solved</span></div>
+      <div><b>${hrs(saved)} h</b><span>Saved a week &middot; goal ${TECH_GOAL.hours}</span></div>
+      <div><b>${hrs(cost)} h</b><span>Still costing you a week</span></div>
+      <div><b>${left}</b><span>Days left</span></div>
+    </div>
+    <div class="fx-bar" aria-label="${working.length} of ${TECH_GOAL.fixes} tasks solved"><div style="width:${pct}%"></div>${Array.from({ length: TECH_GOAL.fixes - 1 }, (_, i) => `<i style="left:${(i + 1) / TECH_GOAL.fixes * 100}%"></i>`).join('')}</div>
+    ${fx.length ? `<ul class="fx-list">${fx.map(f => `<li class="fx ${f.status}">
+        <div class="fx-h"><div class="fx-t"><b>${esc(f.title)}</b><small>${f.cost_min ? `Costs you about ${hrs(f.cost_min)} h a week` : 'How long does it take you each week?'}${f.status === 'working' && f.working_on ? ` &middot; solved ${esc(niceDate(f.working_on))}` : ''}</small></div>
+          <button type="button" class="small danger" data-act="fix-del" data-id="${f.id}" aria-label="Remove ${esc(f.title)}">&times;</button></div>
+        ${seg(f)}
+        <div class="fx-in"><input type="text" data-act="fix-sol" data-id="${f.id}" value="${esc(f.solution || '')}" placeholder="The tool, repo link or automation that solves it" aria-label="Solution for ${esc(f.title)}">
+          ${f.status === 'working' ? `<label class="fx-saved">Saves <input type="number" min="0" step="5" inputmode="numeric" data-act="fix-saved" data-id="${f.id}" value="${f.saved_min ?? ''}" aria-label="Minutes saved a week"> min a week</label>` : ''}</div>
+      </li>`).join('')}</ul>` : '<p class="tr-empty">Start with the task that annoys you most. Tap a suggestion below or add your own.</p>'}
+    <form class="fx-add" data-act="fix-add"><input type="text" name="title" required placeholder="A daily task to solve, e.g. Reply to client enquiries" aria-label="Daily task" autocomplete="off">
+      <select name="cost" aria-label="Time it takes you each week"><option value="">Time it takes a week</option>${FIX_COST.map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select>
+      <button class="primary" type="submit">Add</button></form>
+    ${sugg.length && fx.length < 10 ? `<div class="chips">${sugg.map(s => `<button class="chip" type="button" data-act="fix-sug" data-title="${esc(s)}">${esc(s)}</button>`).join('')}</div>` : ''}
+    <div class="jtip"><span class="eyebrow">How to hit 10/10</span><p>Two weeks per task. Week 1: in your daily 90-minute build block, try the tool your scout suggests. Week 2: use it for real every day, then mark it Working and write down the minutes it saves. Six tasks by ${esc(niceDate(TECH_GOAL.by))} is a 10.</p></div>
   </section>`;
 }
 function techTeaser(a) {
@@ -4280,6 +4345,10 @@ $('#view-area').addEventListener('submit', async e => {
     if (act === 'addtask') {
       const title = e.target.querySelector('input').value.trim(); if (!title) return;
       await addTask(a.id, title);
+    } else if (act === 'fix-add') {
+      const title = String(f.get('title') || '').trim(); if (!title) return;
+      const row = await run(sb.from('tech_fixes').insert({ area_id: a.id, title, cost_min: Number(f.get('cost')) || null, position: state.fixes.length }).select().single());
+      state.fixes.push(row); toast('Added to your 3-month goal');
     } else if (act === 'tech-add') {
       const kind = e.target.dataset.kind, url = String(f.get('url') || '').trim(), repo = ghRepo(url), vid = ytId(url);
       if (kind === 'repo' && !repo) return toast('Paste a GitHub repo link, like https://github.com/owner/repo');
@@ -4437,6 +4506,15 @@ $('#view-area').addEventListener('click', async e => {
   const act = el.dataset.act;
   try {
     if (act === 'tr-mode') { state.trMode = el.dataset.m; render(); return; }
+    if (act === 'fix-sug') { const row = await run(sb.from('tech_fixes').insert({ area_id: a.id, title: el.dataset.title, position: state.fixes.length }).select().single()); state.fixes.push(row); render(); toast('Added. Set how long it takes you each week.'); return; }
+    if (act === 'fix-status' || act === 'fix-del') {
+      const f = state.fixes.find(x => x.id === el.dataset.id); if (!f) return;
+      if (act === 'fix-del') { if (!confirm(`Remove "${f.title}"?`)) return; await run(sb.from('tech_fixes').delete().eq('id', f.id)); state.fixes = state.fixes.filter(x => x.id !== f.id); render(); return; }
+      const s2 = el.dataset.s, patch = { status: s2, updated_at: new Date().toISOString(), working_on: s2 === 'working' ? (f.working_on || todayStr()) : null };
+      if (s2 === 'working' && f.saved_min == null && f.cost_min) patch.saved_min = Math.round(f.cost_min * 0.6);
+      await run(sb.from('tech_fixes').update(patch).eq('id', f.id)); Object.assign(f, patch); render();
+      toast(s2 === 'working' ? 'Solved! Check the minutes it saves you each week.' : s2 === 'trying' ? 'Trying it. Give it a real week of use.' : 'Updated'); return;
+    }
     if (act === 'tech-filter') { state.techFilter = { ...state.techFilter, [route().sub]: el.dataset.f }; render(); return; }
     if (act === 'tech-play') { state.techPlay = el.dataset.id; render(); return; }
     if (act === 'tech-jump') {
@@ -4618,6 +4696,13 @@ $('#view-area').addEventListener('input', e => {     // live total while editing
 });
 $('#view-area').addEventListener('change', async e => {
   const a = currentArea(); if (!a) return;
+  if (e.target.dataset.act === 'fix-sol' || e.target.dataset.act === 'fix-saved') {
+    const f = state.fixes.find(x => x.id === e.target.dataset.id); if (!f) return;
+    const patch = e.target.dataset.act === 'fix-sol' ? { solution: e.target.value.trim() || null } : { saved_min: e.target.value === '' ? null : Math.max(0, Math.round(Number(e.target.value))) };
+    patch.updated_at = new Date().toISOString();
+    try { await run(sb.from('tech_fixes').update(patch).eq('id', f.id)); Object.assign(f, patch); if (patch.saved_min !== undefined) render(); toast('Saved'); } catch (_) {}
+    return;
+  }
   if (e.target.dataset.act === 'photo') {      // upload your own cover photo for this area
     const file = e.target.files && e.target.files[0]; if (!file) return;
     try {
