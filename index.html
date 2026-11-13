@@ -1786,7 +1786,7 @@ const TECH_COVER = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http:
 META.unshift({ re: /tech|technolog|digital|computer|coding/i, short: 'Tech', color: '#35B8C9', icon: 'tech', cover: TECH_COVER, pos: '50% 40%',
   proverb: 'Haba na haba hujaza kibaba', meaning: 'Little by little fills the measure', lang: 'Swahili',
   blurb: 'The tools shaping the future, and how to put them to work for you.',
-  habits: ['Read one repo README', 'Watch one repo walkthrough', 'Get one tool running on your computer'],
+  habits: ['Scan today\u2019s repo and video picks (20 min)', 'Build: get one repo running (90 min)', 'Note what you learned (10 min)'],
   tips: ['Star counts show what is popular, not what fits you. Ask: what would this save me, or earn me?', 'Run one tool a week on your own computer. Reading about it is not the same as using it.', 'Keep notes on the tools you try, so you can offer them to clients later.', 'Check the licence before you use a repo for paid work.'] });
 const EXTRA_COLORS = ['#D4AF37', '#6FA8DC', '#C27BA0', '#93C47D'];
 function metaOf(a) {
@@ -2634,10 +2634,10 @@ const LANG_COLORS = { Python: '#3572A5', TypeScript: '#3178C6', JavaScript: '#F1
 const TECH_REG = {
   repos: { eyebrow: 'GitHub &middot; trending', title: 'Popular repos', icon: 'repo',
     desc: 'The open-source projects developers are starring right now, picked for what they can do for your trading, your creative work, your clients and your own builds.',
-    tip: 'Each week, pick one repo and get it running on your own computer. Reading about a tool teaches you a little; making it work teaches you a lot, and that is the skill clients pay for.' },
+    tip: 'Your 2 hours a day: 20 minutes scanning today\u2019s picks, 90 minutes getting one repo running on your own computer, 10 minutes noting what it could do for your trading or your clients. Reading about a tool teaches you a little; making it work teaches you a lot, and that is the skill clients pay for.' },
   videos: { eyebrow: 'YouTube &middot; explained', title: 'Repo videos', icon: 'video',
     desc: 'Walkthroughs and round-ups of the most popular repos: what they do, how to set them up and how people are using them.',
-    tip: 'Watch with the repo open beside you. Pause and follow along for the setup steps; one video you follow along with is worth five you only watch.' }
+    tip: 'Use a video to start your 90-minute build block: watch with the repo open beside you, pause and follow the setup steps. One video you follow along with is worth five you only watch.' }
 };
 const techOf = k => (state.tech || []).filter(t => t.kind === k && !t.dismissed);
 const techNew = t => (Date.now() - new Date(t.created_at).getTime()) / 864e5 <= 7;
