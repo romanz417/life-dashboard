@@ -365,3 +365,23 @@ create index if not exists events_user_track_idx on events(user_id, track, start
 create unique index if not exists events_user_link_uq on events(user_id, link) where link is not null;
 alter table events enable row level security;
 create policy "own events" on events for all using (user_id = (select auth.uid())) with check (user_id = (select auth.uid()));
+
+-- Technology: popular GitHub repos and YouTube videos about them (filled each morning by the tech scout; you can add your own)
+create table if not exists tech_picks (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) default auth.uid(),
+  area_id uuid references areas(id) on delete cascade,
+  kind text not null check (kind in ('repo', 'video')),
+  auto boolean not null default false,
+  status text not null default 'new' check (status in ('new', 'saved', 'tried', 'watched')),
+  dismissed boolean not null default false,
+  category text, title text not null, url text not null, repo text, summary text, why text,
+  language text, stars int, stars_gained int,
+  channel text, video_id text, duration text, published_on date,
+  tags text[], note text, source text,
+  created_at timestamptz default now(), updated_at timestamptz default now()
+);
+create unique index if not exists tech_picks_user_url_idx on tech_picks(user_id, url);
+create index if not exists tech_picks_user_kind_idx on tech_picks(user_id, kind, created_at desc);
+alter table tech_picks enable row level security;
+create policy "own tech picks" on tech_picks for all using (user_id = auth.uid()) with check (user_id = auth.uid());
